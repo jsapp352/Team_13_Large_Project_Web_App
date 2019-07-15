@@ -1,12 +1,13 @@
 import React from 'react';
 // import logo from './logo.svg';
 import './css/styles.css';
-import InstructorView from './layouts/Instructor.jsx';
+import Instructor from './layouts/Instructor.jsx';
+import WaitList from './layouts/WaitList'
 
 function App() {
 	return (
 		<div>
-			<InstructorView />
+			<Instructor />
 		</div>
 
 		// Use browser router.

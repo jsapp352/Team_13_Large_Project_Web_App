@@ -11,18 +11,10 @@ class MainHeader extends React.Component {
 				</div>
 				<div className="information">
 					<div className="circleContainer">
-						<div className="float-left d-none d-sm-block">
-							<div className="circle">42</div>
-							<span className="caption">TAs</span>
+						<div>
+							Queue
 						</div>
-						<div className="float-left">
-							<Image className="circle" id="picture" src={pic} fluid roundedCircle /><br/>
-							<span className="caption" id="name">Rick Leinecker</span>
-						</div>
-						<div className="float-left d-none d-sm-block">
-							<div className="circle">3</div>
-							<span className="caption">COURSES</span>
-						</div>
+						
 					</div>
 				</div>
 			</Container>
