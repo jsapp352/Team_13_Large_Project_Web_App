@@ -167,3 +167,10 @@ body {
 	width: 250px;
 	margin-right: 5%;
 }
+
+.stripe {
+	height: 100vh;
+	float: right;
+	width: 30px;
+	opacity: 0.85;
+}

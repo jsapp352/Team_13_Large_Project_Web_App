@@ -1,15 +1,17 @@
 import React from 'react';
-// import logo from './logo.svg';
 import './css/styles.css';
+import { Route, BrowserRouter as Router } from 'react-router-dom';
 import InstructorView from './layouts/Instructor.jsx';
+import Login from './layouts/Login.jsx';
 
 function App() {
 	return (
-		<div>
-			<InstructorView />
-		</div>
-
-		// Use browser router.
+		<Router>
+			<div>
+				<Route exact path="/" component={Login} />
+				<Route path="/teachers" component={InstructorView} />
+			</div>
+		</Router>
 	);
 }
 
