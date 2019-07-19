@@ -12,15 +12,16 @@ var data = {
 
 const options = {
 	method : 'POST',
-	headers: {"Content-Type": "application/json"},
+	// headers: {"Content-Type": "application/json"},
 	body: JSON.stringify(data)
 };
 
 fetch(url, options)
-	.then(response => response.json())
-	// .then(data => {
-    //     console.log(data);
-    //})
+	.then((resp) => resp.json())
+	.then(function(response) {
+		console.info('fetch()', response);
+		return response;
+	});
 
 let url2 = 'https://protected-shelf-85013.herokuapp.com/course/';
 fetch(url2)
