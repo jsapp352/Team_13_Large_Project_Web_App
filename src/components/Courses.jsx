@@ -17,7 +17,6 @@ const options = {
 };
 
 fetch(url, options)
-	.then((resp) => resp.json())
 	.then(function(response) {
 		console.info('fetch()', response);
 		return response;
