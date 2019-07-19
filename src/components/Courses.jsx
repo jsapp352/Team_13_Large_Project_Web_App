@@ -18,8 +18,8 @@ const options = {
 
 fetch(url, options)
 	.then(response => response.json())
-	.then(data => {
-        console.log(data);
+	// .then(data => {
+    //     console.log(data);
     })
 
 let url2 = 'https://protected-shelf-85013.herokuapp.com/course/';
