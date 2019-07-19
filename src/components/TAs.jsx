@@ -9,7 +9,7 @@ class TAs extends React.Component {
 			<>
 				<div className="sub-title"><span id="top-line"/>Teaching Assistants</div>
 				<FontAwesomeIcon style={{float: 'right'}} icon={faUserPlus} />
-				<Table borderless striped hover responisve>
+				<Table borderless striped hover responsive="true">
 					<thead style={{backgroundColor: 'rgba(0, 0, 0, 0.3)'}}>
 				     	<tr>
 					       	<th>First Name</th>
