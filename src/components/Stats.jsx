@@ -7,7 +7,7 @@ class Stats extends React.Component {
 			<>
 				<div className="sub-title"><span id="top-line"/>Statistics</div>
 				<div>
-					<Table borderless hover responisve>
+					<Table borderless hover responisve="true">
 						<thead style={{letterSpacing: '0.3em', backgroundColor: 'rgba(0, 0, 0, 0.2)'}}>
 							<tr>
 								<th colSpan="4"><b>IVAN CHAFFARDETT</b></th>

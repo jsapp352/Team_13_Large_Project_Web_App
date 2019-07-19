@@ -15,30 +15,24 @@ class Login extends React.Component {
 			password : "",
 		};
 
-	// const url = 'https://protected-shelf-85013.herokuapp.com/login';
-	// const url2 = 'https://protected-shelf-85013.herokuapp.com/course/';
+	const url = 'https://protected-shelf-85013.herokuapp.com/login';
 
-	// var data = {
-	// 	"username": "admin",
-	// 	"password": "admin123"
-	// }
+	var data = {
+		"username": "admin",
+		"password": "admin123"
+	}
 	
-	// const options = {
-	// 	method : 'POST',
-	// 	headers: {"Content-Type": "application/json; charset=UTF-8"},
-	// 	body: JSON.stringify(data)
-	// };
+	const options = {
+		method : 'POST',
+		// headers: {"Content-Type": "application/json; charset=UTF-8"},
+		body: data
+	}
 
-	// fetch(url, options)
- //        .then(response => response.json())
- //        .then(response => console.log("Success!"))
- //        .catch((error) => console.log("Error"));
+	fetch(url, options)
+        .then(response => response.json())
+        .then(response => console.log("Success: " + JSON.stringify(response)))
+        .catch((error) => console.log("Error: " + error));
 	
-
-	// fetch(url2, options)
- //        .then(response => response.json())
- //        .then(response => console.log(response))
- //        .catch((error) => console.log("Error"));
 	}
 
 	validateForm() {
@@ -65,7 +59,7 @@ class Login extends React.Component {
 		const url = 'https://protected-shelf-85013.herokuapp.com/login';
 		//event.preventDefault();
 
-		const bcrypt = require('bcryptjs');
+		// const bcrypt = require('bcryptjs');
 
 		var data = {
 			"username": "admin",
@@ -78,7 +72,7 @@ class Login extends React.Component {
 			body: JSON.stringify(data)
 		};
 
-		const errors = [];
+		// const errors = [];
 
 		
 		fetch(url, options)
