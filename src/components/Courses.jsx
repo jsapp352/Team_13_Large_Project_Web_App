@@ -3,7 +3,7 @@ import { Card } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 
-let url = 'https://protected-shelf-85013.herokuapp.com/login';
+let url = 'https://vast-coast-27531.herokuapp.com/login';
 
 var data = {
 	"username": "admin",
@@ -22,7 +22,7 @@ fetch(url, options)
 		return response;
 	});
 
-let url2 = 'https://protected-shelf-85013.herokuapp.com/course/';
+let url2 = 'https://vast-coast-27531.herokuapp.com/course/';
 fetch(url2)
 	.then(response => response.json())
 	.then(data => {
