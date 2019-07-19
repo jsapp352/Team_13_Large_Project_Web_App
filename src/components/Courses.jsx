@@ -3,10 +3,28 @@ import { Card } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 
-let url = 'https://protected-shelf-85013.herokuapp.com/course/';
+let url = 'https://protected-shelf-85013.herokuapp.com/login';
 
-fetch(url).then(
-	response => response.json())
+var data = {
+	"username": "admin",
+	"password": "admin123"
+}
+
+const options = {
+	method : 'POST',
+	// headers: {"Content-Type": "application/json; charset=UTF-8"},
+	body: JSON.stringify(data)
+};
+
+fetch(url, options)
+	.then(response => response.json())
+	.then(data => {
+        console.log(data);
+    })
+
+let url2 = 'https://protected-shelf-85013.herokuapp.com/course/';
+fetch(url2)
+	.then(response => response.json())
 	.then(data => {
         console.log(data);
     })
