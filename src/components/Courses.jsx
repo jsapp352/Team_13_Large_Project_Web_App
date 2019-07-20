@@ -18,7 +18,7 @@ const options = {
 
 fetch(url, options)
 	.then(function(response) {
-		console.info('fetch()', response.headers);
+		console.info('fetch()', response.headers.get('Authorization'));
 		return response;
 	});
 
