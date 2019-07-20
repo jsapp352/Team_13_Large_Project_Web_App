@@ -3,24 +3,19 @@ import { Card } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 
-let url = 'https://vast-coast-27531.herokuapp.com/login';
 
-var data = {
-	"username": "admin",
-	"password": "admin123"
-}
-
+var t = 'https://vast-coast-27531.herokuapp.com/login';
 const options = {
-	method : 'POST',
-	headers: {"Content-Type": "application/json"},
-	body: JSON.stringify(data)
-};
-
-fetch(url, options)
-	.then(response => response.json())
-	.then(data => {
-		console.log(data);
-	});
+	method: 'POST',
+	headers: { "Content-Type": "application/json; charset=UTF-8" },
+	body: JSON.stringify({ username: 'admin', password: 'admin123' })
+}
+let q = '';
+fetch(t, options).then(r => {
+	console.log(r)
+	q = r.headers.map.authorization;
+	console.log(q)
+})
 
 let url2 = 'https://vast-coast-27531.herokuapp.com/course/';
 fetch(url2)
