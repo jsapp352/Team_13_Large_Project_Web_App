@@ -12,13 +12,13 @@ var data = {
 
 const options = {
 	method : 'POST',
-	// headers: {"Content-Type": "application/json"},
+	headers: {"Content-Type": "application/json"},
 	body: JSON.stringify(data)
 };
 
 fetch(url, options)
 	.then(function(response) {
-		console.info('fetch()', response.headers.get('Authorization'));
+		console.info('login auth:', response.headers.get('Authorization'));
 		return response;
 	});
 
