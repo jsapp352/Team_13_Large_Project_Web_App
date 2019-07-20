@@ -13,8 +13,6 @@ const options = {
 let q = '';
 fetch(t, options).then(r => {
 	console.log(r)
-	q = r.headers.map.authorization;
-	console.log(q)
 })
 
 let url2 = 'https://vast-coast-27531.herokuapp.com/course/';
