@@ -17,9 +17,9 @@ const options = {
 };
 
 fetch(url, options)
-	.then(function(response) {
-		console.info('login auth:', response.headers.get('Authorization'));
-		return response;
+	.then(response => response.json())
+	.then(data => {
+		console.log(data);
 	});
 
 let url2 = 'https://vast-coast-27531.herokuapp.com/course/';
