@@ -4,6 +4,18 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 
 
+var url0 = 'https://vast-coast-27531.herokuapp.com/login';
+const options0 = {
+	method: 'OPTIONS',
+	headers: {		
+		"Access-Control-Request-Headers": "Authorization"
+	}	
+}
+
+fetch(url0, options0).then(r0 => {
+	console.log(r0)
+})
+
 var t = 'https://vast-coast-27531.herokuapp.com/login';
 const options = {
 	method: 'POST',
