@@ -8,6 +8,8 @@ var url0 = 'https://vast-coast-27531.herokuapp.com/login';
 const options0 = {
 	method: 'OPTIONS',
 	headers: {		
+		"Content-Type": "application/ json",
+		"Origin": "https://fierce-mesa-84981.herokuapp.com",
 		"Access-Control-Request-Method": "POST",
 		"Access-Control-Request-Headers": "Authorization"
 	}	
