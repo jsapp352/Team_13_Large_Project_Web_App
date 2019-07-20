@@ -8,6 +8,7 @@ var url0 = 'https://vast-coast-27531.herokuapp.com/login';
 const options0 = {
 	method: 'OPTIONS',
 	headers: {		
+		"Access-Control-Request-Method": "POST",
 		"Access-Control-Request-Headers": "Authorization"
 	}	
 }
