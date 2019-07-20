@@ -7,7 +7,10 @@ import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 var t = 'https://vast-coast-27531.herokuapp.com/login';
 const options = {
 	method: 'POST',
-	headers: { "Content-Type": "application/json; charset=UTF-8" },
+	headers: { 
+		"Content-Type": "application/json; charset=UTF-8",
+		"Access-Control-Request-Headers": "Authorization"
+	 },
 	body: JSON.stringify({ username: 'admin', password: 'admin123' })
 }
 let q = '';
