@@ -10,11 +10,8 @@ const options = {
 	headers: { "Content-Type": "application/json; charset=UTF-8" },
 	body: JSON.stringify({ username: 'admin', password: 'admin123' })
 }
-let q = '';
-fetch(t, options).then(r => {
-	console.log(r)
-	q = r.headers.map.authorization;
-	console.log(q)
+fetch(t, options).then(response => {
+	console.log(response.headers.get('Authorization'))
 })
 
 let url2 = 'https://vast-coast-27531.herokuapp.com/course/';
