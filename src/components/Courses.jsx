@@ -2,60 +2,50 @@ import React from "react";
 import { Card } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
+import AddCourse from './AddCourse.jsx';
 
-// let url = 'https://protected-shelf-85013.herokuapp.com/login';
+const courses = [
+	{name: "Computer Science II", uniqueID: 1, code: "COP 3503"}, 
+	{name: "Computer Science I", uniqueID: 2, code: "COP 3502"}, 
+	{name: "Object Oriented Programming", uniqueID: 3, code: "COP 3101"}
+];
 
-// var data = {
-// 	"username": "admin",
-// 	"password": "admin123"
-// }
-
-// const options = {
-// 	method : 'POST',
-// 	headers: {"Content-Type": "application/json; charset=UTF-8"},
-// 	body: JSON.stringify(data)
-// };
-
-// fetch(url, options)
-// 	.then(response => response.json())
-// 	.then(data => {
-//         console.log(data);
-//     })
-//     .catch(error => console.log("Error."));
-
-// let url2 = 'https://protected-shelf-85013.herokuapp.com/course/';
-// fetch(url2)
-// 	.then(response => response.json())
-// 	.then(data => {
-//         console.log(data);
-//     })
+const courseCards = courses.map(course => {
+		return (
+			<Card key={course.uniqueId} className="course-card">
+				<Card.Header text="success" className="course-header" />
+				<Card.Body key={course.uniqueId}>
+					{course.code}:<br/>{course.name}
+				</Card.Body>
+			</Card>
+		)
+	});
 
 class Courses extends React.Component {
+	state = { show: false, showForgot: false };
+
+  	showModal = () => {
+    	this.setState({ show: true });
+  	};
+
+  	hideModal = () => {
+    	this.setState({ show: false });
+  	};
+
 	render() {
 		return (
 			<>
 				<div className="sub-title"><span id="top-line"/>Courses</div>
-				<div style={{display: 'flex', justifyContent: 'flex-start'}}>
-					<Card className="course-card">
-						<Card.Header text="success" style={{backgroundColor: '#000', height: '50px'}}>
-						</Card.Header>
-						<Card.Body>
-							COP 3503C:<br/>Computer Science II
-						</Card.Body>
-					</Card>
-					<Card className="course-card">
-						<Card.Header text="success" style={{backgroundColor: '#000', height: '50px'}}>
-						</Card.Header>
-						<Card.Body>
-							COP 3502C:<br/>Computer Science I
-						</Card.Body>
-					</Card>
-					<Card className="course-card" style={{backgroundColor: 'rgba(0,0,0,0.15)', border: 'none'}}>
+				<div className="course-wrapper">
+					{ courseCards }
+					<Card onClick={this.showModal} className="course-card" style={{backgroundColor: 'rgba(0,0,0,0.15)', border: 'none'}}>
 						<Card.Body style={{fontSize: '4em', textAlign: 'center', color: 'rgba(0,0,0,0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
 							<FontAwesomeIcon icon={faPlusCircle} />
 						</Card.Body>
 					</Card>
 				</div>
+
+				<AddCourse show={this.state.show} handleClose={this.hideModal} />
 			</>
 		)
 	}

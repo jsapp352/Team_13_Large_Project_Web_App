@@ -3,8 +3,8 @@ import background from '../img/hec.jpg';
 import { Card, Button, Form } from 'react-bootstrap';
 
 class Login extends React.Component {
-	constructor() {
-		super();
+	constructor(props) {
+		super(props);
 
 		this.state = {
 			email: "",
@@ -14,134 +14,107 @@ class Login extends React.Component {
 			username : "",
 			password : "",
 		};
-
-	const url = 'https://protected-shelf-85013.herokuapp.com/login';
-
-	var data = {
-		"username": "admin",
-		"password": "admin123"
-	}
-	
-	const options = {
-		method : 'POST',
-		// headers: {"Content-Type": "application/json; charset=UTF-8"},
-		body: data
-	}
-
-	fetch(url, options)
-        .then(response => response.json())
-        .then(response => console.log("Success: " + JSON.stringify(response)))
-        .catch((error) => console.log("Error: " + error));
-	
 	}
 
 	validateForm() {
 		return (this.state.username.length > 0 && this.state.password.length > 0);
 	}
 
-	handleUsernameChange = event => {
+	handleChange = event => {
 		this.setState({
-			username : event.target.value,
-		})
-	}
-
-	handlePasswordChange = event => {
-		this.setState({
-			password: event.target.value,
+			[event.target.id]: event.target.value
 		});
 	}
 
 	handleSubmit = event => {
-		// let password = require('password-hash');
-		// let hashedPassword;
-		// const pass = bcrypt.hashSync(this.state.password))
+		event.preventDefault();
 
 		const url = 'https://protected-shelf-85013.herokuapp.com/login';
-		//event.preventDefault();
 
-		// const bcrypt = require('bcryptjs');
-
-		var data = {
-			"username": "admin",
-			"password": "admin123"
-		};
-		
 		const options = {
 			method : 'POST',
-			headers: {"Content-Type": "application/json; charset=UTF-8"},
-			body: JSON.stringify(data)
-		};
+			headers: { "Content-Type": "application/json; charset=UTF-8"},
+			body: JSON.stringify({
+				username: 'admin',
+				password: 'admin123'
+			})
+		}
 
-		// const errors = [];
-
-		
+		let q = '';
 		fetch(url, options)
-            .then(response => response.json())
-            .then(response => console.log("Success!"))
-			// .then(data => {
-			// 	this.setState({
-			// 		email: data.email,
-			// 		userId: data.userId,
-			// 		firstName: data.firstName,
-			// 		lastName: data.lastName,
-			// 		username: data.username
-			// 	});
+			.then(response => {
+				q = response.headers.get('authorization');
+				console.log(q); // Delete this before production.
+			})
+			.then(() => {
+				if (q == null) {
+					console.log("Wrong password.");
+					this.props.userHasAuthenticated(false);
+				}
+				else {
+					console.log("Good.");
+					this.props.userHasAuthenticated(true);
+					localStorage.setItem("isAuth", "true");
 
-			// 	console.log("user : " + data.password)
-
-			// 	const user = JSON.stringify(this.state);
-			// 	localStorage.setItem('user', user);
-
-			// 	bcrypt.compare(this.state.password, data.password)
-			// 		.then(function(res) {
-			// 			if (res) {
-			// 				// accept password.
-			// 			}
-			// 			else {
-			// 				// wrong password.
-			// 			}
-			// 	});
-			// })
-			.catch((error) => console.log("Error"));
-				//{
-				// ReactDOM.unmountComponentAtNode(document.getElementById('root'));
-				// ReactDOM.render(<Login />, document.getElementById('root'))
-			//})
+					// This should change depending on the type of user...
+					this.props.history.push("/teachers"); 
+				}
+			})
 	}		
 
 	render() {
 		return (
 			<>
-				<div style={{float: 'left', backgroundImage: 'url(' + background + ')', backgroundPosition: 'center', backgroundSize: 'cover', height: '100vh', width: '60vw'}}>
+				<div className="cover" style={{backgroundImage: 'url(' + background + ')'}}>
 					<div className="stripe" style={{backgroundColor: 'black'}} />
 					<div className="stripe" style={{backgroundColor: '#D39700'}} />
 				</div>
-				<div style={{float: 'left', width: '40vw', height: '100vh'}}>
-					<Card style={{width: '80%', margin: '0 auto'}}>
+				<div className="login-wrapper">
+					<Card>
 						<Card.Body>
-			  				<Form>
-							  	<Form.Group controlId="formBasicUsername">
-							    	<Form.Label>Username</Form.Label>
-							    	<Form.Control type="username" placeholder="Enter username" />
-							  	</Form.Group>
+							<div className="m-sm-4">
+								<div className="text-center mt-4">
+									<h1 className="h2">Welcome!</h1>
+									<p> Sign in to continue </p><br/>
+								</div>
+								<Form onSubmit={this.handleSubmit}>
+									<Form.Group controlId="user-type" className="selector">
+										<Form.Label>Type of user:</Form.Label>
+										<Form.Control as="select">
+											<option value="admin">Administrator</option>
+											<option value="teacher">Instructor</option>
+											<option value="ta">Teaching Assistant</option>
+										</Form.Control>
+									</Form.Group>
+									<Form.Group controlId="username">
+										<Form.Label>Username</Form.Label>
+										<Form.Control 
+											className="form-control-lg"
+											type="username"
+											value={this.state.username}
+											onChange={this.handleChange}
+											placeholder="Enter username" 
+										/>
+									</Form.Group>
 
-							  	<Form.Group controlId="formBasicPassword">
-							    	<Form.Label>Password</Form.Label>
-							    	<Form.Control type="password" placeholder="Password" />
-							  	</Form.Group>
+									<Form.Group controlId="password">
+										<Form.Label>Password</Form.Label>
+										<Form.Control 
+											className="form-control-lg"
+											type="password" 
+											value={this.state.password}
+											onChange={this.handleChange}
+											placeholder="Password" 
+										/>
+									</Form.Group>
 
-							  	<Form.Group controlId="formBasicChecbox">
-							    	<Form.Check type="radio" label="Administrator" />
-							    	<Form.Check type="radio" label="Instructor" />
-							    	<Form.Check type="radio" label="Teaching Assistant" />
-							  	</Form.Group>
-
-							  	<Button variant="primary" type="submit">
-							    	Submit
-							  	</Button>
-							</Form>
+									<Button disabled={!this.validateForm()} variant="dark" type="submit">
+										Login
+									</Button>
+								</Form>
+							</div>
 						</Card.Body>
-		  			</Card>
+					</Card>
 				</div>
 			</>
 		)
