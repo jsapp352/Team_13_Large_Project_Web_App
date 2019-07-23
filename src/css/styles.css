@@ -84,6 +84,14 @@ body {
 	height: 60px;
 }
 
+.sidebar {
+	padding: 20px 0;
+	width: 140px;
+	height: auto;
+	background-color: #fff;
+	box-shadow: 5px 5px 2px 1px rgba(200,200,200,1);
+}
+
 .title {
 	color: #fff;
 	font-weight: 500;
@@ -111,6 +119,16 @@ body {
   	flex-direction: row;            /* default value; can be omitted */
   	flex-wrap: nowrap;              /* default value; can be omitted */
   	justify-content: center; /* switched from default (flex-start, see below) */
+}
+
+.anotherCircleContainer {
+	height: inherit;
+  	align-items: center;
+	text-align: center;
+	display: flex;                  /* establish flex container */
+  	flex-direction: row;            /* default value; can be omitted */
+  	flex-wrap: wrap;              /* default value; can be omitted */
+  	justify-content: flex-start; /* switched from default (flex-start, see below) */
 }
 
 .circle {
@@ -165,6 +183,7 @@ body {
 	text-align: center;
 	margin: 20px 0;
 	color: #000;
+	cursor: pointer;
 }
 
 .menu-item p {
@@ -198,6 +217,15 @@ body {
 	width: 45px;
 }
 
+#add-course {
+	font-size: 4em;
+	text-align: center;
+	color: rgba(0,0,0,0.3);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
 .course-wrapper {
 	display: flex;
 	align-items: stretch; 
@@ -210,6 +238,7 @@ body {
 	min-width: 210px;
 	margin-bottom: 5%;
 	margin-right: 5%;
+	cursor: pointer;
 }
 
 .course-header {
@@ -222,6 +251,63 @@ body {
 	float: right;
 	width: 30px;
 	opacity: 0.85;
+}
+
+.add-ta {
+	width: 100%;
+	border-radius: 0;
+	background-color: rgba(0, 0, 0, 0.3);
+	border: none;
+	color: #000;
+	text-transform: uppercase;
+	font-weight: 700;
+	letter-spacing: .15rem;
+}
+
+.add-ta:hover {
+	background-color: #000;
+}
+
+.close:hover {
+	background-color: #000;
+	color: #fff;
+}
+
+.add-ta {
+	outline: 0!important;
+}
+
+.header-fixed {
+    width: 100%;
+}
+
+.header-fixed > thead,
+.header-fixed > tbody,
+.header-fixed > thead > tr,
+.header-fixed > tbody > tr,
+.header-fixed > thead > tr > th,
+.header-fixed > tbody > tr > td {
+    display: block;
+}
+
+.header-fixed > tbody > tr:after,
+.header-fixed > thead > tr:after {
+    content: ' ';
+    display: block;
+    visibility: hidden;
+    clear: both;
+}
+
+.header-fixed > tbody {
+    overflow-y: auto;
+    height: 250px;
+    cursor: pointer;
+}
+
+.header-fixed > tbody > tr > td,
+.header-fixed > thead > tr > th {
+    width: 33%;
+    float: left;
 }
 
 .pop-outer {

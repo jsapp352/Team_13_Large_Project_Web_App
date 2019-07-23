@@ -39,7 +39,7 @@ class Courses extends React.Component {
 				<div className="course-wrapper">
 					{ courseCards }
 					<Card onClick={this.showModal} className="course-card" style={{backgroundColor: 'rgba(0,0,0,0.15)', border: 'none'}}>
-						<Card.Body style={{fontSize: '4em', textAlign: 'center', color: 'rgba(0,0,0,0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>
+						<Card.Body id="add-course">
 							<FontAwesomeIcon icon={faPlusCircle} />
 						</Card.Body>
 					</Card>
