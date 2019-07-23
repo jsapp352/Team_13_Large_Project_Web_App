@@ -29,13 +29,15 @@ class Login extends React.Component {
 		console.log("TYPEEEEE: " + this.state.userType);
 
 		const url = 'https://protected-shelf-85013.herokuapp.com/login';
+		const user = this.state.username;
+		const pass = this.state.password;
 
 		const options = {
 			method : 'POST',
 			headers: { "Content-Type": "application/json; charset=UTF-8"},
 			body: JSON.stringify({
-				username: 'admin',
-				password: 'admin123'
+				username: user,
+				password: pass
 			})
 		}
 
