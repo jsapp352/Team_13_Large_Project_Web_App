@@ -4,23 +4,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 import AddCourse from './AddCourse.jsx';
 
-const courses = [
-	{name: "Computer Science II", uniqueID: 1, code: "COP 3503"}, 
-	{name: "Computer Science I", uniqueID: 2, code: "COP 3502"}, 
-	{name: "Object Oriented Programming", uniqueID: 3, code: "COP 3101"}
-];
-
-const courseCards = courses.map(course => {
-		return (
-			<Card key={course.uniqueId} className="course-card">
-				<Card.Header text="success" className="course-header" />
-				<Card.Body key={course.uniqueId}>
-					{course.code}:<br/>{course.name}
-				</Card.Body>
-			</Card>
-		)
-	});
-
 class Courses extends React.Component {
 	state = { show: false, showForgot: false };
 
@@ -33,6 +16,23 @@ class Courses extends React.Component {
   	};
 
 	render() {
+		const courses = [
+			{name: "Computer Science II", uniqueID: 1, code: "COP 3503"}, 
+			{name: "Computer Science I", uniqueID: 2, code: "COP 3502"}, 
+			{name: "Object Oriented Programming", uniqueID: 3, code: "COP 3101"}
+		];
+
+		const courseCards = courses.map(course => {
+			return (
+				<Card key={course.uniqueId} className="course-card">
+					<Card.Header text="success" className="course-header" />
+					<Card.Body key={course.uniqueId}>
+						{course.code}:<br/>{course.name}
+					</Card.Body>
+				</Card>
+			)
+		});
+
 		return (
 			<>
 				<div className="sub-title"><span id="top-line"/>Courses</div>

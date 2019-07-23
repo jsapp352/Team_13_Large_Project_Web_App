@@ -3,6 +3,26 @@ import { Table } from 'react-bootstrap';
 
 class Stats extends React.Component {
 	render() {
+		const stats = [
+			{'studentName': 'Ivan', 'timeIn': '11:40 AM', 'timeOut': '12:04 AM', 'totalTime': '24 minutes'},
+			{'studentName': 'Andy', 'timeIn': '2:31 PM', 'timeOut': '2:39 PM', 'totalTime': '8 minutes'},
+			{'studentName': 'Michael', 'timeIn': '5:45 PM', 'timeOut': '6:18 PM', 'totalTime': '33 minutes'},
+			{'studentName': 'Justin', 'timeIn': '3:41 PM', 'timeOut': '3:55 PM', 'totalTime': '14 minutes'},
+			{'studentName': 'Tony', 'timeIn': '11:40 AM', 'timeOut': '12:04 AM', 'totalTime': '24 minutes'},
+			{'studentName': 'Elizabeth', 'timeIn': '11:40 AM', 'timeOut': '12:04 AM', 'totalTime': '24 minutes'},
+		];
+
+		const statsTable = stats.map(stat => {
+			return (
+				<tr>
+		       		<td>{stat.studentName}</td>
+		       		<td>{stat.timeIn}</td>
+		       		<td>{stat.timeOut}</td>
+		       		<td>{stat.totalTime}</td>
+		      	</tr>
+			)
+		});
+
 		return (
 			<>
 				<div className="sub-title"><span id="top-line"/>Statistics</div>
@@ -22,30 +42,7 @@ class Stats extends React.Component {
 					     	</tr>
 						</thead>
 					   <tbody>
-					     	<tr>
-					       	<td>Ivan</td>
-					       	<td>11:40 AM</td>
-					       	<td>12:04 AM</td>
-					       	<td>24 minutes</td>
-					      </tr>
-					      <tr>
-					       	<td>Andy</td>
-					       	<td>02:31 PM</td>
-					       	<td>02:39 PM</td>
-					       	<td>8 minutes</td>
-					      </tr>
-					      <tr>
-					       	<td>Michael</td>
-					       	<td>05:45 PM</td>
-					       	<td>06:18 PM</td>
-					       	<td>33 minutes</td>
-					      </tr>
-					      <tr>
-					       	<td>Justin</td>
-					       	<td>03:41 PM</td>
-					       	<td>03:55 PM</td>
-					       	<td>14 minutes</td>
-					      </tr>
+					     	{statsTable}
 					   </tbody>
 					</Table>
 				</div>

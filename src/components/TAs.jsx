@@ -16,6 +16,26 @@ class TAs extends React.Component {
   	};
 
 	render() {
+		const tas = [
+			{'firstName': 'Ivan', 'lastName': 'Chaffardett', 'course': 'Computer Science II'},
+			{'firstName': 'Andy', 'lastName': 'Tschida', 'course': 'Computer Science II'},
+			{'firstName': 'Michael', 'lastName': 'Mignon', 'course': 'Computer Science II'},
+			{'firstName': 'Justin', 'lastName': 'Sapp', 'course': 'Computer Science I'},
+			{'firstName': 'Shady', 'lastName': 'Saleh', 'course': 'Computer Science I'},
+			{'firstName': 'Tony', 'lastName': 'Giamenta', 'course': 'Computer Science I'},
+			{'firstName': 'Tony', 'lastName': 'Giamenta', 'course': 'Security in Computing'}
+		];
+
+		const taTable = tas.map(ta => {
+			return (
+				<tr>
+			       	<td>{ta.firstName}</td>
+			       	<td>{ta.lastName}</td>
+			       	<td className="d-none d-sm-block">{ta.course}</td>
+		      	</tr>
+			)
+		});
+
 		return (
 			<>
 				<div className="sub-title"><span id="top-line"/>Teaching Assistants</div>
@@ -28,36 +48,7 @@ class TAs extends React.Component {
 				     	</tr>
 					</thead>
 				   <tbody>
-				     	<tr>
-					       	<td>Ivan</td>
-					       	<td>Chaffardett</td>
-					       	<td className="d-none d-sm-block">Computer Science II</td>
-				      </tr>
-				      <tr>
-					       	<td>Andy</td>
-					       	<td>Tschida</td>
-					       	<td className="d-none d-sm-block">Computer Science II</td>
-				      </tr>
-				      <tr>
-					       	<td>Michael</td>
-					       	<td>Mignon</td>
-					       	<td className="d-none d-sm-block">Computer Science II</td>
-				      </tr>
-				      <tr>
-					       	<td>Justin</td>
-					       	<td>Sapp</td>
-					       	<td className="d-none d-sm-block">Computer Science I</td>
-				      </tr>
-				      <tr>
-					       	<td>Shady</td>
-					       	<td>Saleh</td>
-					       	<td className="d-none d-sm-block">Computer Science I</td>
-				      </tr>
-				      <tr>
-					       	<td>Tony</td>
-					       	<td>Giamenta</td>
-					       	<td className="d-none d-sm-block">Computer Science I</td>
-				      </tr>
+				     	{taTable}
 				   </tbody>
 				</Table>
 				<Button onClick={this.showModal} className="add-ta"> 
