@@ -24,39 +24,39 @@ class TAs extends React.Component {
 				     	<tr>
 					       	<th>First Name</th>
 					       	<th>Last Name</th>
-					       	<th>Course</th>
+					       	<th className="d-none d-sm-block">Course</th>
 				     	</tr>
 					</thead>
 				   <tbody>
 				     	<tr>
 					       	<td>Ivan</td>
 					       	<td>Chaffardett</td>
-					       	<td>Computer Science II</td>
+					       	<td className="d-none d-sm-block">Computer Science II</td>
 				      </tr>
 				      <tr>
 					       	<td>Andy</td>
 					       	<td>Tschida</td>
-					       	<td>Computer Science II</td>
+					       	<td className="d-none d-sm-block">Computer Science II</td>
 				      </tr>
 				      <tr>
 					       	<td>Michael</td>
 					       	<td>Mignon</td>
-					       	<td>Computer Science II</td>
+					       	<td className="d-none d-sm-block">Computer Science II</td>
 				      </tr>
 				      <tr>
 					       	<td>Justin</td>
 					       	<td>Sapp</td>
-					       	<td>Computer Science I</td>
+					       	<td className="d-none d-sm-block">Computer Science I</td>
 				      </tr>
 				      <tr>
 					       	<td>Shady</td>
 					       	<td>Saleh</td>
-					       	<td>Computer Science I</td>
+					       	<td className="d-none d-sm-block">Computer Science I</td>
 				      </tr>
 				      <tr>
 					       	<td>Tony</td>
 					       	<td>Giamenta</td>
-					       	<td>Computer Science I</td>
+					       	<td className="d-none d-sm-block">Computer Science I</td>
 				      </tr>
 				   </tbody>
 				</Table>

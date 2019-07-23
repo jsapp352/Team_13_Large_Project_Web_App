@@ -7,12 +7,10 @@ class Login extends React.Component {
 		super(props);
 
 		this.state = {
-			email: "",
-			firstName: "",
-			lastName: "",
 			userId: 0,
 			username : "",
 			password : "",
+			userType : "admin"
 		};
 	}
 
@@ -28,6 +26,7 @@ class Login extends React.Component {
 
 	handleSubmit = event => {
 		event.preventDefault();
+		console.log("TYPEEEEE: " + this.state.userType);
 
 		const url = 'https://protected-shelf-85013.herokuapp.com/login';
 
@@ -54,10 +53,11 @@ class Login extends React.Component {
 				else {
 					console.log("Good.");
 					this.props.userHasAuthenticated(true);
-					localStorage.setItem("isAuth", "true");
+					localStorage.setItem("isAuth", true);
 
 					// This should change depending on the type of user...
-					this.props.history.push("/teachers"); 
+					const path = '/' + this.state.userType;
+					this.props.history.push(path); 
 				}
 			})
 	}		
@@ -65,25 +65,25 @@ class Login extends React.Component {
 	render() {
 		return (
 			<>
-				<div className="cover" style={{backgroundImage: 'url(' + background + ')'}}>
+				<div className="cover d-none d-md-none d-lg-block" style={{backgroundImage: 'url(' + background + ')'}}>
 					<div className="stripe" style={{backgroundColor: 'black'}} />
 					<div className="stripe" style={{backgroundColor: '#D39700'}} />
 				</div>
 				<div className="login-wrapper">
 					<Card>
-						<Card.Body>
+						<Card.Body style={{boxShadow: '5px 5px 2px 1px rgba(200,200,200,1)'}}>
 							<div className="m-sm-4">
 								<div className="text-center mt-4">
 									<h1 className="h2">Welcome!</h1>
 									<p> Sign in to continue </p><br/>
 								</div>
 								<Form onSubmit={this.handleSubmit}>
-									<Form.Group controlId="user-type" className="selector">
+									<Form.Group controlId="userType" className="selector">
 										<Form.Label>Type of user:</Form.Label>
-										<Form.Control as="select">
-											<option value="admin">Administrator</option>
-											<option value="teacher">Instructor</option>
-											<option value="ta">Teaching Assistant</option>
+										<Form.Control as="select" onChange={this.handleChange}>
+											<option value="admins">Administrator</option>
+											<option value="teachers">Instructor</option>
+											<option value="assistants">Teaching Assistant</option>
 										</Form.Control>
 									</Form.Group>
 									<Form.Group controlId="username">

@@ -15,7 +15,7 @@ class Instructor extends React.Component {
 				<Container fluid style={{height: '80vh'}}>
 					<div style={{height: 'calc(100vh - 290px)', margin: '0'}}>
 						<div style={{display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', flexWrap: 'no-wrap', height: '100%', margin: '0 auto', width: '90vw', paddingTop: '50px'}}>
-							<Sidebar userType="assistant" />
+							<Sidebar className="d-none d-sm-block" userType="assistant" />
 							<div style={{width: '87%', height: 'auto', padding: '0 30px'}}>
 								<Switch>
 									<Route path="/courses" component={Courses} />

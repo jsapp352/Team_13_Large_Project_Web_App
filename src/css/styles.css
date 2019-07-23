@@ -54,11 +54,9 @@ body {
 }
 
 .login-wrapper {
-	float: left;
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	width: 40vw;
 	height: 100vh;
 }
 
@@ -325,4 +323,10 @@ body {
 	width: 600px;
 	padding: 5px;
 	margin: 5% auto;
+}
+
+@media only screen and (max-width: 992px) {
+	.pop-inner {
+		width: 80vw;
+	}
 }
