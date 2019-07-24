@@ -17,18 +17,18 @@ class TAs extends React.Component {
 
 	render() {
 		const tas = [
-			{'firstName': 'Ivan', 'lastName': 'Chaffardett', 'course': 'Computer Science II'},
-			{'firstName': 'Andy', 'lastName': 'Tschida', 'course': 'Computer Science II'},
-			{'firstName': 'Michael', 'lastName': 'Mignon', 'course': 'Computer Science II'},
-			{'firstName': 'Justin', 'lastName': 'Sapp', 'course': 'Computer Science I'},
-			{'firstName': 'Shady', 'lastName': 'Saleh', 'course': 'Computer Science I'},
-			{'firstName': 'Tony', 'lastName': 'Giamenta', 'course': 'Computer Science I'},
-			{'firstName': 'Tony', 'lastName': 'Giamenta', 'course': 'Security in Computing'}
+			{'firstName': 'Ivan', 'lastName': 'Chaffardett', 'course': 'Computer Science II', 'id': 1},
+			{'firstName': 'Andy', 'lastName': 'Tschida', 'course': 'Computer Science II', 'id': 2},
+			{'firstName': 'Michael', 'lastName': 'Mignon', 'course': 'Computer Science II', 'id': 3},
+			{'firstName': 'Justin', 'lastName': 'Sapp', 'course': 'Computer Science I', 'id': 4},
+			{'firstName': 'Shady', 'lastName': 'Saleh', 'course': 'Computer Science I', 'id': 5},
+			{'firstName': 'Tony', 'lastName': 'Giamenta', 'course': 'Computer Science I', 'id': 6},
+			{'firstName': 'Tony', 'lastName': 'Giamenta', 'course': 'Security in Computing', 'id': 7}
 		];
 
 		const taTable = tas.map(ta => {
 			return (
-				<tr>
+				<tr key={ta.id}>
 			       	<td>{ta.firstName}</td>
 			       	<td>{ta.lastName}</td>
 			       	<td className="d-none d-sm-block">{ta.course}</td>

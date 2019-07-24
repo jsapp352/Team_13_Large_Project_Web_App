@@ -1,6 +1,7 @@
 import React from "react";
 import background from '../img/hec.jpg';
 import { Card, Button, Form } from 'react-bootstrap';
+// import { withRouter } from 'react-router-dom';
 
 class Login extends React.Component {
 	constructor(props) {
@@ -36,10 +37,12 @@ class Login extends React.Component {
 			method : 'POST',
 			headers: { "Content-Type": "application/json; charset=UTF-8"},
 			body: JSON.stringify({
-				username: user,
-				password: pass
+				'username': 'admin',
+				'password': 'admin123'
 			})
 		}
+
+		console.log("User: " + user + " | Password: " + pass);
 
 		let q = '';
 		fetch(url, options)
@@ -54,8 +57,10 @@ class Login extends React.Component {
 				}
 				else {
 					console.log("Good.");
-					this.props.userHasAuthenticated(true);
+					// this.props.userHasAuthenticated(false);
 					localStorage.setItem("isAuth", true);
+					localStorage.setItem("token", q);
+					localStorage.setItem("userType", this.state.userType);
 
 					// This should change depending on the type of user...
 					const path = '/' + this.state.userType;
@@ -83,9 +88,9 @@ class Login extends React.Component {
 									<Form.Group controlId="userType" className="selector">
 										<Form.Label>Type of user:</Form.Label>
 										<Form.Control as="select" onChange={this.handleChange}>
-											<option value="admins">Administrator</option>
-											<option value="teachers">Instructor</option>
-											<option value="assistants">Teaching Assistant</option>
+											<option value="admin">Administrator</option>
+											<option value="teacher">Instructor</option>
+											<option value="assistant">Teaching Assistant</option>
 										</Form.Control>
 									</Form.Group>
 									<Form.Group controlId="username">

@@ -308,6 +308,15 @@ body {
     float: left;
 }
 
+.stat-table > tbody {
+	height: 300px;
+}
+
+.stat-table > tbody > tr > td,
+.stat-table > thead > tr > th {
+	width: 25%;
+}
+
 .pop-outer {
 	background-color: rgba(0, 0, 0, 0.5);
 	position: fixed;
