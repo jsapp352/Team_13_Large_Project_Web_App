@@ -14,10 +14,11 @@ class Queue extends React.Component {
             current_list: [],
             course_list: [],
             course_ids: [],
-            courses: ['Kim', 'Tim', 'Kim', 'Tim', 'Kim', 'Tim', 'Kim', 'Tim'],
-            waitlist: ['Kim', 'Tim'],
+            courses: [],
+            waitlist: [],
             loading1: true,
-            loading: true
+            loading: true,
+            courses_and_lists: []
         }
     }
 
@@ -38,49 +39,86 @@ class Queue extends React.Component {
             for (let i = 0; i < data.length; i++) {
                 if (data[i].active) {
                     course_arr.push(data[i].courseName)
-
                     course_ids.push(data[i].courseId)
 
-                    obj_arr = data
-                    //console.log(obj_arr)
+                    let obj_state = {};
                     fetch('https://protected-shelf-85013.herokuapp.com/session/waiting/' + data[i].courseId + '/')
                         .then(resp => resp.json()).then(list => {
-
-                            console.log(list)
-                            if (list.length > 0) {
-                                temp_list.push(list)
-
-                            }
-                            this.setState({ current_list: temp_list })
-                            //console.log(this.state.current_list)
+                            obj_state.course_title = data[i].courseName
+                            obj_state.courseId = data[i].courseId
+                            obj_state.waitlist = list
+                            this.setState({loading:true})
                         })
+                    obj_arr.push(obj_state);
                 }
             }
             this.setState({ courses: course_arr })
             this.setState({ course_ids: course_ids })
+            //this.setState({ courses_and_lists: obj_arr })
+
         });
-        this.setState({ courses_and_lists: obj_arr })
+       this.setState({ courses_and_lists: obj_arr })
         this.setState({ loading1: false })
     }
 
+    
     render() {
-        let hell = this.state.courses.map((data, index) => <Tab key={index}>  {data}</Tab>)
-        
         let arrya = []
+        let courses = this.state.courses.length
+        let tabList = this.state.courses.map((data, index) => <Tab key={index}>  {data}</Tab>)
+        let dataList =[]// this.state.courses_and_lists.map((data,index) => <div>{data.waitlist.studentName}</div>)
+       // let panelList = []
+        if(this.state.courses_and_lists[2] !== undefined)
+        {
+            //console.log("it is not undefined")
+            if(this.state.courses_and_lists[2].waitlist !== undefined)
+            {
+                //console.log(this.state.courses_and_lists[2].waitlist)   
+            }
+        }
+        
+       //panelList.push(<TabPanel>{dataList}</TabPanel>)
+       let sPanel =[]
 
-        // for (let me = 0; me < this.state.courses.length; me++) {
-            arrya.push(<TabPanel>{eachTab.map((data, index) => <div key={index} > {data} </div>)}</TabPanel>)
-        // }
+        if(this.state.courses_and_lists !== undefined)
+        {
+            for(let i = 0;i < this.state.courses_and_lists.length; i++)
+            {
+                let panelList = []
+                if(this.state.courses_and_lists[i] !== undefined)
+                {
+                    //console.log(this.state.courses_and_lists[i])
+                    if(this.state.courses_and_lists[i].waitlist !== undefined ) 
+                    {
+                        //console.log(this.state.courses_and_lists[i].waitlist)
+                        for(let j = 0;j < this.state.courses_and_lists[i].waitlist.length;j++)
+                        {
+                            panelList.push(this.state.courses_and_lists[i].waitlist[j].studentName)
+                        }
+                    }
+                }
+                sPanel.push(panelList) 
+                console.log(panelList)
+            }
+        }     
+        
+        
+        
+
+        
+        let i = 0;
         return (
             <div>
                 <Tabs>
                     <TabList>
-                        {hell}
+                        {tabList}
                     </TabList>
-
+                    {sPanel.map((data,index) =><TabPanel key ={index }><div>{data}</div></TabPanel>)}
                 </Tabs>
             </div>
         )
+
+
     }
 }
 
