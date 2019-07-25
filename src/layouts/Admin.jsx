@@ -4,15 +4,24 @@ import Header from '../components/Header.jsx';
 import Sidebar from '../components/Sidebar.jsx';
 import Instructors from '../components/Instructors.jsx';
 import { Container } from 'react-bootstrap';
-
+import Login from './Login'
 class Admin extends React.Component {
 	constructor()
 	{
 		super();
 		this.state = {
 			logout: false,
+			showAddModal: false,
 
+			email: '',
+			firstName: '',
+			lastName: '',
+			password: '',
+			username: '',
 		}
+
+		this.addTeacher = this.addTeacher.bind(this);
+		this.removeTeacher = this.removeTeacher.bind(this);
 	}
 
 
@@ -20,12 +29,49 @@ class Admin extends React.Component {
 	
 	componentWillMount()
 	{
-		let url ='https://protected-shelf-85013.herokuapp.com/'
-		
+		let url ='https://protected-shelf-85013.herokuapp.com/user/admin/'
+		fetch(url).then(response=>response.json()).then(data=>{
+			console.log(data);
+		}).catch(err=>{console.log(err)})
+	}
 
+	addTeacher()
+	{
+		let user = {
+			email: this.state.email,
+			firstName: this.state.firstName,
+			lastName: this.state.lastName,
+			password: this.state.password,
+			username: this.state.username,
+		}
+
+		let options = {
+			method:'POST',
+			headers: { "Content-Type": "application/json; charset=UTF-8"},
+			body: JSON.stringify(user);
+		}
+
+		let url ='https://protected-shelf-85013.herokuapp.com/user/admin/'
+		fetch(url, options).then(response=>response.json()).then(data=>{
+			console.log(data);
+		}).catch(err=>{console.log(err)})
+	}
+
+	removeTeacher()
+	{
+		let url ='https://protected-shelf-85013.herokuapp.com/user/admin/'
+		
+		fetch(url).then(response=>response.json()).then(data=>{
+			console.log(data);
+		}).catch(err=>{console.log(err)})
 	}
 
 	render() {
+		if(this.state.logout)
+		{
+			return(<Login />)
+		}
+
 		return (
 			<Router>
 				<Header />
