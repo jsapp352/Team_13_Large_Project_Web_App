@@ -6,6 +6,25 @@ import Instructors from '../components/Instructors.jsx';
 import { Container } from 'react-bootstrap';
 
 class Admin extends React.Component {
+	constructor()
+	{
+		super();
+		this.state = {
+			logout: false,
+
+		}
+	}
+
+
+	// get All Teachers, add teachers, delete teachers, search funtionality
+	
+	componentWillMount()
+	{
+		let url ='https://protected-shelf-85013.herokuapp.com/'
+		
+
+	}
+
 	render() {
 		return (
 			<Router>
