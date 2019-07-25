@@ -2,7 +2,7 @@ import React from "react";
 import { Table, Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
-import AddTA from './AddTA.jsx';
+import AddTeacher from './AddTeacher.js';
 
 class Instructors extends React.Component {
 	state = { show: false, showForgot: false };
@@ -53,7 +53,7 @@ class Instructors extends React.Component {
 					Add Teacher <FontAwesomeIcon style={{margin: '0 10px'}} icon={faPlus} />
 				</Button>
 
-				<AddTA show={this.state.show} handleClose={this.hideModal} />
+				<AddTeacher show={this.state.show} handleClose={this.hideModal} />
 			</>
 		)
 	}

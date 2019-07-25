@@ -5,6 +5,7 @@ import Sidebar from '../components/Sidebar.jsx';
 import Instructors from '../components/Instructors.jsx';
 import { Container } from 'react-bootstrap';
 import Login from './Login'
+import AddTeacher from '../components/AddTeacher.js'
 class Admin extends React.Component {
 	constructor()
 	{
@@ -26,36 +27,23 @@ class Admin extends React.Component {
 
 
 	// get All Teachers, add teachers, delete teachers, search funtionality
-	
+	// CORS error
 	componentWillMount()
 	{
 		let url ='https://protected-shelf-85013.herokuapp.com/user/admin/'
-		fetch(url).then(response=>response.json()).then(data=>{
-			console.log(data);
-		}).catch(err=>{console.log(err)})
-	}
-
-	addTeacher()
-	{
-		let user = {
-			email: this.state.email,
-			firstName: this.state.firstName,
-			lastName: this.state.lastName,
-			password: this.state.password,
-			username: this.state.username,
-		}
-
 		let options = {
-			method:'POST',
-			headers: { "Content-Type": "application/json; charset=UTF-8"},
-			body: JSON.stringify(user);
+			method:'GET',
+			headers: { "Content-Type": "application/json; charset=UTF-8",
+						"Authorization":"Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTU2NDk1MDYyMH0.RQb8qHaPvCDxMmZACbam_-wOksz1aYM3XkIcEHI_YQT_hvXLz8AOxxhqsL_UKphkzm02C_nOCukMF9p3UUn9LA"
+				},
 		}
 
-		let url ='https://protected-shelf-85013.herokuapp.com/user/admin/'
 		fetch(url, options).then(response=>response.json()).then(data=>{
 			console.log(data);
 		}).catch(err=>{console.log(err)})
 	}
+
+	
 
 	removeTeacher()
 	{
@@ -87,7 +75,7 @@ class Admin extends React.Component {
 						</div>
 					</div>
 				</Container>
-			</Router>	
+			</Router>
 		);
 	}
 }
