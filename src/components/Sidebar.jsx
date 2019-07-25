@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import { withRouter } from 'react-router-dom';
 import { LinkContainer } from "react-router-bootstrap";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBook, faUsers, faChartBar, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+import { faBook, faUsers, faChartBar, faSignOutAlt, faSignInAlt } from '@fortawesome/free-solid-svg-icons';
 import Login from "../layouts/Login";
 
 class Sidebar extends React.Component {	
@@ -19,7 +19,21 @@ class Sidebar extends React.Component {
 		const user = this.props.userType;
 		const menuItems = [];
 		
-		if (user === 'admin') {
+		if (user === 'any') {
+			menuItems.length = 0;
+			menuItems.push(
+				<div key={1}>
+					<LinkContainer to="/">
+						<div className="menu-item">
+							<FontAwesomeIcon className="menu-icon" icon={faSignInAlt} />
+							<p>Login</p>
+						</div>
+					</LinkContainer>
+					<div className="line"/>
+				</div>
+			)
+		}
+		else if (user === 'admin') {
 			menuItems.length = 0;
 			menuItems.push(
 				<div key={1}>
