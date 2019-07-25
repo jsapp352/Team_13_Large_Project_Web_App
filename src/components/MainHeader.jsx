@@ -7,18 +7,17 @@ class MainHeader extends React.Component {
 		super(props);
 
 		this.state = {
-			numberTas: '',
-			numberCourses: '',
-			firstName: '',
-			lastName: ''
+			userInfo: {
+				firstName: '',
+				lastName: '',
+				numberTas: '',
+				numberCourses: '',
+			}
 		}
 	}
 
 	componentDidMount(props) {
-		this.setState({
-			numberTas: this.props.ta,
-			numberCourses: this.props.courses
-		})
+		this.setState({userInfo: this.props.userInfo})
 	}
 
 	render() {
@@ -30,15 +29,15 @@ class MainHeader extends React.Component {
 				<div className="information">
 					<div className="circleContainer">
 						<div className="float-left d-none d-sm-block">
-							<div className="circle">{this.state.numberTas}</div>
+							<div className="circle">{this.state.userInfo.numberTas}</div>
 							<span className="caption">TAs</span>
 						</div>
 						<div className="float-left">
 							<Image className="circle" id="picture" src={pic} fluid roundedCircle /><br/>
-							<span className="caption" id="name">Rick Leinecker</span>
+							<span className="caption" id="name">{this.state.userInfo.firstName} {this.state.userInfo.lastName}</span>
 						</div>
 						<div className="float-left d-none d-sm-block">
-							<div className="circle">{this.state.numberCourses}</div>
+							<div className="circle">{this.state.userInfo.numberCourses}</div>
 							<span className="caption">COURSES</span>
 						</div>
 					</div>
