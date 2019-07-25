@@ -98,10 +98,10 @@ class Queue extends React.Component {
 						for (let j = 0; j < this.state.courses_and_lists[i].waitlist.length; j++)
 						{
 							panelList.push(
-								<tr style={{width: '100%'}}>
-									<td style={{width: '10%'}}>{j+1}</td>
-									<td style={{width: '45%'}}>{this.state.courses_and_lists[i].waitlist[j].studentName}</td>
-									<td style={{width: '45%'}}>{(j+1)*10} min.</td>
+								<tr style={{width: '100%', display: 'inline-block'}}>
+									<td style={{width: '10%', display: 'inline-block'}}>{j+1}</td>
+									<td style={{width: '45%', display: 'inline-block'}}>{this.state.courses_and_lists[i].waitlist[j].studentName}</td>
+									<td style={{width: '40%', display: 'inline-block'}}>{(j+1)*10} min.</td>
 								</tr>
 								
 							)
@@ -138,7 +138,7 @@ class Queue extends React.Component {
 											<tr>
 												<th style={{width: '10%'}}>#</th>
 												<th style={{width: '45%'}}>Student</th>
-												<th style={{width: '45%'}}>Wait Time</th>
+												<th style={{width: '40%'}}>Wait Time</th>
 											</tr>
 										</thead>
 									   <tbody style={{width: '100%'}}>

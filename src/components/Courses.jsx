@@ -9,12 +9,7 @@ class Courses extends React.Component {
 		super(props);
 
 		this.state = {
-			id: "",
-			name: "",
-			code: "",
-			semester: "",
-			year: "",
-			userId: ""
+			courses: ''
 		}
 	}
 
@@ -29,51 +24,47 @@ class Courses extends React.Component {
   	};
 
   	componentDidMount() {
-		const url = 'https://protected-shelf-85013.herokuapp.com/user/'
+		// const url = 'https://protected-shelf-85013.herokuapp.com/user/'
 
-		const options = {
-			method : 'GET',
-			headers: { 
-				"Content-Type": "application/json; charset=UTF-8",
-				"Authorization": localStorage.getItem("token")
-			}
-		}
+		// const options = {
+		// 	method : 'GET',
+		// 	headers: { 
+		// 		"Content-Type": "application/json; charset=UTF-8",
+		// 		"Authorization": localStorage.getItem("token")
+		// 	}
+		// }
 
-		fetch(url, options)
-			.then(response => response.json())
-			.then(data => {
-			    console.log(data);
-                this.setState({userId: data.userId});
-			})
-  	}
-
-  // 	getCourses() {
-  // 		const url = 'https://protected-shelf-85013.herokuapp.com/admin/' + this.state.userId;
-
-		// fetch(url)
+		// fetch(url, options)
 		// 	.then(response => response.json())
 		// 	.then(data => {
-  //               console.log(data);
+  //               const courseUrl = 'https://protected-shelf-85013.herokuapp.com/course/admin/user/2/' //' + data.userId + '/';
+  //               fetch(courseUrl)
+  //               	.then(res => res.json())
+  //               	.then(courseList => {
+  //               		console.log("Courses of this teacher: " + JSON.stringify(courseList));
+  //               		this.setState({courses: courseList})
+  //               	})
 		// 	})
-  // 	}
+
+		this.setState({courses: this.props.courses});
+		console.log("AJAAAAAA: " + this.state.courses)
+  	}
 
 	render() {
-		const courses = [
-			{'name': "Computer Science II", 'id': 1, 'code': "COP 3503"}, 
-			{'name': "Computer Science I", 'id': 2, 'code': "COP 3502"}, 
-			{'name': "Object Oriented Programming", 'id': 3, 'code': "COP 3101"}
-		];
+		let courseCards = []
 
-		const courseCards = courses.map(course => {
-			return (
-				<Card key={course.id} className="course-card">
-					<Card.Header text="success" className="course-header" />
-					<Card.Body key={course.uniqueId}>
-						{course.code}:<br/>{course.name}
-					</Card.Body>
-				</Card>
-			)
-		});
+		// if (this.state.courses !== undefined) {
+		// 	courseCards = this.state.courses.map(course => {
+		// 		return (
+		// 			<Card key={course.courseId} className="course-card">
+		// 				<Card.Header text="success" className="course-header" />
+		// 				<Card.Body>
+		// 					{course.courseCode}:<br/>{course.courseName}
+		// 				</Card.Body>
+		// 			</Card>
+		// 		)
+		// 	});
+		// }
 
 		return (
 			<>

@@ -3,6 +3,24 @@ import pic from '../img/profile-cover.jpg';
 import { Image, Container } from 'react-bootstrap';
 
 class MainHeader extends React.Component {
+	constructor(props) {
+		super(props);
+
+		this.state = {
+			numberTas: '',
+			numberCourses: '',
+			firstName: '',
+			lastName: ''
+		}
+	}
+
+	componentDidMount(props) {
+		this.setState({
+			numberTas: this.props.ta,
+			numberCourses: this.props.courses
+		})
+	}
+
 	render() {
 		return (
 			<Container fluid className="header">
@@ -12,7 +30,7 @@ class MainHeader extends React.Component {
 				<div className="information">
 					<div className="circleContainer">
 						<div className="float-left d-none d-sm-block">
-							<div className="circle">42</div>
+							<div className="circle">{this.state.numberTas}</div>
 							<span className="caption">TAs</span>
 						</div>
 						<div className="float-left">
@@ -20,7 +38,7 @@ class MainHeader extends React.Component {
 							<span className="caption" id="name">Rick Leinecker</span>
 						</div>
 						<div className="float-left d-none d-sm-block">
-							<div className="circle">3</div>
+							<div className="circle">{this.state.numberCourses}</div>
 							<span className="caption">COURSES</span>
 						</div>
 					</div>
