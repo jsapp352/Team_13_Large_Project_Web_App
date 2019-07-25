@@ -5,36 +5,51 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import AddTA from './AddTA.jsx';
 
 class TAs extends React.Component {
-	state = { show: false, showForgot: false };
+	constructor(props) {
+		super(props);
+
+		this.state = {
+			tas: '',
+			show: false
+		}
+	}
 
   	showModal = () => {
-    	this.setState({ show: true });
-  	};
+    	this.setState({show: true});
+  	}
 
   	hideModal = () => {
-    	this.setState({ show: false });
-  	};
+    	this.setState({show: false});
+  	}
+
+  	componentDidMount() {
+  		console.log("TASSSSS: " + JSON.stringify(this.props.tas))
+		this.setState({tas: this.props.tas});
+  	}
 
 	render() {
-		const tas = [
-			{'firstName': 'Ivan', 'lastName': 'Chaffardett', 'course': 'Computer Science II', 'id': 1},
-			{'firstName': 'Andy', 'lastName': 'Tschida', 'course': 'Computer Science II', 'id': 2},
-			{'firstName': 'Michael', 'lastName': 'Mignon', 'course': 'Computer Science II', 'id': 3},
-			{'firstName': 'Justin', 'lastName': 'Sapp', 'course': 'Computer Science I', 'id': 4},
-			{'firstName': 'Shady', 'lastName': 'Saleh', 'course': 'Computer Science I', 'id': 5},
-			{'firstName': 'Tony', 'lastName': 'Giamenta', 'course': 'Computer Science I', 'id': 6},
-			{'firstName': 'Tony', 'lastName': 'Giamenta', 'course': 'Security in Computing', 'id': 7}
-		];
+		let taTable = [];
+		// const tas = [
+		// 	{'firstName': 'Ivan', 'lastName': 'Chaffardett', 'course': 'Computer Science II', 'id': 1},
+		// 	{'firstName': 'Andy', 'lastName': 'Tschida', 'course': 'Computer Science II', 'id': 2},
+		// 	{'firstName': 'Michael', 'lastName': 'Mignon', 'course': 'Computer Science II', 'id': 3},
+		// 	{'firstName': 'Justin', 'lastName': 'Sapp', 'course': 'Computer Science I', 'id': 4},
+		// 	{'firstName': 'Shady', 'lastName': 'Saleh', 'course': 'Computer Science I', 'id': 5},
+		// 	{'firstName': 'Tony', 'lastName': 'Giamenta', 'course': 'Computer Science I', 'id': 6},
+		// 	{'firstName': 'Tony', 'lastName': 'Giamenta', 'course': 'Security in Computing', 'id': 7}
+		// ];
 
-		const taTable = tas.map(ta => {
-			return (
-				<tr key={ta.id}>
-			       	<td>{ta.firstName}</td>
-			       	<td>{ta.lastName}</td>
-			       	<td className="d-none d-sm-block">{ta.course}</td>
-		      	</tr>
-			)
-		});
+		if (this.state.tas !== undefined && this.state.tas.length > 0) {
+			taTable = this.state.tas.map(ta => {
+				return (
+					<tr key={ta.userId}>
+				       	<td>{ta.firstName}</td>
+				       	<td>{ta.lastName}</td>
+				       	<td className="d-none d-sm-block">{ta.course}</td>
+			      	</tr>
+				)
+			});
+		}
 
 		return (
 			<>
