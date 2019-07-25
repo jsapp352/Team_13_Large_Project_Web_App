@@ -36,7 +36,7 @@ class Instructors extends React.Component {
 
 		return (
 			<>
-				<div className="sub-title"><span id="top-line"/>Teaching Assistants</div>
+				<div className="sub-title"><span id="top-line"/>Instructors</div>
 				<Table borderless striped hover responisve="true" className="header-fixed">
 					<thead style={{backgroundColor: 'rgba(0, 0, 0, 0.3)'}}>
 				     	<tr>

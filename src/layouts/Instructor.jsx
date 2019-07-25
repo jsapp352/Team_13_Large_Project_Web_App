@@ -8,17 +8,71 @@ import Stats from '../components/Stats.jsx';
 import { Container } from 'react-bootstrap';
 
 class Instructor extends React.Component {
+	constructor(props) {
+		super(props);
+
+		this.state = {
+			userId: '',
+			firstName: '',
+			lastName: '',
+			courseList: '',
+			taList: ''
+		}
+	}
+
+	componentWillMount() {
+        const taArray = [];
+		const url = 'https://protected-shelf-85013.herokuapp.com/user/'
+
+		const options = {
+			method : 'GET',
+			headers: { 
+				"Content-Type": "application/json; charset=UTF-8",
+				"Authorization": localStorage.getItem("token")
+			}
+		}
+
+		fetch(url, options)
+			.then(response => response.json())
+			.then(data => {
+				console.log("User ID: " + JSON.stringify(data))
+				this.setState({userId: data.userId, firstName: data.firstName, lastName: data.lastName})
+
+                const courseUrl = 'https://protected-shelf-85013.herokuapp.com/course/admin/user/2/' //' + data.userId + '/';
+                fetch(courseUrl)
+                	.then(res => res.json())
+                	.then(courses => {
+                		console.log("Courses of this teacher!!: " + JSON.stringify(courses));
+                		this.setState({courseList: courses})
+
+                		for (let i = 0; i < courses.length; i++) {
+                			const taUrl = 'https://protected-shelf-85013.herokuapp.com/user/teacher/course/' + courses[i].courseId + '/';
+                			fetch(taUrl, options)
+                				.then(res => res.json())
+                				.then(tas => {
+                					console.log('The TAs are:' + JSON.stringify(tas))
+                					taArray.push(tas);
+                				})
+                		}
+
+                	})
+			})
+
+       	this.setState({taList : taArray})
+  	}
+
 	render() {
+		console.log("Course List: " + this.state.courseList)
 		return (
 			<Router>
-				<MainHeader />
+				<MainHeader ta={this.state.taList.length} courses={this.state.courseList.length}/>
 				<Container fluid style={{height: '90vh'}}>
 					<div style={{height: 'calc(100vh - 290px)', margin: '0'}}>
 						<div style={{display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', flexWrap: 'no-wrap', height: '100%', margin: '0 auto', width: '90vw', paddingTop: '50px'}}>
 							<Sidebar userType="teacher" />
 							<div style={{width: '87%', height: 'auto', padding: '0 30px'}}>
 								<Switch>
-									<Route path="/courses" component={Courses} />
+									<Route path="/courses" render={(props) => <Courses {...props} courses={this.state.courseList} />} />
 	        						<Route path="/tas" component={TAs} />
 	        						<Route path="/stats" component={Stats} />
 	        					</Switch>

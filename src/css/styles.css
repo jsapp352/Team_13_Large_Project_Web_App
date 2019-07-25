@@ -348,7 +348,6 @@ body {
 
 .react-tabs__tab--selected {
     background: #fff;
-    /*border-color: #aa;*/
     color: black;
     border-radius: 0!important;
 }
