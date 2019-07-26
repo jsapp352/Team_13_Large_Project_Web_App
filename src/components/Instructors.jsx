@@ -15,16 +15,11 @@ class Instructors extends React.Component {
     	this.setState({ show: false });
   	};
 
-	render() {
-		const teachers = [
-			{'firstName': 'Sean', 'lastName': 'Szumlanski', 'email': 'sean@ucf.edu', 'id': 1},
-			{'firstName': 'Rick', 'lastName': 'Leinecker', 'email': 'rick@ucf.edu', 'id': 2},
-			{'firstName': 'Sarah', 'lastName': 'Angell', 'email': 'sarah@ucf.edu', 'id': 3},
-			{'firstName': 'Arup', 'lastName': 'Guha', 'email': 'arup@ucf.edu', 'id': 4},
-			{'firstName': 'Shahram', 'lastName': 'Jahani', 'email': 'extracredit@ucf.edu', 'id': 5},
-		];
-
-		const teachersTable = teachers.map(teacher => {
+	render() 
+	{
+		const list = JSON.parse(localStorage.getItem('teacherList'));
+	
+		const teachersTable = list.map(teacher => {
 			return (
 				<tr key={teacher.id}>
 			       	<td>{teacher.firstName}</td>

@@ -6,6 +6,9 @@ import Instructors from '../components/Instructors.jsx';
 import { Container } from 'react-bootstrap';
 import Login from './Login'
 import AddTeacher from '../components/AddTeacher.js'
+import { ClipLoader } from 'react-spinners';
+import { css } from '@emotion/core';
+
 class Admin extends React.Component {
 	constructor()
 	{
@@ -13,6 +16,8 @@ class Admin extends React.Component {
 		this.state = {
 			logout: false,
 			showAddModal: false,
+			teacherList: null,
+
 
 			email: '',
 			firstName: '',
@@ -21,7 +26,6 @@ class Admin extends React.Component {
 			username: '',
 		}
 
-		this.addTeacher = this.addTeacher.bind(this);
 		this.removeTeacher = this.removeTeacher.bind(this);
 	}
 
@@ -33,13 +37,17 @@ class Admin extends React.Component {
 		let url ='https://protected-shelf-85013.herokuapp.com/user/admin/'
 		let options = {
 			method:'GET',
-			headers: { "Content-Type": "application/json; charset=UTF-8",
-						"Authorization":"Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTU2NDk1MDYyMH0.RQb8qHaPvCDxMmZACbam_-wOksz1aYM3XkIcEHI_YQT_hvXLz8AOxxhqsL_UKphkzm02C_nOCukMF9p3UUn9LA"
-				},
+			headers: { 
+				"Content-Type": "application/json; charset=UTF-8",
+				"Authorization":'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTU2NDk1NzM5NH0.snNKzwTvMIZEU6VwOyhFHI9yvDqknJG9xgXTShG_SlR3P4FyHZhTmXUFKnRx1dC4hn9d6Wepd7t1Isq28WV5Yg'
+			},
 		}
 
 		fetch(url, options).then(response=>response.json()).then(data=>{
 			console.log(data);
+			this.setState({teacherList:data});
+		
+			localStorage.setItem('teacherList', JSON.stringify(data));
 		}).catch(err=>{console.log(err)})
 	}
 
@@ -57,9 +65,24 @@ class Admin extends React.Component {
 	render() {
 		if(this.state.logout)
 		{
-			return(<Login />)
+			return(<Login />);
 		}
-
+		
+		if(this.state.teacherList === null)
+		{
+			return (
+				<div>
+					<ClipLoader
+					css={override}
+					sizeUnit={"px"}
+					size={150}
+					color={'#123abc'}
+					loading={this.state.loading}
+					/>
+				</div> 
+    		)
+		}
+		console.log(this.state.teacherList)
 		return (
 			<Router>
 				<Header />
@@ -81,3 +104,10 @@ class Admin extends React.Component {
 }
 
 export default Admin;
+
+const override = css`
+    display: block;
+    margin: 0 auto;
+	padding: 50px;
+    border-color: orange;
+`;
