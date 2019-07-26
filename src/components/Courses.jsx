@@ -23,6 +23,7 @@ class Courses extends React.Component {
   	}
 
   	componentDidMount() {
+  		// console.log("COURSESSSSSS: " + JSON.stringify(this.props.courses))
 		this.setState({courses: this.props.courses});
   	}
 

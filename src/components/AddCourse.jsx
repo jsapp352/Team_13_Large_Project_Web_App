@@ -2,6 +2,54 @@ import React from "react";
 import { Button, Form } from 'react-bootstrap';
 
 class AddCourse extends React.Component {
+	constructor() {
+		super();
+	
+		this.state = {
+			courseCode: '',
+			courseName: '',
+			semester: '',
+			year: '',
+
+			confirmed: ''
+		}
+	}
+
+	handleSubmit = event => {
+		let course = {
+			courseCode: this.state.courseCode,
+			courseName: this.state.courseName,
+			semester: this.state.semester,
+			year: this.state.year,
+		}
+
+		let options = {
+			method:'POST',
+			headers: { 
+				"Content-Type": "application/json; charset=UTF-8",
+				"Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJyaWNrZCIsImV4cCI6MTU2NDk2NzUwMn0.T_DnDFqQJ0uwmlaAZkrfUhWUi3PDY5O0t9oYEfLbg5gaySg_XSqGTQ0cqKI8ju7kX8Hl122DLDl7DPukTYwUHA"
+			},
+			body: JSON.stringify(course),		
+		}
+
+		let url ='https://protected-shelf-85013.herokuapp.com/course/teacher/'
+		fetch(url, options)
+			.then(response => response.json())
+			.then(data => {
+				console.log(data);
+			})
+			.catch(err => {
+				console.log(err)
+			})
+	}
+
+	handleChange = event => {
+		console.log(event.target.id + ': ' + event.target.value)
+		this.setState({
+			[event.target.id]: event.target.value
+		});
+	}
+
 	render() {
 		var { show, handleClose } = this.props;
 		const showHideClassName =  show  ? "pop-outer display-block" : "d-none";
@@ -16,13 +64,13 @@ class AddCourse extends React.Component {
 						</Button>
 					</div>
 					<div className="modal-body">
-						<Form>
+						<Form onSubmit={this.handleSubmit}>
 							<div className="form-row">
 								<div className="form-group col-md-6">
 									<label>Course Name</label>
 									<input type="text" className="form-control" 
 										id="courseName"
-										//value={}
+										value={this.state.courseName}
 										onChange = {this.handleChange}
 										placeholder="Course Name" />
 								</div>
@@ -30,7 +78,7 @@ class AddCourse extends React.Component {
 									<label>Course Code</label>
 									<input type="text" className="form-control" 
 										id="courseCode" 
-										//value={}
+										value={this.state.courseCode}
 										onChange = {this.handleChange}
 										placeholder="Course Code" />
 								</div>
@@ -40,7 +88,7 @@ class AddCourse extends React.Component {
 									<label>Semester</label>
 									<input type="text" className="form-control" 
 										id="semester"
-										//value={}
+										value={this.state.semester}
 										onChange = {this.handleChange}
 										placeholder="Semester" />
 								</div>
@@ -48,16 +96,14 @@ class AddCourse extends React.Component {
 									<label>Year</label>
 									<input type="number" className="form-control" 
 										id="year" 
-										//value={}
+										value={this.state.year}
 										onChange = {this.handleChange}
 										placeholder="Year" />
 								</div>
 							</div>
 							<br />
 							<div className="text-right">
-								<Button type="submit" className="btn btn-dark"
-									onClick={this.handleSubmit}
-								>Submit</Button>
+								<Button type="submit" className="btn btn-dark">Submit</Button>
 							</div>
 						</Form>
 					</div>

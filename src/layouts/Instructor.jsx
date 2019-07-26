@@ -21,28 +21,28 @@ class Instructor extends React.Component {
 
 	componentWillMount() {
         let taArray = [];
-		const url = 'https://protected-shelf-85013.herokuapp.com/user/'
+		const url = "https://protected-shelf-85013.herokuapp.com/user/";
 
 		const options = {
-			method : 'GET',
+			method : "GET",
 			headers: { 
 				"Content-Type": "application/json; charset=UTF-8",
 				// "Authorization": localStorage.getItem("token")
-				"Authorization": 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwcm9mZXNzb3IiLCJleHAiOjE1NjQ5NTAyNjV9.BhiaI01En_vgIj8vx8M8f2Pm4dgyZPFEmLQ-00_a2i6Ii7rGb5j8Gh8oDlqJx4J1t0zyLG8L8yH4kjHaHyQPMQ'
+				"Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJyaWNrZCIsImV4cCI6MTU2NDk2NzUwMn0.T_DnDFqQJ0uwmlaAZkrfUhWUi3PDY5O0t9oYEfLbg5gaySg_XSqGTQ0cqKI8ju7kX8Hl122DLDl7DPukTYwUHA"
 			}
 		}
 
 		fetch(url, options)
 			.then(response => response.json())
 			.then(data => {
-				console.log("User ID: " + JSON.stringify(data))
+				// console.log("User ID: " + JSON.stringify(data))
 				this.setState({userId: data.userId})
 
                 const courseUrl = 'https://protected-shelf-85013.herokuapp.com/course/admin/user/' + data.userId + '/';
                 fetch(courseUrl)
                 	.then(res => res.json())
                 	.then(courses => {
-                		console.log("Courses of this teacher!!: " + JSON.stringify(courses));
+                		// console.log("Courses of this teacher!!: " + JSON.stringify(courses));
                 		this.setState({courseList: courses})
 
                 		for (let i = 0; i < courses.length; i++) {
@@ -50,9 +50,13 @@ class Instructor extends React.Component {
                 			fetch(taUrl, options)
                 				.then(res => res.json())
                 				.then(tas => {
-                					console.log('The TAs for ' + courses[i].courseName + ' are:' + JSON.stringify(tas))
-                					if (tas.length != 0) {
-                						taArray.push(tas);
+                					// console.log('The TAs for ' + courses[i].courseName + ' are:' + JSON.stringify(tas))
+                					if (tas.length !== 0) {
+                						tas.map(item => {
+                							if (taArray.indexOf(item) === -1)
+                								taArray.push(item)
+                						});
+                						// console.log("TA ARRAY QUE LO QUEEE: " + taArray)
        									this.setState({
        										taList: taArray, 
        										userInfo: {
@@ -68,13 +72,15 @@ class Instructor extends React.Component {
 
                 	})
 			})
+			.catch(e => console.log(e)) 
   	}
 
 	render() {
-		console.log('INSTRUCTOR NOW WW' + JSON.stringify(this.state.taList))
+		// console.log('INSTRUCTOR NOW WW' + JSON.stringify(this.state.taList))
+		// console.log('TAList?????' + this.state.taList);
 		return (
 			<Router>
-				<MainHeader key={this.state.userInfo} userInfo={this.state.userInfo} />
+				<MainHeader key={this.state.taList.length} userInfo={this.state.userInfo} />
 				<Container fluid style={{height: '90vh'}}>
 					<div style={{height: 'calc(100vh - 290px)', margin: '0'}}>
 						<div style={{display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', flexWrap: 'no-wrap', height: '100%', margin: '0 auto', width: '90vw', paddingTop: '50px'}}>
@@ -82,7 +88,7 @@ class Instructor extends React.Component {
 							<div style={{width: '87%', height: 'auto', padding: '0 30px'}}>
 								<Switch>
 									<Route path="/courses" render={(props) => <Courses {...props} key={this.state.courseList} courses={this.state.courseList} />} />
-	        						<Route path="/tas" render={(props) => <TAs {...props} key={this.state.length} courses={this.state.taList} />} />
+	        						<Route path="/tas" render={(props) => <TAs {...props} key={this.state.taList.length} tas={this.state.taList} courses={this.state.courseList}/>} />
 	        						<Route path="/stats" component={Stats} />
 	        					</Switch>
 							</div>

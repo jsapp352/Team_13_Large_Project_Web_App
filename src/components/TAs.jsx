@@ -10,6 +10,7 @@ class TAs extends React.Component {
 
 		this.state = {
 			tas: '',
+			courses: '',
 			show: false
 		}
 	}
@@ -23,21 +24,12 @@ class TAs extends React.Component {
   	}
 
   	componentDidMount() {
-  		console.log("TASSSSS: " + JSON.stringify(this.props.tas))
 		this.setState({tas: this.props.tas});
+		this.setState({courses: this.props.courses});
   	}
 
 	render() {
 		let taTable = [];
-		// const tas = [
-		// 	{'firstName': 'Ivan', 'lastName': 'Chaffardett', 'course': 'Computer Science II', 'id': 1},
-		// 	{'firstName': 'Andy', 'lastName': 'Tschida', 'course': 'Computer Science II', 'id': 2},
-		// 	{'firstName': 'Michael', 'lastName': 'Mignon', 'course': 'Computer Science II', 'id': 3},
-		// 	{'firstName': 'Justin', 'lastName': 'Sapp', 'course': 'Computer Science I', 'id': 4},
-		// 	{'firstName': 'Shady', 'lastName': 'Saleh', 'course': 'Computer Science I', 'id': 5},
-		// 	{'firstName': 'Tony', 'lastName': 'Giamenta', 'course': 'Computer Science I', 'id': 6},
-		// 	{'firstName': 'Tony', 'lastName': 'Giamenta', 'course': 'Security in Computing', 'id': 7}
-		// ];
 
 		if (this.state.tas !== undefined && this.state.tas.length > 0) {
 			taTable = this.state.tas.map(ta => {
@@ -50,6 +42,8 @@ class TAs extends React.Component {
 				)
 			});
 		}
+
+		// console.log('ALL TAS: ' + JSON.stringify(this.state.tas))
 
 		return (
 			<>
@@ -70,7 +64,7 @@ class TAs extends React.Component {
 					Add TA <FontAwesomeIcon style={{margin: '0 10px'}} icon={faPlus} />
 				</Button>
 
-				<AddTA show={this.state.show} handleClose={this.hideModal} />
+				<AddTA show={this.state.show} handleClose={this.hideModal} courses={this.state.courses}/>
 			</>
 		)
 	}

@@ -17,6 +17,7 @@ class MainHeader extends React.Component {
 	}
 
 	componentDidMount(props) {
+		// console.log('USERRR INFOO: ' + JSON.stringify(this.props.userInfo))
 		this.setState({userInfo: this.props.userInfo})
 	}
 

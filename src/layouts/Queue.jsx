@@ -1,7 +1,7 @@
 import React from 'react'
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import "react-tabs/style/react-tabs.css";
-import { ClipLoader } from 'react-spinners';
+// import { ClipLoader } from 'react-spinners';
 import { Table, Container } from 'react-bootstrap';
 import Sidebar from '../components/Sidebar.jsx';
 //import DataControl from './DataControl'
@@ -25,11 +25,11 @@ class Queue extends React.Component {
 	componentWillMount() {
 		let course_arr = [];
 		let course_ids = [];
-		let temp_list = [];
+		// let temp_list = [];
 		let obj_arr = [];
-		let tabing = []
-		let eachTab = []
-		let fullTab = []
+		// let tabing = []
+		// let eachTab = []
+		// let fullTab = []
 
 		let url = 'https://protected-shelf-85013.herokuapp.com/course/'
 		fetch(url)
@@ -65,10 +65,10 @@ class Queue extends React.Component {
 
 	
 	render() {
-		let arrya = []
-		let courses = this.state.courses.length
-		let tabList = this.state.courses.map((data, index) => <Tab key={index}>  {data}</Tab>)
-		let dataList = []
+		// let arrya = []
+		// let courses = this.state.courses.length
+		let tabList = this.state.courses.map((data, index) => <Tab key={index}>	{data}</Tab>)
+		// let dataList = []
 		// this.state.courses_and_lists.map((data,index) => <div>{data.waitlist.studentName}</div>)
 		// let panelList = []
 
@@ -114,7 +114,7 @@ class Queue extends React.Component {
 			}
 		}     
 		
-		let i = 0;
+		// let i = 0;
 
 		return (
 			<div>
