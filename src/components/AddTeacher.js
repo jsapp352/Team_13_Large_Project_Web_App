@@ -1,36 +1,40 @@
 import React from "react";
 import { Button, Form } from 'react-bootstrap';
+import Admin from '../layouts/Admin'
+import { ClipLoader } from 'react-spinners';
+import { css } from '@emotion/core';
+
 
 export class AddTeacher extends React.Component {
 
 	constructor()
 	{
 		super();
-	
 		this.state = {
 			email: '',
 			firstName: '',
 			lastName: '',
 			password: '',
 			username: '',
-
+			show: true,
 			confirmed: '',
-
-			teacherList: [],
+			response: null,
+			loading:false,
 		}
-		this.addTeacher = this.addTeacher.bind(this);
+		this.handleSubmit = this.handleSubmit.bind(this);
 	}
 
-	addTeacher()
+	handleSubmit()
 	{
-
+		this.preventDefault();
+		this.setState({loading:true})
 		console.log(this.state);
 		let user = {
 			email: this.state.email,
 			firstName: this.state.firstName,
 			lastName: this.state.lastName,
 			password: this.state.password,
-			username: this.state.username,
+			username: this.state.username
 		}
 
 		let options = {
@@ -43,14 +47,13 @@ export class AddTeacher extends React.Component {
 		}
 		
 		console.log(options);
-		
 		let url ='https://protected-shelf-85013.herokuapp.com/user/admin/'
-		
 		fetch(url, options).then(response=>response.json()).then(data=>{
 			console.log(data);
-			this.setState({teacherList:data})
-		}).catch(err=>{console.log(err)})
-}
+			this.setState({show:false, response:data, loading:false})
+			this.handleClose();
+		})//.catch(err=>{console.log(err)})
+	}
 
 	handleChange = event => {
 
@@ -59,8 +62,8 @@ export class AddTeacher extends React.Component {
 
 	render() {
 		var { show, handleClose } = this.props;
-		const showHideClassName =  show  ? "pop-outer display-block" : "d-none";
-	
+		let showHideClassName =  show  ? "pop-outer display-block" : "d-none";
+		
 		return (
 			<div className={showHideClassName}> 
 				<div className="pop-inner">
@@ -71,7 +74,7 @@ export class AddTeacher extends React.Component {
 						</Button>
 					</div>
 					<div className="modal-body">
-						<Form onSubmit={this.addTeacher}>
+						<Form>
 							<div className="form-row">
 								<div className="form-group col-md-6">
 									<label>First Name</label>
@@ -129,7 +132,7 @@ export class AddTeacher extends React.Component {
 							<br />
 							<div className="text-right">
 								<Button type="submit" className="btn btn-dark"
-									onClick={this.addTeacher}
+									onClick={this.handleSubmit}
 								>Add</Button>
 							</div>
 						</Form>
@@ -141,3 +144,11 @@ export class AddTeacher extends React.Component {
 }
 
 export default AddTeacher;
+
+
+const override = css`
+    display: block;
+    margin: 0 auto;
+	padding: 50px;
+    border-color: orange;
+`;

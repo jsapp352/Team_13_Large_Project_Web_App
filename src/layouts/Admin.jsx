@@ -5,7 +5,6 @@ import Sidebar from '../components/Sidebar.jsx';
 import Instructors from '../components/Instructors.jsx';
 import { Container } from 'react-bootstrap';
 import Login from './Login'
-import AddTeacher from '../components/AddTeacher.js'
 import { ClipLoader } from 'react-spinners';
 import { css } from '@emotion/core';
 
@@ -26,12 +25,8 @@ class Admin extends React.Component {
 			username: '',
 		}
 
-		this.removeTeacher = this.removeTeacher.bind(this);
 	}
 
-
-	// get All Teachers, add teachers, delete teachers, search funtionality
-	// CORS error
 	componentWillMount()
 	{
 		let url ='https://protected-shelf-85013.herokuapp.com/user/admin/'
@@ -46,19 +41,8 @@ class Admin extends React.Component {
 		fetch(url, options).then(response=>response.json()).then(data=>{
 			console.log(data);
 			this.setState({teacherList:data});
-		
-			localStorage.setItem('teacherList', JSON.stringify(data));
-		}).catch(err=>{console.log(err)})
-	}
-
-	
-
-	removeTeacher()
-	{
-		let url ='https://protected-shelf-85013.herokuapp.com/user/admin/'
-		
-		fetch(url).then(response=>response.json()).then(data=>{
-			console.log(data);
+			
+			// localStorage.setItem('teacherList', JSON.stringify(data));
 		}).catch(err=>{console.log(err)})
 	}
 
@@ -67,22 +51,7 @@ class Admin extends React.Component {
 		{
 			return(<Login />);
 		}
-		
-		if(this.state.teacherList === null)
-		{
-			return (
-				<div>
-					<ClipLoader
-					css={override}
-					sizeUnit={"px"}
-					size={150}
-					color={'#123abc'}
-					loading={this.state.loading}
-					/>
-				</div> 
-    		)
-		}
-		console.log(this.state.teacherList)
+
 		return (
 			<Router>
 				<Header />
