@@ -1,5 +1,5 @@
 import React from "react";
-import { Card } from 'react-bootstrap';
+import { Card, Dropdown, DropdownButton } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlusCircle, faMinus } from '@fortawesome/free-solid-svg-icons';
 import AddCourse from './AddCourse.jsx';
@@ -45,7 +45,7 @@ class Courses extends React.Component {
             	newCourseList = this.state.courses.filter((value, index, arr) => {
             		return (value.courseId !== data.courseId)
             	})
-            	
+
             	this.setState({courses: newCourseList});
             	window.location.reload();
         	})
@@ -61,7 +61,10 @@ class Courses extends React.Component {
 					return (
 						<Card key={course.courseId} className="course-card">
 							<Card.Header text="success" className="course-header">
-								<FontAwesomeIcon onClick={() => this.removeCourse(course)} icon={faMinus} style={{float: 'right', color: '#fff'}}/>
+								<DropdownButton id="dropdown-basic-button" title=''>
+  									<Dropdown.Item onClick=''>Edit course</Dropdown.Item>
+  									<Dropdown.Item onClick={() => this.removeCourse(course)}>Deactivate course</Dropdown.Item>
+								</DropdownButton>
 							</Card.Header>
 							<Card.Body>
 								{course.courseCode}:<br/>{course.courseName}

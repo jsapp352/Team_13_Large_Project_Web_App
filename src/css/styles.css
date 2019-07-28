@@ -363,3 +363,10 @@ body {
     cursor: pointer;
     margin: 0 0 10px!important;
 }
+
+#dropdown-basic-button {
+	float: right;
+	background-color: transparent;
+	border: none;
+	border-radius: 0;
+}
