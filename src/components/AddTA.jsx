@@ -68,7 +68,7 @@ class AddTA extends React.Component {
 		
 		if (courses.length > 0)	{
 			optionList = this.props.courses.map(course => {
-				return (<option key={course.courseId} value={course.courseId}>{course.courseName}</option>)
+				if(course.active)return (<option key={course.courseId} value={course.courseId}>{course.courseName}</option>)
 			});
 		}
 

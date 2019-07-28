@@ -58,9 +58,32 @@ class TAs extends React.Component {
 
 	render(props) {
 		let taTable = [];
-		console.log(this.props.location.state)
+		let courseTas = [];
+
+		// if(this.props.location.state !== undefined)
+		// {
+		// 	useTableForList = this.props.location.state;
+		// 	console.log(useTableForList)
+		// }
+
 		if (this.state.tas !== undefined && this.state.tas.length > 0) {
-			taTable = this.state.tas.map(ta => {
+
+		let useTableForList = this.state.tas;
+
+		if(this.props.location.state !== undefined)
+		{	
+			useTableForList = [];
+			let id = this.props.location.state.courseId;
+			for(let i = 0; i < this.state.tas.length; i++)
+			{
+				if(this.state.tas[i].courseId === id)
+				{
+					useTableForList.push(this.state.tas[i]);
+				}	
+			}
+		}
+	
+			taTable = useTableForList.map(ta => {
 				if (ta.active) {
 					return (
 						<tr key={ta.taId}>

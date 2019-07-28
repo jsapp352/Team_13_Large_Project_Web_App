@@ -66,7 +66,10 @@ class Courses extends React.Component {
 			courseCards = this.state.courses.map(course => {
 				if (course.active) {
 					return (
-						<Card onClick={()=>this.setState({selectedCourse: course, showTAForCourse: true})} key={course.courseId} className="course-card">
+						<Card onClick={(event)=>{
+								this.setState({selectedCourse: course, showTAForCourse: true});
+								}} 
+								key={course.courseId} className="course-card">
 							<Card.Header text="success" className="course-header">
 								<DropdownButton id="dropdown-basic-button" title=''>
   									<Dropdown.Item onClick=''>Edit course</Dropdown.Item>
