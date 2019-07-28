@@ -39,7 +39,6 @@ class Admin extends React.Component {
 		}
 
 		fetch(url, options).then(response=>response.json()).then(data=>{
-			console.log(data);
 			this.setState({teacherList:data});
 			
 			// localStorage.setItem('teacherList', JSON.stringify(data));

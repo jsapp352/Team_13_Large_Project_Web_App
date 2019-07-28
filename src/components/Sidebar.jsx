@@ -46,6 +46,17 @@ class Sidebar extends React.Component {
 					<div className="line"/>
 				</div>
 			)
+			menuItems.push(
+				<div key={2}>
+					<LinkContainer to="/instructors">
+						<div className="menu-item">
+							<FontAwesomeIcon className="menu-icon" icon={faUsers} />
+							<p>Inactive Teachers</p>
+						</div>
+					</LinkContainer>
+					<div className="line"/>
+				</div>
+			)
 		}
 		else if (user === 'teacher') {
 			menuItems.length = 0;

@@ -1,10 +1,11 @@
 import React from "react";
 import { Table, Button, Form } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faMinus,  faUserMinus, faUserEdit } from '@fortawesome/free-solid-svg-icons';
 import Admin from '../layouts/Admin'
 import { ClipLoader } from 'react-spinners';
 import { css } from '@emotion/core';
+import EditTeacher from './EditTeacher.js'
 
 class Instructors extends React.Component {
 	constructor()
@@ -17,11 +18,14 @@ class Instructors extends React.Component {
 			show: false,
 			showForgot: false,
 			teacherList: [],
-
+			inactiveTeachers: [],
+			editTeacher: {},
+			showEditModal:false,
 			email: '',
 			firstName: '',
 			lastName: '',
 			password: '',
+			confirmed: '',
 			username: '',
 			loading: false,
 			deleting:false,
@@ -29,9 +33,8 @@ class Instructors extends React.Component {
 		}
 
 		this.addTeacher = this.addTeacher.bind(this);
+		this.removeTeacher = this.removeTeacher.bind(this);
 	}
-
-  	
 
 	componentWillMount()
 	{		
@@ -45,28 +48,41 @@ class Instructors extends React.Component {
 		}
 
 		fetch(url, options).then(response=>response.json()).then(data=>{
-			this.setState({teacherList:data, loading:false});
+			let inactive = [];
+			let active = [];
+			for(let i = 0; i < data.length; i++)
+			{
+				if(!data[i].active)
+				{
+					inactive.push(data[i]);
+				}
+				else
+				{
+					active.push(data[i])
+				}
+			}		
+			this.setState({teacherList:active, inactiveTeachers:inactive, loading:false});
 			
 			// localStorage.setItem('teacherList', JSON.stringify(data));
 		}).catch(err=>{console.log(err)})
+
 	}
 
 	removeTeacher(id)
 	{
-		let url = 'https://protected-shelf-85013.herokuapp.com/user/admin/265/';
+		let url = 'https://protected-shelf-85013.herokuapp.com/user/admin/'+ id +'/';
 
 		let options = {
-			method:'DELTE',
+			method:'DELETE',
 			headers: { "Content-Type": "application/json; charset=UTF-8",
 						"Authorization":"Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTU2NDk1MDYyMH0.RQb8qHaPvCDxMmZACbam_-wOksz1aYM3XkIcEHI_YQT_hvXLz8AOxxhqsL_UKphkzm02C_nOCukMF9p3UUn9LA"
 				},			
 		}
 
 		fetch(url, options).then(response=>response.json()).then(data=>{
-			console.log(data);
 			this.setState({selectedProfessorUserId:-1});
 			window.location.reload();
-		})
+		}).catch(e=>console.log(e))
 	}
 		
 	addTeacher()
@@ -126,63 +142,50 @@ class Instructors extends React.Component {
 				</div> 
     		)
 		}
-		let teachersTable;
+
 		let showHideClassName = this.state.show  ? "pop-outer display-block" : "d-none";
-		if(this.state.deleting)
-		{
-			teachersTable = this.state.teacherList.map(teacher => {
-				return (
-					<tr key={teacher.userId}>					
-				       	<td>{teacher.firstName}</td>
-				       	<td>{teacher.lastName}</td>
-				       	<td className="d-none d-sm-block">{teacher.email}</td>
-						<Button onClick={this.hideModal} type="button" className="close" aria-label="Close">
-							<span aria-hidden="true">×</span>
-						</Button>
-						<Button onClick={this.hideModal} type="button" className="close" aria-label="Close">
-							<span aria-hidden="true">×</span>
-						</Button>
-			      	</tr>
-				)
-			});
-		}
-		else
-		{
-			teachersTable = this.state.teacherList.map(teacher => {
-				return (
-					<tr key={teacher.userId}>
-				       	<td>{teacher.firstName}</td>
-				       	<td>{teacher.lastName}</td>
-				       	<td className="d-none d-sm-block">{teacher.email}</td>
-			      	</tr>
-				)
-			});
-		}
+	
+		let teachersTable = this.state.teacherList.map(teacher => {
+			return (
+			<tr key={teacher.userId}>
+		       	<td className="d-none d-sm-block">{teacher.firstName}</td>
+		       	<td >{teacher.lastName}</td>
+		       	<td className="d-none d-sm-block">{teacher.email}</td>
+		       	<td style={{whiteSpace: 'nowrap'}}>
+		       		<FontAwesomeIcon 
+						onClick={() => {
+							this.setState({editTeacher:teacher, showEditModal:true});
+						 }} 
+						icon={faUserEdit} style={{marginRigth: '100px'}}/>&nbsp;&nbsp;&nbsp;
+		       		<FontAwesomeIcon onClick={() => this.removeTeacher(teacher.userId)} icon={faUserMinus}/>
+		       	</td>
+	      	</tr>
+		)
+		});
 
 		return (
-
+		
 			<div>
 				<div className="sub-title"><span id="top-line"/>Instructors</div>
-				<Table borderless striped hover responisve="true" className="header-fixed">
-					<thead style={{backgroundColor: 'rgba(0, 0, 0, 0.3)'}}>
-				     	<tr>
-					       	<th>First Name</th>
-					       	<th>Last Name</th>
-					       	<th className="d-none d-sm-block">Email</th>
-				     	</tr>
-					</thead>
-				   	<tbody>
-				     	{teachersTable}
-				   	</tbody>
-				</Table>
-				
-				<Button onClick={this.showModal} className="add-ta"> 
-					Add Teacher <FontAwesomeIcon style={{margin: '0 10px'}} icon={faPlus} />
-				</Button>
-				<Button onClick={this.removeTeacher} className="add-ta"> 
-					Remove Teacher <FontAwesomeIcon style={{margin: '0 10px',}} icon={faMinus} />
-				</Button>
-
+				<div style={{overflowX: 'auto', maxWidth: '100%'}}>
+					<Table borderless striped hover responisve="true">
+						<thead style={{backgroundColor: 'rgba(0, 0, 0, 0.3)'}}>
+					     	<tr>
+						       	<th className="d-none d-sm-block">First Name</th>
+						       	<th>Last Name</th>
+						       	<th className="d-none d-sm-block">Email</th>
+						       	<th>Options</th>
+					     	</tr>
+						</thead>
+					   	<tbody>
+					     	{teachersTable}
+					   	</tbody>
+					</Table>
+					<Button onClick={this.showModal} className="add-ta"> 
+						Add Teacher <FontAwesomeIcon style={{margin: '0 10px'}} icon={faPlus} />
+					</Button>
+				</div>
+		
 				<div className={showHideClassName}> 
 				<div className="pop-inner">
 					<div className="modal-header">
@@ -255,8 +258,9 @@ class Instructors extends React.Component {
 							</div>
 						</Form>
 					</div>
+					</div>
 				</div>
-			</div>
+				{this.state.showEditModal && <EditTeacher show={this.state.showEditModal} handleClose={()=>this.setState({showEditModal:false})} teacher={this.state.editTeacher} /> }
 			</div>
 		)
 	}
