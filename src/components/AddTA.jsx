@@ -12,12 +12,12 @@ class AddTA extends React.Component {
 			firstName: '',
 			lastName: '',
 			password: '',
-			username: '',
+			username: ''
 		}
 	}
 
 	handleSubmit = event => {
-		// event.preventDefault();
+		event.preventDefault();
 
 		let ta = {
 			courses: this.state.courses,
@@ -32,7 +32,7 @@ class AddTA extends React.Component {
 			method:'POST',
 			headers: { 
 				"Content-Type": "application/json; charset=UTF-8",
-				"Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJyaWNrZCIsImV4cCI6MTU2NDk2NzUwMn0.T_DnDFqQJ0uwmlaAZkrfUhWUi3PDY5O0t9oYEfLbg5gaySg_XSqGTQ0cqKI8ju7kX8Hl122DLDl7DPukTYwUHA"
+				"Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJyaWNrZCIsImV4cCI6MTU2NTA0NjY0NX0.hWCit110CuqKWgTVhTYJnP5L1xFcT86azB4EpceAcw9L61q4XquzxAEu-uKhi97Ve3EF5KePZOXVqW59Uvac9Q"
 			},
 			body: JSON.stringify(ta)	
 		}
@@ -41,7 +41,7 @@ class AddTA extends React.Component {
 		fetch(url, options)
 			.then(response => response.json())
 			.then(data => {
-				this.props.history.push('/tas');
+				window.location.reload();
 			})
 			.catch(err => {
 				console.log(err)
@@ -49,19 +49,18 @@ class AddTA extends React.Component {
 	}
 
 	handleChange = event => {
-		console.log(event.target.id + ': ' + event.target.value)
 		this.setState({
 			[event.target.id]: event.target.value
 		});
 	}
 
-	optionClicked(optionsList) {
-        this.setState({ courses: optionsList });
-  	}
+	// optionClicked(optionsList) {
+	// 	this.setState({ courses: optionsList });
+	// }
 
-  	selectedBadgeClicked(optionsList) {
-        this.setState({ courses: optionsList });
-  	}
+	// selectedBadgeClicked(optionsList) {
+	// 	this.setState({ courses: optionsList });
+	// }
 
 	render() {
 		const courses = this.props.courses;
@@ -76,15 +75,15 @@ class AddTA extends React.Component {
 		var { show, handleClose } = this.props;
 		const showHideClassName =  show  ? "pop-outer display-block" : "d-none";
 
-		const selectedOptionsStyles = {
-            color: "#3c763d",
-            backgroundColor: "#dff0d8"
-        };
+		// const selectedOptionsStyles = {
+		//     color: "#3c763d",
+		//     backgroundColor: "#dff0d8"
+		// };
 
-        const optionsListStyles = {
-            backgroundColor: "#dff0d8",
-            color: "#3c763d"
-        };
+		// const optionsListStyles = {
+		//     backgroundColor: "#dff0d8",
+		//     color: "#3c763d"
+		// };
 
 		return (
 			<div className={showHideClassName}> 

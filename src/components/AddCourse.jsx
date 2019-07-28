@@ -16,6 +16,8 @@ class AddCourse extends React.Component {
 	}
 
 	handleSubmit = event => {
+		event.preventDefault();
+		
 		let course = {
 			courseCode: this.state.courseCode,
 			courseName: this.state.courseName,
@@ -36,7 +38,8 @@ class AddCourse extends React.Component {
 		fetch(url, options)
 			.then(response => response.json())
 			.then(data => {
-				console.log(data);
+				// console.log(data);
+				window.location.reload();
 			})
 			.catch(err => {
 				console.log(err)
@@ -44,7 +47,6 @@ class AddCourse extends React.Component {
 	}
 
 	handleChange = event => {
-		console.log(event.target.id + ': ' + event.target.value)
 		this.setState({
 			[event.target.id]: event.target.value
 		});

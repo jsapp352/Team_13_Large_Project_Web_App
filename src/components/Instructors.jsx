@@ -1,7 +1,7 @@
 import React from "react";
 import { Table, Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faUserMinus, faUserEdit } from '@fortawesome/free-solid-svg-icons';
 import AddTA from './AddTA.jsx';
 
 class Instructors extends React.Component {
@@ -27,9 +27,13 @@ class Instructors extends React.Component {
 		const teachersTable = teachers.map(teacher => {
 			return (
 				<tr key={teacher.id}>
-			       	<td>{teacher.firstName}</td>
-			       	<td>{teacher.lastName}</td>
+			       	<td className="d-none d-sm-block">{teacher.firstName}</td>
+			       	<td >{teacher.lastName}</td>
 			       	<td className="d-none d-sm-block">{teacher.email}</td>
+			       	<td style={{whiteSpace: 'nowrap'}}>
+			       		<FontAwesomeIcon icon={faUserEdit} style={{marginRigth: '100px'}}/>&nbsp;&nbsp;&nbsp;
+			       		<FontAwesomeIcon icon={faUserMinus}/>
+			       	</td>
 		      	</tr>
 			)
 		});
@@ -37,23 +41,26 @@ class Instructors extends React.Component {
 		return (
 			<>
 				<div className="sub-title"><span id="top-line"/>Instructors</div>
-				<Table borderless striped hover responisve="true" className="header-fixed">
-					<thead style={{backgroundColor: 'rgba(0, 0, 0, 0.3)'}}>
-				     	<tr>
-					       	<th>First Name</th>
-					       	<th>Last Name</th>
-					       	<th className="d-none d-sm-block">Email</th>
-				     	</tr>
-					</thead>
-				   	<tbody>
-				     	{teachersTable}
-				   	</tbody>
-				</Table>
-				<Button onClick={this.showModal} className="add-ta"> 
-					Add Teacher <FontAwesomeIcon style={{margin: '0 10px'}} icon={faPlus} />
-				</Button>
+				<div style={{overflowX: 'auto', maxWidth: '100%'}}>
+					<Table borderless striped hover responisve="true">
+						<thead style={{backgroundColor: 'rgba(0, 0, 0, 0.3)'}}>
+					     	<tr>
+						       	<th className="d-none d-sm-block">First Name</th>
+						       	<th>Last Name</th>
+						       	<th className="d-none d-sm-block">Email</th>
+						       	<th>Options</th>
+					     	</tr>
+						</thead>
+					   	<tbody>
+					     	{teachersTable}
+					   	</tbody>
+					</Table>
+					<Button onClick={this.showModal} className="add-ta"> 
+						Add Teacher <FontAwesomeIcon style={{margin: '0 10px'}} icon={faPlus} />
+					</Button>
+				</div>
 
-				<AddTA show={this.state.show} handleClose={this.hideModal} />
+				{/*<AddTA show={this.state.show} handleClose={this.hideModal} />*/}
 			</>
 		)
 	}

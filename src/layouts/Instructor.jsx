@@ -20,6 +20,7 @@ class Instructor extends React.Component {
 	}
 
 	componentWillMount() {
+		let dupsIds = [];
         let taArray = [];
 		const url = "https://protected-shelf-85013.herokuapp.com/user/";
 
@@ -52,9 +53,11 @@ class Instructor extends React.Component {
                 				.then(tas => {
                 					// console.log('The TAs for ' + courses[i].courseName + ' are:' + JSON.stringify(tas))
                 					if (tas.length !== 0) {
-                						tas.map(item => {
-                							if (taArray.indexOf(item) === -1)
+                						tas.forEach((item) => {
+                							if (dupsIds.indexOf(item.userId) === -1) {
+                								dupsIds.push(item.userId);
                 								taArray.push(item)
+                							}
                 						});
                 						// console.log("TA ARRAY QUE LO QUEEE: " + taArray)
        									this.setState({

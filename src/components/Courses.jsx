@@ -1,7 +1,7 @@
 import React from "react";
 import { Card } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
+import { faPlusCircle, faMinus } from '@fortawesome/free-solid-svg-icons';
 import AddCourse from './AddCourse.jsx';
 
 class Courses extends React.Component {
@@ -29,12 +29,15 @@ class Courses extends React.Component {
 
 	render() {
 		let courseCards = []
+		const handleDelete = this.props;
 
 		if (this.state.courses.length > 0) {
 			courseCards = this.state.courses.map(course => {
 				return (
 					<Card key={course.courseId} className="course-card">
-						<Card.Header text="success" className="course-header" />
+						<Card.Header text="success" className="course-header">
+							<FontAwesomeIcon icon={faMinus} style={{float: 'right', color: '#fff'}}/>
+						</Card.Header>
 						<Card.Body>
 							{course.courseCode}:<br/>{course.courseName}
 						</Card.Body>
