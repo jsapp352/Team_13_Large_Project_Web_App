@@ -11,13 +11,13 @@ export default class EditCourse extends React.Component {
 	{
 		super();
 		this.state = {
-			email: props.teacher.email,
-			firstName: props.teacher.firstName,
-			lastName: props.teacher.lastName,
-			password: props.teacher.password,
-			username: props.teacher.username,
-			confirmed: props.teacher.password,
-			userId: props.teacher.userId,
+			email: props.course.email,
+			firstName: props.course.firstName,
+			lastName: props.course.lastName,
+			password: props.course.password,
+			username: props.course.username,
+			confirmed: props.course.password,
+			userId: props.course.userId,
 			tempPass:'temporary',
 			show: true,
 		}
@@ -108,7 +108,7 @@ export default class EditCourse extends React.Component {
 							<div className="text-right">
 								<Button type="submit" className="btn btn-dark"
 									onClick={this.handleSubmit}
-								>Submit</Button>
+								>Submit Changes</Button>
 							</div>
 						</Form>
 					</div>

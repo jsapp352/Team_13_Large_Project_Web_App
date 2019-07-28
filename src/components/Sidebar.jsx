@@ -82,17 +82,17 @@ class Sidebar extends React.Component {
 					<div className="line"/>
 				</div>
 			)			
-			menuItems.push(
-				<div key={4}>
-					<LinkContainer to="/stats">
-						<div className="menu-item">
-							<FontAwesomeIcon className="menu-icon" icon={faChartBar} />
-							<p>Statistics</p>
-						</div>
-					</LinkContainer>
-					<div className="line"/>
-				</div>
-			)
+			// menuItems.push(
+			// 	<div key={4}>
+			// 		<LinkContainer to="/stats">
+			// 			<div className="menu-item">
+			// 				<FontAwesomeIcon className="menu-icon" icon={faChartBar} />
+			// 				<p>Statistics</p>
+			// 			</div>
+			// 		</LinkContainer>
+			// 		<div className="line"/>
+			// 	</div>
+			// )
 		}
 		else if (user === 'assistant') {
 			menuItems.length = 0;
