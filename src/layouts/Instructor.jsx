@@ -119,7 +119,6 @@ export default class Instructor extends React.Component {
   	}
 
 	render() {
-
 		return (
 			<Router>
 				<MainHeader key={this.state.taList.length} userInfo={this.state.userInfo} />

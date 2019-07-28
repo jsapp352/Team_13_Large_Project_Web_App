@@ -61,7 +61,6 @@ class Courses extends React.Component {
 	render() {
 
 		let courseCards = []
-		console.log(this.state)
 		if (this.state.courses.length > 0) {
 			courseCards = this.state.courses.map(course => {
 				if (course.active) {
