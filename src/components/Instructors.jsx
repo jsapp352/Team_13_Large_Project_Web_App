@@ -60,7 +60,7 @@ class Instructors extends React.Component {
 					</Button>
 				</div>
 
-				{/*<AddTA show={this.state.show} handleClose={this.hideModal} />*/}
+				<AddTA show={this.state.show} handleClose={this.hideModal} />
 			</>
 		)
 	}

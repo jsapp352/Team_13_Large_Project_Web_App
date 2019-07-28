@@ -12,12 +12,13 @@ class MainHeader extends React.Component {
 				lastName: '',
 				numberTas: '',
 				numberCourses: '',
+				activeTas: '',
+				activeCourses: ''
 			}
 		}
 	}
 
 	componentDidMount(props) {
-		// console.log('USERRR INFOO: ' + JSON.stringify(this.props.userInfo))
 		this.setState({userInfo: this.props.userInfo})
 	}
 
@@ -30,7 +31,7 @@ class MainHeader extends React.Component {
 				<div className="information">
 					<div className="circleContainer">
 						<div className="float-left d-none d-sm-block">
-							<div className="circle">{this.state.userInfo.numberTas}</div>
+							<div className="circle">{this.state.userInfo.activeTas}</div>
 							<span className="caption">TAs</span>
 						</div>
 						<div className="float-left">
@@ -38,7 +39,7 @@ class MainHeader extends React.Component {
 							<span className="caption" id="name">{this.state.userInfo.firstName} {this.state.userInfo.lastName}</span>
 						</div>
 						<div className="float-left d-none d-sm-block">
-							<div className="circle">{this.state.userInfo.numberCourses}</div>
+							<div className="circle">{this.state.userInfo.activeCourses}</div>
 							<span className="caption">COURSES</span>
 						</div>
 					</div>

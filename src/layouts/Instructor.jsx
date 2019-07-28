@@ -22,6 +22,7 @@ class Instructor extends React.Component {
 	componentWillMount() {
 		let dupsIds = [];
         let taArray = [];
+        let activeCourses = 0, activeTas = 0;
 		const url = "https://protected-shelf-85013.herokuapp.com/user/";
 
 		const options = {
@@ -33,40 +34,69 @@ class Instructor extends React.Component {
 			}
 		}
 
+		// Get current logged in user's id
 		fetch(url, options)
 			.then(response => response.json())
 			.then(data => {
-				// console.log("User ID: " + JSON.stringify(data))
 				this.setState({userId: data.userId})
 
                 const courseUrl = 'https://protected-shelf-85013.herokuapp.com/course/admin/user/' + data.userId + '/';
+                
+                // Get courses for current teacher
                 fetch(courseUrl)
                 	.then(res => res.json())
                 	.then(courses => {
-                		// console.log("Courses of this teacher!!: " + JSON.stringify(courses));
                 		this.setState({courseList: courses})
 
+                		// For each course in the list of courses, get its list of TAs
                 		for (let i = 0; i < courses.length; i++) {
+                			// Count if current course is active
+                			if (courses[i].active) 
+                				activeCourses++;
+
                 			const taUrl = 'https://protected-shelf-85013.herokuapp.com/user/teacher/course/' + courses[i].courseId + '/';
+                			
+                			// Get list of TAs for current course
                 			fetch(taUrl, options)
                 				.then(res => res.json())
                 				.then(tas => {
-                					// console.log('The TAs for ' + courses[i].courseName + ' are:' + JSON.stringify(tas))
                 					if (tas.length !== 0) {
                 						tas.forEach((item) => {
+                							// Do not count duplicate TAs
                 							if (dupsIds.indexOf(item.userId) === -1) {
                 								dupsIds.push(item.userId);
-                								taArray.push(item)
+
+                								if (item.active)
+                									activeTas++;
+
+                								let taInfo = {
+													"active": item.active,
+												    "email": item.email,
+												    "firstName": item.firstName,
+												    "kioskPin": item.kioskPin,
+												    "lastName": item.lastName,
+												    "password": item.password,
+												    "role": item.role,
+												    "taId": item.userId,
+												    "username": item.username,
+												    "course": courses[i].courseName,
+												    "courseId": courses[i].courseId,
+												    "userId": this.state.userId
+												}
+
+                								taArray.push(taInfo)
                 							}
                 						});
-                						// console.log("TA ARRAY QUE LO QUEEE: " + taArray)
+                						
        									this.setState({
        										taList: taArray, 
        										userInfo: {
        											firstName: data.firstName, 
 												lastName: data.lastName,
        											numberTas: taArray.length,
-       											numberCourses: courses.length
+       											numberCourses: courses.length,
+       											activeTas: activeTas,
+       											activeCourses: activeCourses
        										}
        									})
                 					}
@@ -79,8 +109,6 @@ class Instructor extends React.Component {
   	}
 
 	render() {
-		// console.log('INSTRUCTOR NOW WW' + JSON.stringify(this.state.taList))
-		// console.log('TAList?????' + this.state.taList);
 		return (
 			<Router>
 				<MainHeader key={this.state.taList.length} userInfo={this.state.userInfo} />
@@ -90,7 +118,7 @@ class Instructor extends React.Component {
 							<Sidebar userType="teacher" />
 							<div style={{width: '87%', height: 'auto', padding: '0 30px'}}>
 								<Switch>
-									<Route path="/courses" render={(props) => <Courses {...props} key={this.state.courseList} courses={this.state.courseList} />} />
+									<Route path="/courses" render={(props) => <Courses {...props} key={this.state.courseList} courses={this.state.courseList} handleDelete={this.handleDelete}/>} />
 	        						<Route path="/tas" render={(props) => <TAs {...props} key={this.state.taList.length} tas={this.state.taList} courses={this.state.courseList}/>} />
 	        						<Route path="/stats" component={Stats} />
 	        					</Switch>
