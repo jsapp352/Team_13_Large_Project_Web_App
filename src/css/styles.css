@@ -304,7 +304,7 @@ body {
 
 .header-fixed > tbody > tr > td,
 .header-fixed > thead > tr > th {
-    width: 33%;
+    width: 25%;
     float: left;
 }
 
@@ -362,4 +362,11 @@ body {
     padding: 6px 12px;
     cursor: pointer;
     margin: 0 0 10px!important;
+}
+
+#dropdown-basic-button {
+	float: right;
+	background-color: transparent;
+	border: none;
+	border-radius: 0;
 }

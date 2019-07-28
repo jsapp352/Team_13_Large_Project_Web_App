@@ -11,14 +11,11 @@ export default class EditCourse extends React.Component {
 	{
 		super();
 		this.state = {
-			email: props.course.email,
-			firstName: props.course.firstName,
-			lastName: props.course.lastName,
-			password: props.course.password,
-			username: props.course.username,
-			confirmed: props.course.password,
-			userId: props.course.userId,
-			tempPass:'temporary',
+			courseCode: props.course.courseCode,
+			courseId: props.course.courseId,
+			courseName: props.course.courseName,
+			semester: props.course.semester,
+			year: props.course.year,
 			show: true,
 		}
 		this.handleSubmit = this.handleSubmit.bind(this);
@@ -27,13 +24,12 @@ export default class EditCourse extends React.Component {
 	handleSubmit(event)
 	{
 		event.preventDefault();
-		let url ='https://protected-shelf-85013.herokuapp.com/user/admin/' + this.state.userId + '/'
+		let url ='https://protected-shelf-85013.herokuapp.com/course/teacher/' + this.state.courseId + '/'
 		let user = {
-			email: this.state.email,
-			firstName: this.state.firstName,
-			lastName: this.state.lastName,
-			password: this.state.password,
-			username: this.state.username
+			courseCode: ,
+			courseName: ,
+			semester: ,
+			year: ,
 		}
 		let options = {
 			method:'PUT',

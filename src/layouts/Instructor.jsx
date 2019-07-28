@@ -60,15 +60,30 @@ export default class Instructor extends React.Component {
                 			fetch(taUrl, options)
                 				.then(res => res.json())
                 				.then(tas => {
-                					if (tas.length !== 0) {
+               
                 						tas.forEach((item) => {
                 							// Do not count duplicate TAs
-                							if (dupsIds.indexOf(item.userId) === -1) {
-                								dupsIds.push(item.userId);
+                							// if (dupsIds.indexOf(item.userId) === -1) {
+                							// 	dupsIds.push(item.userId);
+											let flag = false;
+    										for(let k = 0; k < taArray.length; k++)
+											{
+												let id = item.userId;
+												if(taArray[k].taId === id)
+												{
+													flag = true;	
+													taArray[k].course = 'Multiple' 
+												}
+											}
+											
+													
 
-                								if (item.active)
+
+	            								if (item.active)
                 									activeTas++;
-
+											
+	
+	
                 								let taInfo = {
 													"active": item.active,
 												    "email": item.email,
@@ -84,10 +99,10 @@ export default class Instructor extends React.Component {
 												    "userId": this.state.userId
 												}
 
-                								taArray.push(taInfo)
-                							}
+                								if(!flag){taArray.push(taInfo)}
+                							// }
                 						});
-                						
+                						taArray.sort((a, b) => (a.lastName > b.lastName) ? 1 : -1)
        									this.setState({
        										taList: taArray, 
        										userInfo: {
@@ -95,11 +110,12 @@ export default class Instructor extends React.Component {
 												lastName: data.lastName,
        											numberTas: taArray.length,
        											numberCourses: courses.length,
-       											activeTas: activeTas,
+       											activeTas: this.state.taList.length,
        											activeCourses: activeCourses
        										}
        									})
-                					}
+
+                					
                 				})
                 		}
 
@@ -109,6 +125,7 @@ export default class Instructor extends React.Component {
   	}
 
 	render() {
+
 		return (
 			<Router>
 				<MainHeader key={this.state.taList.length} userInfo={this.state.userInfo} />
