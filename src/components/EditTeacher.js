@@ -126,7 +126,7 @@ export default class EditTeacher extends React.Component {
 							<div className="text-right">
 								<Button type="submit" className="btn btn-dark"
 									onClick={(event)=>this.handleSubmit(event)}
-								>Add</Button>
+								>Submit Changes</Button>
 							</div>
 						</Form>
 					</div>

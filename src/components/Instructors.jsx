@@ -60,7 +60,10 @@ class Instructors extends React.Component {
 				{
 					active.push(data[i])
 				}
-			}		
+			}	
+			active.sort((a, b) => (a.lastName > b.lastName) ? 1 : -1)
+			inactive.sort((a, b) => (a.lastName > b.lastName) ? 1 : -1)	
+				
 			this.setState({teacherList:active, inactiveTeachers:inactive, loading:false});
 			
 			// localStorage.setItem('teacherList', JSON.stringify(data));
@@ -254,6 +257,14 @@ class Instructors extends React.Component {
 							<div className="text-right">
 								<Button type="submit" className="btn btn-dark"
 									onClick={this.addTeacher}
+									disabled={
+											this.state.firstName === '' ||
+											this.state.lastName === '' ||
+											this.state.email === '' ||
+											this.state.password === '' ||
+											this.state.confirmed === '' ||
+											this.state.password !== this.state.confirmed
+											}
 								>Add</Button>
 							</div>
 						</Form>
