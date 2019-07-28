@@ -1,6 +1,6 @@
 import React from "react";
 import { Button, Form } from 'react-bootstrap';
-// import  MultiSelectReact  from 'multi-select-react';
+import MultiSelect from "@khanacademy/react-multi-select";
 
 class AddTA extends React.Component {
 	constructor() {
@@ -12,7 +12,8 @@ class AddTA extends React.Component {
 			firstName: '',
 			lastName: '',
 			password: '',
-			username: ''
+			username: '',
+			selected: []
 		}
 	}
 
@@ -20,7 +21,7 @@ class AddTA extends React.Component {
 		event.preventDefault();
 
 		let ta = {
-			courses: this.state.courses,
+			courses: this.state.selected.toString(),
 			email: this.state.email,
 			firstName: this.state.firstName,
 			lastName: this.state.lastName,
@@ -54,36 +55,24 @@ class AddTA extends React.Component {
 		});
 	}
 
-	// optionClicked(optionsList) {
-	// 	this.setState({ courses: optionsList });
-	// }
-
-	// selectedBadgeClicked(optionsList) {
-	// 	this.setState({ courses: optionsList });
-	// }
-
 	render() {
 		const courses = this.props.courses;
-		let optionList = [];
+		let options = [];
 		
 		if (courses.length > 0)	{
-			optionList = this.props.courses.map(course => {
-				return (<option key={course.courseId} value={course.courseId}>{course.courseName}</option>)
+			options = this.props.courses.map(course => {
+				return ({label: course.courseName, value: course.courseId});
 			});
 		}
+
+		const selected = this.state.selected;
+		console.log("Selected: " + selected);
+		console.log("Selected as string: " + selected.toString())
 
 		var { show, handleClose } = this.props;
 		const showHideClassName =  show  ? "pop-outer display-block" : "d-none";
 
-		// const selectedOptionsStyles = {
-		//     color: "#3c763d",
-		//     backgroundColor: "#dff0d8"
-		// };
-
-		// const optionsListStyles = {
-		//     backgroundColor: "#dff0d8",
-		//     color: "#3c763d"
-		// };
+		console.log('Options = ' + options)
 
 		return (
 			<div className={showHideClassName}> 
@@ -135,21 +124,11 @@ class AddTA extends React.Component {
 							<div className="form-row">
 								<div className="form-group col-md-6">
 									<label>Course</label>
-									{/*<MultiSelectReact
-							        	options={this.state.options} 
-							            optionClicked={this.optionClicked.bind(this)}
-							            selectedBadgeClicked={this.selectedBadgeClicked.bind(this)}
-							            selectedOptionsStyles={selectedOptionsStyles}
-							            optionsListStyles={optionsListStyles} 
-							            isTextWrap={true}
-							        />*/}
-									 <select type="text" className="form-control"
-										id="courses"
-										// value={this.state.courses}
-										onChange = {this.handleChange}
-										placeholder="Course">
-										{optionList}
-									</select>
+									<MultiSelect
+      									options={options}
+      									selected={selected}
+      									onSelectedChanged={selected => this.setState({selected})}
+    								/>
 								</div>
 								<div className="form-group col-md-6">
 									<label>Email</label>

@@ -13,6 +13,8 @@ class Instructor extends React.Component {
 
 		this.state = {
 			userId: '',
+			name: '',
+			last: '',
 			userInfo: {firstName: '', lastName: '', numberTas: 0, numberCourses: 0},
 			courseList: '',
 			taList: ''
@@ -30,7 +32,7 @@ class Instructor extends React.Component {
 			headers: { 
 				"Content-Type": "application/json; charset=UTF-8",
 				// "Authorization": localStorage.getItem("token")
-				"Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJyaWNrZCIsImV4cCI6MTU2NDk2NzUwMn0.T_DnDFqQJ0uwmlaAZkrfUhWUi3PDY5O0t9oYEfLbg5gaySg_XSqGTQ0cqKI8ju7kX8Hl122DLDl7DPukTYwUHA"
+				"Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJyaWNrZCIsImV4cCI6MTU2NTIwMjU5Mn0.MNEgrdSYmZFdkMZIsP1elAQlto7T_qoA6vjTtQIw3_hlChQwI6bLEC9dzHuA-wa9QqHoHCiBKtyrLc-bX8eteA"
 			}
 		}
 
@@ -38,7 +40,8 @@ class Instructor extends React.Component {
 		fetch(url, options)
 			.then(response => response.json())
 			.then(data => {
-				this.setState({userId: data.userId})
+				// console.log("User: " + JSON.stringify(data))
+				this.setState({userId: data.userId, name: data.firstName, last: data.lastName})
 
                 const courseUrl = 'https://protected-shelf-85013.herokuapp.com/course/admin/user/' + data.userId + '/';
                 
@@ -46,6 +49,7 @@ class Instructor extends React.Component {
                 fetch(courseUrl)
                 	.then(res => res.json())
                 	.then(courses => {
+	                	// console.log("Courses: " + JSON.stringify(courses))
                 		this.setState({courseList: courses})
 
                 		// For each course in the list of courses, get its list of TAs
@@ -60,39 +64,38 @@ class Instructor extends React.Component {
                 			fetch(taUrl, options)
                 				.then(res => res.json())
                 				.then(tas => {
+	                				// console.log("TAs for " + courses[i].courseName + ": " + JSON.stringify(tas))
                 					if (tas.length !== 0) {
                 						tas.forEach((item) => {
-                							// Do not count duplicate TAs
-                							if (dupsIds.indexOf(item.userId) === -1) {
-                								dupsIds.push(item.userId);
+                							// Do not count inactive or duplicate TAs
+            								if (item.active && dupsIds.indexOf(item.userId) === -1) {
+            									activeTas++;
+            									dupsIds.push(item.userId);
+            								}
 
-                								if (item.active)
-                									activeTas++;
+            								let taInfo = {
+												"active": item.active,
+											    "email": item.email,
+											    "firstName": item.firstName,
+											    "kioskPin": item.kioskPin,
+											    "lastName": item.lastName,
+											    "password": item.password,
+											    "role": item.role,
+											    "taId": item.userId,
+											    "username": item.username,
+											    "course": courses[i].courseName,
+											    "courseId": courses[i].courseId,
+											    "userId": this.state.userId
+											}
 
-                								let taInfo = {
-													"active": item.active,
-												    "email": item.email,
-												    "firstName": item.firstName,
-												    "kioskPin": item.kioskPin,
-												    "lastName": item.lastName,
-												    "password": item.password,
-												    "role": item.role,
-												    "taId": item.userId,
-												    "username": item.username,
-												    "course": courses[i].courseName,
-												    "courseId": courses[i].courseId,
-												    "userId": this.state.userId
-												}
-
-                								taArray.push(taInfo)
-                							}
+            								taArray.push(taInfo)	
                 						});
-                						
+
        									this.setState({
        										taList: taArray, 
        										userInfo: {
-       											firstName: data.firstName, 
-												lastName: data.lastName,
+       											firstName: this.state.name, 
+												lastName: this.state.last,
        											numberTas: taArray.length,
        											numberCourses: courses.length,
        											activeTas: activeTas,

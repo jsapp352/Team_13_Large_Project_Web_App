@@ -2,9 +2,8 @@ import React from "react";
 import { Link } from 'react-router-dom';
 import { Table, Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus, faUserEdit, faUserMinus } from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faUserEdit, faUserMinus, faChartArea } from '@fortawesome/free-solid-svg-icons';
 import AddTA from './AddTA.jsx';
-import Stats from './Stats.jsx';
 
 class TAs extends React.Component {
 	constructor(props) {
@@ -38,7 +37,7 @@ class TAs extends React.Component {
             method:'DELETE',
             headers: { 
             	"Content-Type": "application/json; charset=UTF-8",
-                "Authorization":"Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJyaWNrZCIsImV4cCI6MTU2NDk2NzUwMn0.T_DnDFqQJ0uwmlaAZkrfUhWUi3PDY5O0t9oYEfLbg5gaySg_XSqGTQ0cqKI8ju7kX8Hl122DLDl7DPukTYwUHA"
+                "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJyaWNrZCIsImV4cCI6MTU2NTIwMjU5Mn0.MNEgrdSYmZFdkMZIsP1elAQlto7T_qoA6vjTtQIw3_hlChQwI6bLEC9dzHuA-wa9QqHoHCiBKtyrLc-bX8eteA"
             }
         }
 
@@ -62,12 +61,22 @@ class TAs extends React.Component {
 				if (ta.active) {
 					return (
 						<tr key={ta.taId}>
-					       	<td className="d-table-cell">{ta.firstName}</td>
-					       	<td className="d-none d-sm-table-cell">{ta.lastName}</td>
-					       	<td className="d-none d-sm-table-cell">{ta.course}</td>
+					       	<td className="d-table-cell">
+					       		<Link to={{pathname: '/stats', state: {taInfo: ta}}}>{ta.firstName}</Link>
+					       	</td>
+					       	<td className="d-none d-sm-table-cell">
+					       		<Link to={{pathname: '/stats', state: {taInfo: ta}}}>{ta.lastName}</Link>
+					       	</td>
+					       	<td className="d-none d-sm-table-cell">
+					       		<Link to={{pathname: '/stats', state: {taInfo: ta}}}>{ta.course}</Link>
+					       	</td>
 					       	<td className="d-table-cell" style={{whiteSpace: 'nowrap'}}>
 					       		<FontAwesomeIcon icon={faUserEdit} style={{cursor: 'pointer'}}/>&nbsp;&nbsp;&nbsp;
 					       		<FontAwesomeIcon style={{cursor: 'pointer'}} onClick={() => this.removeTa(ta.taId)} icon={faUserMinus}/>
+					       		&nbsp;&nbsp;&nbsp;
+					       		<Link to={{pathname: '/stats', state: {taInfo: ta}}}>
+					       			<b><FontAwesomeIcon icon={faChartArea}/></b>
+					       		</Link>
 					       	</td>
 				      	</tr>
 					)
@@ -78,19 +87,21 @@ class TAs extends React.Component {
 		return (
 			<>
 				<div className="sub-title"><span id="top-line"/>Teaching Assistants</div>
-				<Table borderless striped hover responisve="true">
-					<thead style={{backgroundColor: 'rgba(0, 0, 0, 0.3)'}}>
-				     	<tr>
-					       	<th className="d-inline-table-cell">First Name</th>
-					       	<th className="d-none d-sm-table-cell">Last Name</th>
-					       	<th className="d-none d-sm-table-cell">Course</th>
-					       	<th className="d-table-cell">Options</th>
-				     	</tr>
-					</thead>
-				   <tbody>
-				     	{taTable}
-				   </tbody>
-				</Table>
+				<div className="scrollableWrapper">
+					<Table borderless striped hover responisve="true">
+						<thead style={{backgroundColor: 'rgba(0, 0, 0, 0.3)'}}>
+					     	<tr>
+						       	<th className="d-inline-table-cell">First Name</th>
+						       	<th className="d-none d-sm-table-cell">Last Name</th>
+						       	<th className="d-none d-sm-table-cell">Course</th>
+						       	<th className="d-table-cell">Options</th>
+					     	</tr>
+						</thead>
+					   <tbody>
+					     	{taTable}
+					   </tbody>
+					</Table>
+				</div>
 				<Button onClick={this.showModal} className="add-ta"> 
 					Add TA <FontAwesomeIcon style={{margin: '0 10px'}} icon={faPlus} />
 				</Button>
