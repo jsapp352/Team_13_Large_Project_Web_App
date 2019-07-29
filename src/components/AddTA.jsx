@@ -34,7 +34,8 @@ class AddTA extends React.Component {
 			method:'POST',
 			headers: { 
 				"Content-Type": "application/json; charset=UTF-8",
-				"Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJyaWNrZCIsImV4cCI6MTU2NTA0NjY0NX0.hWCit110CuqKWgTVhTYJnP5L1xFcT86azB4EpceAcw9L61q4XquzxAEu-uKhi97Ve3EF5KePZOXVqW59Uvac9Q"
+				"Authorization": localStorage.getItem("token")
+				// "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJyaWNrZCIsImV4cCI6MTU2NTA0NjY0NX0.hWCit110CuqKWgTVhTYJnP5L1xFcT86azB4EpceAcw9L61q4XquzxAEu-uKhi97Ve3EF5KePZOXVqW59Uvac9Q"
 			},
 			body: JSON.stringify(ta)	
 		}
@@ -60,15 +61,13 @@ class AddTA extends React.Component {
 		const courses = this.props.courses;
 		let options = [];
 		
-		if (courses.length > 0)	{
+		if (courses !== undefined && courses.length > 0)	{
 			options = this.props.courses.map(course => {
 				return ({label: course.courseName, value: course.courseId});
 			});
 		}
 
 		const selected = this.state.selected;
-		console.log("Selected: " + selected);
-		console.log("Selected as string: " + selected.toString())
 
 		var { show, handleClose } = this.props;
 		const showHideClassName =  show  ? "pop-outer display-block" : "d-none";

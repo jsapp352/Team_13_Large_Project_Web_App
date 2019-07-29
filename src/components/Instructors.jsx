@@ -188,7 +188,6 @@ class Instructors extends React.Component {
 						Add Teacher <FontAwesomeIcon style={{margin: '0 10px'}} icon={faPlus} />
 					</Button>
 				</div>
-		
 				<div className={showHideClassName}> 
 				<div className="pop-inner">
 					<div className="modal-header">

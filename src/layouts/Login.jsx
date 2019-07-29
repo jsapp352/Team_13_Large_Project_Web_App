@@ -1,7 +1,6 @@
 import React from "react";
 import background from '../img/hec.jpg';
 import { Card, Button, Form } from 'react-bootstrap';
-// import { withRouter } from 'react-router-dom';
 
 class Login extends React.Component {
 	constructor(props) {
@@ -27,7 +26,6 @@ class Login extends React.Component {
 
 	handleSubmit = event => {
 		event.preventDefault();
-		console.log("TYPEEEEE: " + this.state.userType);
 
 		const url = 'https://protected-shelf-85013.herokuapp.com/login';
 		const user = this.state.username;
@@ -37,8 +35,8 @@ class Login extends React.Component {
 			method : 'POST',
 			headers: { "Content-Type": "application/json; charset=UTF-8"},
 			body: JSON.stringify({
-				'username': 'admin',
-				'password': 'admin123'
+				'username': user,
+				'password': pass
 			})
 		}
 
@@ -62,9 +60,11 @@ class Login extends React.Component {
 					localStorage.setItem("token", q);
 					localStorage.setItem("userType", this.state.userType);
 
-					// This should change depending on the type of user...
 					const path = '/' + this.state.userType;
-					this.props.history.push(path); 
+					if (this.props.history !== undefined)
+						this.props.history.push(path); 
+					
+					window.location.reload();
 				}
 			})
 	}		

@@ -13,6 +13,8 @@ export default class Instructor extends React.Component {
 
 		this.state = {
 			userId: '',
+			name: '',
+			last: '',
 			userInfo: {firstName: '', lastName: '', numberTas: 0, numberCourses: 0},
 			courseList: '',
 			taList: ''
@@ -29,8 +31,8 @@ export default class Instructor extends React.Component {
 			method : "GET",
 			headers: { 
 				"Content-Type": "application/json; charset=UTF-8",
-				// "Authorization": localStorage.getItem("token")
-				"Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJyaWNrZCIsImV4cCI6MTU2NDk2NzUwMn0.T_DnDFqQJ0uwmlaAZkrfUhWUi3PDY5O0t9oYEfLbg5gaySg_XSqGTQ0cqKI8ju7kX8Hl122DLDl7DPukTYwUHA"
+				"Authorization": localStorage.getItem("token")
+				// "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJyaWNrZCIsImV4cCI6MTU2NTIwMjU5Mn0.MNEgrdSYmZFdkMZIsP1elAQlto7T_qoA6vjTtQIw3_hlChQwI6bLEC9dzHuA-wa9QqHoHCiBKtyrLc-bX8eteA"
 			}
 		}
 
@@ -38,16 +40,16 @@ export default class Instructor extends React.Component {
 		fetch(url, options)
 			.then(response => response.json())
 			.then(data => {
-				this.setState({userId: data.userId})
-
+				// console.log("User: " + JSON.stringify(data))
+				this.setState({userId: data.userId, name: data.firstName, last: data.lastName})
                 const courseUrl = 'https://protected-shelf-85013.herokuapp.com/course/admin/user/' + data.userId + '/';
                 
                 // Get courses for current teacher
                 fetch(courseUrl)
                 	.then(res => res.json())
                 	.then(courses => {
-
 						let courses_with_list;
+
                 		this.setState({courseList: courses})
 
                 		// For each course in the list of courses, get its list of TAs
@@ -55,13 +57,14 @@ export default class Instructor extends React.Component {
                 			// Count if current course is active
                 			if (courses[i].active) 
                 				activeCourses++;
-					
+
                 			const taUrl = 'https://protected-shelf-85013.herokuapp.com/user/teacher/course/' + courses[i].courseId + '/';
                 			
                 			// Get list of TAs for current course
                 			fetch(taUrl, options)
                 				.then(res => res.json())
                 				.then(tas => {
+                        
         						tas.forEach((item) => {
         							// Do not count duplicate TAs
         							// if (dupsIds.indexOf(item.userId) === -1) {
@@ -140,3 +143,5 @@ export default class Instructor extends React.Component {
 		);
 	}
 }
+
+export default Instructor;

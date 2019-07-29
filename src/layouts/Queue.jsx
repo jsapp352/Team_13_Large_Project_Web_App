@@ -173,6 +173,9 @@ class Queue extends React.Component {
 
 			}
 		}
+    
+		const loggedIn = (localStorage.getItem("isAuth") === 'true');
+		const path = loggedIn ? ('/' + localStorage.getItem("userType")) : '/';
 
 		return (
 			<div>
@@ -184,7 +187,7 @@ class Queue extends React.Component {
 				<div className="sidebar-long float-left">
 					<img alt="Cave Icon" src={ caveIcon } style={{cursor: 'pointer'}} onClick={this.reload}/>
 					<div className="line"></div>
-					<Link to="/"><FontAwesomeIcon icon={faSignInAlt} /></Link>
+					<Link to={path}><FontAwesomeIcon icon={faSignInAlt} /></Link>
 				</div>
 				<Container fluid style={{height: '90vh'}}>
 					<div style={{height: 'calc(100vh - 290px)', margin: '0'}}>
@@ -250,30 +253,5 @@ class Queue extends React.Component {
 		)
 	}
 }
-
-// <Table borderless hover responisve="true" style={{cursor: 'default', width: '100%'}}>
-// 	<thead style={{backgroundColor: 'rgba(0, 0, 0, 0.1)'}}>
-// 		<tr>
-// 			<th>#</th>
-// 			<th>Student</th>
-// 			<th>Waiting since</th>
-// 		</tr>
-// 	</thead>
-//   	<tbody style={{width: '100%'}}>
-// 		{waiting}
-//    	</tbody>
-// </Table>
-// <Table borderless hover responisve="true" style={{cursor: 'default', width: '100%'}}>
-// 	<thead style={{backgroundColor: 'rgba(0, 0, 0, 0.1)'}}>
-// 		<tr>
-// 			<th>#</th>
-// 			<th>Student</th>
-// 			<th>Help time</th>
-// 		</tr>
-// 	</thead>
-//   	<tbody style={{width: '100%'}}>
-// 		{progress}
-//    	</tbody>
-// </Table>
 
 export default Queue;
