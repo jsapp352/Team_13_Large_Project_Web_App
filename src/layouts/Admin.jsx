@@ -5,8 +5,8 @@ import Sidebar from '../components/Sidebar.jsx';
 import Instructors from '../components/Instructors.jsx';
 import { Container } from 'react-bootstrap';
 import Login from './Login'
-import { ClipLoader } from 'react-spinners';
-import { css } from '@emotion/core';
+// import { ClipLoader } from 'react-spinners';
+// import { css } from '@emotion/core';
 
 class Admin extends React.Component {
 	constructor()
@@ -73,9 +73,9 @@ class Admin extends React.Component {
 
 export default Admin;
 
-const override = css`
-    display: block;
-    margin: 0 auto;
-	padding: 50px;
-    border-color: orange;
-`;
+// const override = css`
+//     display: block;
+//     margin: 0 auto;
+// 	padding: 50px;
+//     border-color: orange;
+// `;

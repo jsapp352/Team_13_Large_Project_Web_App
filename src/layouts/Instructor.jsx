@@ -48,7 +48,7 @@ export default class Instructor extends React.Component {
                 fetch(courseUrl)
                 	.then(res => res.json())
                 	.then(courses => {
-						let courses_with_list;
+						// let courses_with_list;
 
                 		this.setState({courseList: courses})
 
@@ -67,8 +67,11 @@ export default class Instructor extends React.Component {
                         
         						tas.forEach((item) => {
         							// Do not count duplicate TAs
-        							// if (dupsIds.indexOf(item.userId) === -1) {
-        							// 	dupsIds.push(item.userId);
+        							if (item.active && dupsIds.indexOf(item.userId) === -1) {
+    									activeTas++;
+    									dupsIds.push(item.userId);
+    								}
+
 									let flag = false;
 									for(let k = 0; k < taArray.length; k++)
 									{
@@ -79,9 +82,6 @@ export default class Instructor extends React.Component {
 											taArray[k].course = 'Multiple' 
 										}
 									}
-									
-    								if (item.active)
-    									activeTas++;
 				
     								let taInfo = {
 										"active": item.active,
@@ -99,9 +99,10 @@ export default class Instructor extends React.Component {
 									    "userId": this.state.userId
 									}
 
-    								if(!flag){taArray.push(taInfo)}
-            							// }
+    								if(!flag) {
+    									taArray.push(taInfo)}
             						});
+        						
             						taArray.sort((a, b) => (a.lastName > b.lastName) ? 1 : -1)
    									this.setState({
    										taList: taArray, 
@@ -110,7 +111,7 @@ export default class Instructor extends React.Component {
 											lastName: data.lastName,
    											numberTas: taArray.length,
    											numberCourses: courses.length,
-   											activeTas: this.state.taList.length,
+   											activeTas: activeTas,
    											activeCourses: activeCourses
    										}
 									})
@@ -143,5 +144,3 @@ export default class Instructor extends React.Component {
 		);
 	}
 }
-
-export default Instructor;

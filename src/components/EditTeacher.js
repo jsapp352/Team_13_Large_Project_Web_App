@@ -1,8 +1,8 @@
 import React from "react";
 import { Button, Form } from 'react-bootstrap';
-import Admin from '../layouts/Admin'
-import { ClipLoader } from 'react-spinners';
-import { css } from '@emotion/core';
+// import Admin from '../layouts/Admin'
+// import { ClipLoader } from 'react-spinners';
+// import { css } from '@emotion/core';
 
 
 export default class EditTeacher extends React.Component {
@@ -136,9 +136,9 @@ export default class EditTeacher extends React.Component {
 	}
 }
 
-const override = css`
-    display: block;
-    margin: 0 auto;
-	padding: 50px;
-    border-color: orange;
-`;
+// const override = css`
+//     display: block;
+//     margin: 0 auto;
+// 	padding: 50px;
+//     border-color: orange;
+// `;

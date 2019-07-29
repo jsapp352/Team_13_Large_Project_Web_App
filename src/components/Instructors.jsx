@@ -1,8 +1,7 @@
 import React from "react";
 import { Table, Button, Form } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus, faMinus,  faUserMinus, faUserEdit } from '@fortawesome/free-solid-svg-icons';
-import Admin from '../layouts/Admin'
+import { faPlus,  faUserMinus, faUserEdit } from '@fortawesome/free-solid-svg-icons';
 import { ClipLoader } from 'react-spinners';
 import { css } from '@emotion/core';
 import EditTeacher from './EditTeacher.js'
@@ -14,7 +13,6 @@ class Instructors extends React.Component {
 		this.state = {
 			logout: false,
 			showAddModal: false,
-			teacherList: null,
 			show: false,
 			showForgot: false,
 			teacherList: [],

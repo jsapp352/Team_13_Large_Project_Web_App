@@ -2,10 +2,9 @@ import React from "react";
 import { Link } from 'react-router-dom';
 import { Card, Dropdown, DropdownButton } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlusCircle, faMinus } from '@fortawesome/free-solid-svg-icons';
+import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
 import AddCourse from './AddCourse.jsx';
 import EditTA from './EditTA.js'
-import { Link } from 'react-router-dom'
 
 class Courses extends React.Component {
 	constructor(props) {

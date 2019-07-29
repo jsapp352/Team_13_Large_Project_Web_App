@@ -168,7 +168,7 @@ class Queue extends React.Component {
 					});
 				}
 				else {
-					progress.push(<tr key={0} style={{position: 'absolute'}}><td>Waitlist empty.</td></tr>)
+					progress.push(<tr key={0}><td>Waitlist empty.</td></tr>)
 				}
 
 			}

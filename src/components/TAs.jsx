@@ -4,8 +4,9 @@ import { Table, Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faUserEdit, faUserMinus, faChartArea } from '@fortawesome/free-solid-svg-icons';
 import AddTA from './AddTA.jsx';
-import Stats from './Stats.jsx';
+// import Stats from './Stats.jsx';
 import EditTA from './EditTA.js'
+
 class TAs extends React.Component {
 	constructor(props) {
 		super(props);
@@ -59,7 +60,7 @@ class TAs extends React.Component {
 
 	render(props) {
 		let taTable = [];
-		let courseTas = [];
+		// let courseTas = [];
 
 		// if(this.props.location.state !== undefined)
 		// {
@@ -68,21 +69,20 @@ class TAs extends React.Component {
 		// }
 
 		if (this.state.tas !== undefined && this.state.tas.length > 0) {
+			let useTableForList = this.state.tas;
 
-		let useTableForList = this.state.tas;
-
-		if(this.props.location.state !== undefined)
-		{	
-			useTableForList = [];
-			let id = this.props.location.state.courseId;
-			for(let i = 0; i < this.state.tas.length; i++)
-			{
-				if(this.state.tas[i].courseId === id)
+			if(this.props.location.state !== undefined)
+			{	
+				useTableForList = [];
+				let id = this.props.location.state.courseId;
+				for(let i = 0; i < this.state.tas.length; i++)
 				{
-					useTableForList.push(this.state.tas[i]);
-				}	
+					if(this.state.tas[i].courseId === id)
+					{
+						useTableForList.push(this.state.tas[i]);
+					}	
+				}
 			}
-		}
 	
 			taTable = useTableForList.map(ta => {
 				if (ta.active) {
