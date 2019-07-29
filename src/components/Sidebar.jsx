@@ -11,6 +11,8 @@ class Sidebar extends React.Component {
 	
 	handleLogout = () => {
 		localStorage.removeItem("isAuth");
+		localStorage.removeItem("token");
+		localStorage.removeItem("userType");
 		this.props.history.push('/'); 
 		ReactDOM.unmountComponentAtNode(document.getElementById('root'));
 		ReactDOM.render(<Login />, document.getElementById('root'))
@@ -83,9 +85,9 @@ class Sidebar extends React.Component {
 			menuItems.length = 0;
 			menuItems.push(
 				<div key={5}>
-					<LinkContainer to="/ta-stats">
+					<LinkContainer to="/ta-courses">
 						<div className="menu-item">
-							<FontAwesomeIcon className="menu-icon" icon={faChartBar} />
+							<FontAwesomeIcon className="menu-icon" icon={faBook} />
 							<p>Statistics</p>
 						</div>
 					</LinkContainer>

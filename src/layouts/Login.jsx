@@ -37,8 +37,8 @@ class Login extends React.Component {
 			method : 'POST',
 			headers: { "Content-Type": "application/json; charset=UTF-8"},
 			body: JSON.stringify({
-				'username': 'admin',
-				'password': 'admin123'
+				'username': user,
+				'password': pass
 			})
 		}
 
@@ -64,7 +64,9 @@ class Login extends React.Component {
 
 					// This should change depending on the type of user...
 					const path = '/' + this.state.userType;
-					this.props.history.push(path); 
+					if (this.props.history !== undefined)
+						this.props.history.push(path); 
+					window.location.reload();
 				}
 			})
 	}		

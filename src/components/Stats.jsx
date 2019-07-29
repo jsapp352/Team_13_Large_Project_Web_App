@@ -13,7 +13,7 @@ class Stats extends React.Component {
 	}
 
 	componentDidMount() {
-		// console.log("State? " + JSON.stringify(this.state.ta))
+		console.log("State? " + JSON.stringify(this.state.ta))
 
 		const url = "https://protected-shelf-85013.herokuapp.com/session/ta/taSessions/";
 		let info;
