@@ -70,6 +70,18 @@ a:hover {
 	height: 100vh;
 }
 
+@media only screen and (max-width: 991px) {
+	.login-wrapper {
+		background-image: url(../img/hec.jpg);
+		background-position: center;
+		background-size: cover;
+	}
+
+	.login-wrapper .card-body {
+		box-shadow: 5px 5px 2px 1px rgba(0,0,0,.3)!important;
+	}
+}
+
 .card {
 	width: 80%;
 }
@@ -89,6 +101,14 @@ a:hover {
 
 .topBar {
 	background-color: #000; /* #e0b400; */
+	height: 60px;
+}
+
+.topBarQueue {
+	text-shadow: 2px 3px 2px rgba(0,0,0,0.89);
+	background-color: #e0b400;
+	background-image: url(../img/bg-ucf.png);
+	background-position: top;
 	height: 60px;
 }
 

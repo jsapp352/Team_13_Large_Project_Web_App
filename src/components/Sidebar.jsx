@@ -26,7 +26,7 @@ class Sidebar extends React.Component {
 				<div key={1}>
 					<LinkContainer to="/queue">
 						<div className="menu-item">
-							<img style={{width: '50px'}} src={caveIcon} />
+							<img alt="Cave Icon" style={{width: '50px'}} src={caveIcon} />
 							<p>Refresh</p>
 						</div>
 					</LinkContainer>

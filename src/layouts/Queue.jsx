@@ -177,12 +177,12 @@ class Queue extends React.Component {
 		return (
 			<div>
 				<Container fluid className="header">
-					<div className="topBar" style={{backgroundColor: '#E0B400'}}>
+					<div className="topBarQueue">
 						<div className="title">THE CAVE</div>
 					</div>
 				</Container>
 				<div className="sidebar-long float-left">
-					<img src={ caveIcon } style={{cursor: 'pointer'}} onClick={this.reload}/>
+					<img alt="Cave Icon" src={ caveIcon } style={{cursor: 'pointer'}} onClick={this.reload}/>
 					<div className="line"></div>
 					<Link to="/"><FontAwesomeIcon icon={faSignInAlt} /></Link>
 				</div>
