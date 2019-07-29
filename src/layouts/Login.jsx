@@ -133,7 +133,7 @@ class Login extends React.Component {
 									<Button disabled={!this.validateForm()} variant="dark" type="submit">
 										Login
 									</Button>
-								<Link className="m-sm-4" to='/queue'>Student? Click Here</Link>
+								<LinkContainer className="m-sm-4" to='/queue'>Student? Click Here</LinkContainer>
 								</Form>
 							</div>
 						</Card.Body>
