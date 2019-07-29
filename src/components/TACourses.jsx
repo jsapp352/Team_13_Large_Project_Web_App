@@ -1,9 +1,8 @@
 import React from "react";
 import { Link } from 'react-router-dom';
-import { Card, Dropdown, DropdownButton } from 'react-bootstrap';
+import { Card } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlusCircle } from '@fortawesome/free-solid-svg-icons';
-import AddCourse from './AddCourse.jsx';
 
 class Courses extends React.Component {
 	constructor(props) {

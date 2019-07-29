@@ -33,7 +33,8 @@ class AddTA extends React.Component {
 			method:'POST',
 			headers: { 
 				"Content-Type": "application/json; charset=UTF-8",
-				"Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJyaWNrZCIsImV4cCI6MTU2NTA0NjY0NX0.hWCit110CuqKWgTVhTYJnP5L1xFcT86azB4EpceAcw9L61q4XquzxAEu-uKhi97Ve3EF5KePZOXVqW59Uvac9Q"
+				"Authorization": localStorage.getItem("token")
+				// "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJyaWNrZCIsImV4cCI6MTU2NTA0NjY0NX0.hWCit110CuqKWgTVhTYJnP5L1xFcT86azB4EpceAcw9L61q4XquzxAEu-uKhi97Ve3EF5KePZOXVqW59Uvac9Q"
 			},
 			body: JSON.stringify(ta)	
 		}

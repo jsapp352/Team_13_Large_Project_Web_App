@@ -37,7 +37,8 @@ class TAs extends React.Component {
             method:'DELETE',
             headers: { 
             	"Content-Type": "application/json; charset=UTF-8",
-                "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJyaWNrZCIsImV4cCI6MTU2NTIwMjU5Mn0.MNEgrdSYmZFdkMZIsP1elAQlto7T_qoA6vjTtQIw3_hlChQwI6bLEC9dzHuA-wa9QqHoHCiBKtyrLc-bX8eteA"
+            	"Authorization": localStorage.getItem("token")
+                // "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJyaWNrZCIsImV4cCI6MTU2NTIwMjU5Mn0.MNEgrdSYmZFdkMZIsP1elAQlto7T_qoA6vjTtQIw3_hlChQwI6bLEC9dzHuA-wa9QqHoHCiBKtyrLc-bX8eteA"
             }
         }
 

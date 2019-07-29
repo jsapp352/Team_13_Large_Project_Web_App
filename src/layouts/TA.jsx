@@ -26,8 +26,8 @@ class TA extends React.Component {
 			method : "GET",
 			headers: { 
 				"Content-Type": "application/json; charset=UTF-8",
-				// "Authorization": localStorage.getItem("token")
-				"Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzZXh0aW5hYSIsImV4cCI6MTU2NTI4MDI0Nn0.-7NHGhtkqSrWlHnITaRNAK85WwFU6DZuzaAUhiPtSYHoIrZNjZQsKgCWS6ggPs16P6m8K-_7TIAgWejPQhIVzw"
+				"Authorization": localStorage.getItem("token")
+				// "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJzZXh0aW5hYSIsImV4cCI6MTU2NTI4MDI0Nn0.-7NHGhtkqSrWlHnITaRNAK85WwFU6DZuzaAUhiPtSYHoIrZNjZQsKgCWS6ggPs16P6m8K-_7TIAgWejPQhIVzw"
 			}
 		}
 

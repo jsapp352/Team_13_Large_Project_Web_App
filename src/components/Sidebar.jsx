@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import { withRouter } from 'react-router-dom';
 import { LinkContainer } from "react-router-bootstrap";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBook, faUsers, faChartBar, faSignOutAlt, faSignInAlt } from '@fortawesome/free-solid-svg-icons';
+import { faBook, faUsers, faSignOutAlt, faSignInAlt } from '@fortawesome/free-solid-svg-icons';
 import Login from "../layouts/Login";
 import caveIcon from '../img/cave.png'
 
@@ -98,7 +98,7 @@ class Sidebar extends React.Component {
 
 		if (user !== 'any') {
 			menuItems.push(
-				<div className="menu-item" onClick={this.handleLogout}>
+				<div key={0} className="menu-item" onClick={this.handleLogout}>
 					<FontAwesomeIcon className="menu-icon" icon={faSignOutAlt} />
 					<p>Log Out</p>
 				</div>
