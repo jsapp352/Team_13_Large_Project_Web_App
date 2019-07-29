@@ -70,6 +70,18 @@ a:hover {
 	height: 100vh;
 }
 
+@media only screen and (max-width: 991px) {
+	.login-wrapper {
+		background-image: url(../img/hec.jpg);
+		background-position: center;
+		background-size: cover;
+	}
+
+	.login-wrapper .card-body {
+		box-shadow: 5px 5px 2px 1px rgba(0,0,0,.3)!important;
+	}
+}
+
 .card {
 	width: 80%;
 }
@@ -89,6 +101,14 @@ a:hover {
 
 .topBar {
 	background-color: #000; /* #e0b400; */
+	height: 60px;
+}
+
+.topBarQueue {
+	text-shadow: 2px 3px 2px rgba(0,0,0,0.89);
+	background-color: #e0b400;
+	background-image: url(../img/bg-ucf.png);
+	background-position: top;
 	height: 60px;
 }
 
@@ -319,28 +339,9 @@ a:hover {
 	}
 }
 
-.react-tabs__tab-list {
-    border-bottom: none!important;
-    margin: 0 0 10px;
-    padding: 0;
-}
+.custom select {
+	margin: 10px 0 20px 0;
 
-.react-tabs__tab--selected {
-    background: #fff;
-    color: black;
-    border-radius: 0!important;
-}
-
-.react-tabs__tab {
-    display: inline-block;
-    border: none!important;
-    border-bottom: none;
-    bottom: -1px;
-    position: relative;
-    list-style: none;
-    padding: 6px 12px;
-    cursor: pointer;
-    margin: 0 0 10px!important;
 }
 
 #dropdown-basic-button {
@@ -348,4 +349,92 @@ a:hover {
 	background-color: transparent;
 	border: none;
 	border-radius: 0;
+}
+
+/* =================================== */
+
+.queueWrap {
+	display: flex;
+	align-items: flex-start;
+	justify-content: space-between;
+	flex-wrap: no-wrap;
+	height: 100%;
+	margin: 0 auto;
+	width: 90vw;
+	padding-top: 50px;
+}
+
+.table-wrap {
+	width: 87%;
+	height: auto;
+	padding: 0 30px;
+}
+
+.sidebar-long {
+	display: none;
+}
+
+.accordion {
+	border-radius: 0!important;
+}
+
+.accordion .card {
+	border-radius: 0!important;
+	background-color: transparent;
+    border: none;
+    margin-bottom: 10px;
+}
+
+.accordion .card-header {
+	cursor: pointer;
+	border-radius: 0!important;
+	background-color: rgba(0, 0, 0, 0.3);
+	color: #000;
+	font-size: 1.05em;
+	font-weight: 500;
+}
+
+.accordion .table tbody{
+	white-space: nowrap;
+}
+
+@media only screen and (max-width: 575px) {
+	.queueWrap {
+		width: auto;
+	}
+
+	.table-wrap {
+		width: 100vw;
+	}
+
+	.sidebar-long {
+		display: block;
+		left: 0!important;
+	    text-align: center;
+	    background-color: #fff;
+	    width: 60px;
+	    height: 100vh;
+	    border-right: 1px solid #ededed;
+	}
+
+	.sidebar-long img {
+	    width: 40px;
+	    margin-top: 10px;
+	}
+
+	.sidebar-long svg {
+	    font-size: 2em;
+	    margin-top: 30px;
+	}
+
+	.last {
+	    margin-top: 510px !important;
+	}
+
+	.line {
+	    width: 60%;
+	    margin: 0 auto;
+	    margin-top: 10px;
+	    border-top: 1px solid #ededed;
+	}
 }

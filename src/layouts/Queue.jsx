@@ -1,151 +1,247 @@
 import React from 'react'
-import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
-import "react-tabs/style/react-tabs.css";
-import { ClipLoader } from 'react-spinners';
-import { Table, Container } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+import { Table, Container, Accordion, Card } from 'react-bootstrap';
 import Sidebar from '../components/Sidebar.jsx';
-//import DataControl from './DataControl'
+import caveIcon from '../img/cave.png';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSignInAlt } from '@fortawesome/free-solid-svg-icons';
 
 class Queue extends React.Component {
 	constructor() {
 		super();
 		this.state = {
-			current_course: 0,
-			current_list: [],
-			course_list: [],
-			course_ids: [],
+			sessions: [],
+			inProgress: [],
 			courses: [],
-			waitlist: [],
-			loading1: true,
-			loading: true,
-			courses_and_lists: []
+			selected: 0
 		}
 	}
 
 	componentWillMount() {
-		let course_arr = [];
-		let course_ids = [];
-		let temp_list = [];
-		let obj_arr = [];
-		let tabing = []
-		let eachTab = []
-		let fullTab = []
+		let courses = [];
+		let sessionsList = [];
+		let inProgressList = [];
 
 		let url = 'https://protected-shelf-85013.herokuapp.com/course/'
 		fetch(url)
 			.then(response => response.json())
 			.then(data => {
+				// console.log("ALL courses: " + JSON.stringify(data))
 				for (let i = 0; i < data.length; i++) {
 					if (data[i].active) {
-						course_arr.push(data[i].courseName)
-						course_ids.push(data[i].courseId)
+						courses.push(data[i]);
+						this.setState({courses: courses})
 
-						let obj_state = {};
+						let waitingSession = {};
 						fetch('https://protected-shelf-85013.herokuapp.com/session/waiting/' + data[i].courseId + '/')
 							.then(resp => resp.json())
 							.then(list => {
-								obj_state.course_title = data[i].courseName
-								obj_state.courseId = data[i].courseId
-								obj_state.waitlist = list
-								this.setState({loading: true})
-							})
+								waitingSession.courseName = data[i].courseName;
+								waitingSession.courseId = data[i].courseId;
+								waitingSession.waitlist = list;
 
-						obj_arr.push(obj_state);
+								sessionsList.push(waitingSession);
+								
+								this.setState({sessions: sessionsList});
+							})
+							.catch(e => console.log("Error: " + e))
+
+						let inProgressSession = {};
+						fetch('https://protected-shelf-85013.herokuapp.com/session/inProgress/' + data[i].courseId + '/')
+							.then(resp => resp.json())
+							.then(list => {
+								inProgressSession.courseName = data[i].courseName;
+								inProgressSession.courseId = data[i].courseId;
+								inProgressSession.list = list;
+
+								inProgressList.push(inProgressSession);
+								
+								this.setState({inProgress: inProgressList});
+							})
+							.catch(e => console.log("Error: " + e))
 					}
 				}
-
-				this.setState({courses: course_arr})
-				this.setState({course_ids: course_ids})
-				// this.setState({ courses_and_lists: obj_arr })
 			});
-
-		this.setState({courses_and_lists: obj_arr})
-		this.setState({loading1: false })
 	}
 
-	
+	handleChange = event => {
+		console.log("Selected: " + event.target.value)
+    	this.setState({selected: event.target.value});
+  	}
+
+  	formatTime(hours, minutes) {
+  		console.log("Hours: " + hours)
+  		console.log("Minutes: " + minutes)
+		let ext = (hours < 12) ? 'AM' : 'PM'
+
+		if (hours > 12) 
+			hours = hours % 12;
+
+		if (hours === 0)
+			hours = 12;
+
+		let h = hours.toString();
+		let m = minutes.toString();
+
+		if (h.length === 1)
+			h = '0' + h;
+
+		if (m.length === 1)
+			m = '0' + m;
+
+		let time = h + ':' + m + ' ' + ext;
+
+		return time;
+	}
+
+	reload(event) {
+		event.preventDefault();
+		window.location.reload();
+	}
+
 	render() {
-		let arrya = []
-		let courses = this.state.courses.length
-		let tabList = this.state.courses.map((data, index) => <Tab key={index}>  {data}</Tab>)
-		let dataList = []
-		// this.state.courses_and_lists.map((data,index) => <div>{data.waitlist.studentName}</div>)
-		// let panelList = []
+		let courseList = this.state.courses;
+		let options = [];
+		let waiting = [], progress = [];
 
-		if (this.state.courses_and_lists[2] !== undefined)
-		{
-			// console.log("it is not undefined")
-			if (this.state.courses_and_lists[2].waitlist !== undefined)
-			{
-				// console.log(this.state.courses_and_lists[2].waitlist)   
-			}
+		if (courseList !== undefined) {
+			options = courseList.map(item => {
+				return (<option key={item.courseId} value={item.courseId}>{item.courseName}</option>)
+			})
 		}
-		
-		// panelList.push(<TabPanel>{dataList}</TabPanel>)
-		let sPanel = []
 
-		if (this.state.courses_and_lists !== undefined)
-		{
-			for (let i = 0; i < this.state.courses_and_lists.length; i++)
-			{
-				let panelList = []
-				if (this.state.courses_and_lists[i] !== undefined)
-				{
-					// console.log(this.state.courses_and_lists[i])
-					if (this.state.courses_and_lists[i].waitlist !== undefined ) 
-					{
-						// console.log(this.state.courses_and_lists[i].waitlist)
-						for (let j = 0; j < this.state.courses_and_lists[i].waitlist.length; j++)
-						{
-							panelList.push(
-								<tr style={{width: '100%', display: 'inline-block'}}>
-									<td style={{width: '10%', display: 'inline-block'}}>{j+1}</td>
-									<td style={{width: '45%', display: 'inline-block'}}>{this.state.courses_and_lists[i].waitlist[j].studentName}</td>
-									<td style={{width: '40%', display: 'inline-block'}}>{(j+1)*10} min.</td>
-								</tr>
-								
-							)
-						}
-					}
+		options.unshift(<option key={0} value={0}> </option>)
+
+		if (this.state.sessions.length > 0) {
+			let objIndex = -1;
+
+			for (let i = 0; i < this.state.sessions.length; i++) {
+				if (this.state.sessions[i].courseId.toString() === this.state.selected) {
+					objIndex = i;
+					break;
+				}
+			}
+
+			if (objIndex !== -1) {
+				let reversedArr = this.state.sessions[objIndex].waitlist.slice(0).reverse();
+				if (reversedArr.length > 0) {
+					waiting = reversedArr.map((person, index) => {
+						let time = new Date(person.startTime); // This is setting hour 4 hours less???
+						return (
+							<tr key={person.sessionId}>
+								<td>{index + 1}</td>
+								<td>{person.studentName}</td>
+								<td>{this.formatTime(time.getHours(), time.getMinutes())}</td>
+							</tr>
+						);
+					});
+				}
+				else {
+					waiting.push(<tr key={0} style={{position: 'absolute'}}><td>Waitlist empty.</td></tr>)
 				}
 
-				sPanel.push(panelList) 
-				console.log(panelList)
 			}
-		}     
-		
-		let i = 0;
+		}
+
+		if (this.state.inProgress.length > 0) {
+			let objIndex = -1;
+
+			for (let i = 0; i < this.state.inProgress.length; i++) {
+				if (this.state.inProgress[i].courseId.toString() === this.state.selected) {
+					objIndex = i;
+					break;
+				}
+			}
+
+			if (objIndex !== -1) {
+				let reversedArr = this.state.inProgress[objIndex].list.slice(0).reverse();
+				if (reversedArr.length > 0) {
+					progress = reversedArr.map((person, index) => {
+						let time = new Date(person.helpTime);
+						return (
+							<tr key={person.sessionId}>
+								<td>{index + 1}</td>
+								<td>{person.studentName}</td>
+								<td>{this.formatTime(time.getHours(), time.getMinutes())}</td>
+							</tr>
+						);
+					});
+				}
+				else {
+					progress.push(<tr key={0} style={{position: 'absolute'}}><td>Waitlist empty.</td></tr>)
+				}
+
+			}
+		}
 
 		return (
 			<div>
 				<Container fluid className="header">
-					<div className="topBar" style={{backgroundColor: '#E0B400'}}>
+					<div className="topBarQueue">
 						<div className="title">THE CAVE</div>
 					</div>
 				</Container>
+				<div className="sidebar-long float-left">
+					<img alt="Cave Icon" src={ caveIcon } style={{cursor: 'pointer'}} onClick={this.reload}/>
+					<div className="line"></div>
+					<Link to="/"><FontAwesomeIcon icon={faSignInAlt} /></Link>
+				</div>
 				<Container fluid style={{height: '90vh'}}>
 					<div style={{height: 'calc(100vh - 290px)', margin: '0'}}>
-						<div style={{display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', flexWrap: 'no-wrap', height: '100%', margin: '0 auto', width: '90vw', paddingTop: '50px'}}>
+						<div className="queueWrap">
 							<Sidebar userType="any" />
-							<div style={{width: '87%', height: 'auto', padding: '0 30px'}}>
-								<div className="sub-title"><span id="top-line"/>Queue</div>
-								<Tabs style={{borderRadius: '0'}}>
-									<TabList>
-										{tabList}
-									</TabList>
-									<Table borderless hover responisve="true" className="header-fixed" style={{cursor: 'default', width: '100%'}}>
-										<thead style={{backgroundColor: 'rgba(0, 0, 0, 0.1)'}}>
-											<tr>
-												<th style={{width: '10%'}}>#</th>
-												<th style={{width: '45%'}}>Student</th>
-												<th style={{width: '40%'}}>Wait Time</th>
-											</tr>
-										</thead>
-									   <tbody style={{width: '100%'}}>
-											{sPanel.map((data, index) => <TabPanel key ={index}><div>{data}</div></TabPanel>)}
-									   </tbody>
-									</Table>
-								</Tabs>
+							<div className="table-wrap">
+								<div className="sub-title"><span id="top-line"/>Current Queue</div>
+								<div className="custom">
+									Select a course:<br/>
+									<select value={this.state.value} onChange={this.handleChange}>
+										{options}
+									</select>
+								</div>
+								<Accordion className="accordion" defaultActiveKey="0">
+									<Card>
+										<Accordion.Toggle as={Card.Header} eventKey="0">
+											Waiting Sessions
+										</Accordion.Toggle>
+										<Accordion.Collapse eventKey="0">
+											<div className="scrollableWrapper">
+												<Table borderless hover responisve="true" style={{cursor: 'default', width: '100%'}}>
+													<thead style={{backgroundColor: 'rgba(0, 0, 0, 0.1)'}}>
+														<tr>
+															<th>#</th>
+															<th>Student</th>
+															<th>Waiting since</th>
+														</tr>
+													</thead>
+												  	<tbody style={{width: '100%'}}>
+														{waiting}
+												   	</tbody>
+												</Table>
+											</div>
+										</Accordion.Collapse>
+									</Card>
+									<Card>
+										<Accordion.Toggle as={Card.Header} eventKey="1">
+											In Progress Sessions
+										</Accordion.Toggle>
+										<Accordion.Collapse eventKey="1">
+											<div className="scrollableWrapper">
+												<Table borderless hover responisve="true" style={{cursor: 'default', width: '100%'}}>
+													<thead style={{backgroundColor: 'rgba(0, 0, 0, 0.1)'}}>
+														<tr>
+															<th>#</th>
+															<th>Student</th>
+															<th>Help time</th>
+														</tr>
+													</thead>
+												  	<tbody style={{width: '100%'}}>
+														{progress}
+												   	</tbody>
+												</Table>
+											</div>
+										</Accordion.Collapse>
+										</Card>
+								</Accordion>
 							</div>
 						</div>
 					</div>
@@ -155,22 +251,29 @@ class Queue extends React.Component {
 	}
 }
 
-				// <Table borderless striped hover responisve="true" className="header-fixed">
-				//     <thead style={{backgroundColor: 'rgba(0, 0, 0, 0.3)'}}>
-				//          <tr>
-				//                <th>First Name</th>
-				//                <th>Last Name</th>
-				//                <th className="d-none d-sm-block">Course</th>
-				//          </tr>
-				//     </thead>
-				//    <tbody>
-				//          {taTable}
-				//    </tbody>
-				// </Table>
-				// <Button onClick={this.showModal} className="add-ta"> 
-				//     Add TA <FontAwesomeIcon style={{margin: '0 10px'}} icon={faPlus} />
-				// </Button>
-
-				// <AddTA show={this.state.show} handleClose={this.hideModal} />
+// <Table borderless hover responisve="true" style={{cursor: 'default', width: '100%'}}>
+// 	<thead style={{backgroundColor: 'rgba(0, 0, 0, 0.1)'}}>
+// 		<tr>
+// 			<th>#</th>
+// 			<th>Student</th>
+// 			<th>Waiting since</th>
+// 		</tr>
+// 	</thead>
+//   	<tbody style={{width: '100%'}}>
+// 		{waiting}
+//    	</tbody>
+// </Table>
+// <Table borderless hover responisve="true" style={{cursor: 'default', width: '100%'}}>
+// 	<thead style={{backgroundColor: 'rgba(0, 0, 0, 0.1)'}}>
+// 		<tr>
+// 			<th>#</th>
+// 			<th>Student</th>
+// 			<th>Help time</th>
+// 		</tr>
+// 	</thead>
+//   	<tbody style={{width: '100%'}}>
+// 		{progress}
+//    	</tbody>
+// </Table>
 
 export default Queue;

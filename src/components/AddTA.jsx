@@ -13,7 +13,8 @@ class AddTA extends React.Component {
 			lastName: '',
 			password: '',
 			username: '',
-			selected: []
+			selected: [],
+			username_error: false,
 		}
 	}
 
