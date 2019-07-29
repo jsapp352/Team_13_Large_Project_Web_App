@@ -1,7 +1,9 @@
 import React from "react";
 import background from '../img/hec.jpg';
 import { Card, Button, Form } from 'react-bootstrap';
-
+import { Link } from 'react-router-dom';
+import Queue from './Queue'
+import IncorrectInfo from '../components/IncorrectInfo'
 class Login extends React.Component {
 	constructor(props) {
 		super(props);
@@ -10,8 +12,11 @@ class Login extends React.Component {
 			userId: 0,
 			username : "",
 			password : "",
-			userType : "admin"
+			userType : "admin",
+			error: false,
 		};
+		this.hideModal = this.hideModal.bind(this);
+		this.showModal = this.showModal.bind(this);
 	}
 
 	validateForm() {
@@ -51,6 +56,7 @@ class Login extends React.Component {
 			.then(() => {
 				if (q == null) {
 					console.log("Wrong password.");
+					this.setState({error:true})
 					this.props.userHasAuthenticated(false);
 				}
 				else {
@@ -67,7 +73,16 @@ class Login extends React.Component {
 					window.location.reload();
 				}
 			})
-	}		
+	}	
+	
+	hideModal()
+	{
+		this.setState({error: false})
+	}	
+	showModal()
+	{
+		this.setState({error:true})
+	}
 
 	render() {
 		return (
@@ -118,11 +133,14 @@ class Login extends React.Component {
 									<Button disabled={!this.validateForm()} variant="dark" type="submit">
 										Login
 									</Button>
+								<Link className="m-sm-4" to='/queue'>Student? Click Here</Link>
 								</Form>
 							</div>
 						</Card.Body>
 					</Card>
 				</div>
+				<IncorrectInfo show={this.state.error} hideModal={this.hideModal} />
+
 			</>
 		)
 	}
