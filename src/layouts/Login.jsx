@@ -1,7 +1,7 @@
 import React from "react";
 import background from '../img/hec.jpg';
 import { Card, Button, Form } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link ,BrowserRouter as Router} from 'react-router-dom';
 import Queue from './Queue'
 import IncorrectInfo from '../components/IncorrectInfo'
 class Login extends React.Component {
@@ -133,7 +133,8 @@ class Login extends React.Component {
 									<Button disabled={!this.validateForm()} variant="dark" type="submit">
 										Login
 									</Button>
-								<LinkContainer className="m-sm-4" to='/queue'>Student? Click Here</LinkContainer>
+						
+								<Router><Link className="m-sm-4" to='/queue'>Student? Click Here</Link></Router>
 								</Form>
 							</div>
 						</Card.Body>
