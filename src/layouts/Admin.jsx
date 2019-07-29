@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
+import { Route, Link ,BrowserRouter as Router, Switch } from 'react-router-dom';
 import Header from '../components/Header.jsx';
 import Sidebar from '../components/Sidebar.jsx';
 import Instructors from '../components/Instructors.jsx';
@@ -29,6 +29,8 @@ class Admin extends React.Component {
 
 	componentWillMount()
 	{
+		let token = localStorage.getItem('token');
+
 		let url ='https://protected-shelf-85013.herokuapp.com/user/admin/'
 		let options = {
 			method:'GET',
@@ -48,7 +50,9 @@ class Admin extends React.Component {
 	render() {
 		if(this.state.logout)
 		{
-			return(<Login />);
+			return(<Router>
+					<Link to="/login"/>
+	        	</Router>);
 		}
 
 		return (

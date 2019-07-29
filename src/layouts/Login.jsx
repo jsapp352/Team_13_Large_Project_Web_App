@@ -45,27 +45,23 @@ class Login extends React.Component {
 			})
 		}
 
-		console.log("User: " + user + " | Password: " + pass);
-
 		let q = '';
 		fetch(url, options)
 			.then(response => {
 				q = response.headers.get('authorization');
-				console.log(q); // Delete this before production.
 			})
 			.then(() => {
 				if (q == null) {
-					console.log("Wrong password.");
 					this.setState({error:true})
-					this.props.userHasAuthenticated(false);
+
+					// this.props.userHasAuthenticated(false);
 				}
 				else {
-					console.log("Good.");
 					// this.props.userHasAuthenticated(false);
 					localStorage.setItem("isAuth", true);
 					localStorage.setItem("token", q);
 					localStorage.setItem("userType", this.state.userType);
-
+			
 					const path = '/' + this.state.userType;
 					if (this.props.history !== undefined)
 						this.props.history.push(path); 
@@ -86,7 +82,7 @@ class Login extends React.Component {
 
 	render() {
 		return (
-			<>
+			<div>
 				<div className="cover d-none d-md-none d-lg-block" style={{backgroundImage: 'url(' + background + ')'}}>
 					<div className="stripe" style={{backgroundColor: 'black'}} />
 					<div className="stripe" style={{backgroundColor: '#D39700'}} />
@@ -141,8 +137,7 @@ class Login extends React.Component {
 					</Card>
 				</div>
 				<IncorrectInfo show={this.state.error} hideModal={this.hideModal} />
-
-			</>
+			</div>
 		)
 	}
 }

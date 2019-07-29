@@ -26,7 +26,7 @@ class Routes extends React.Component {
 
     render() {
         const childProps = this.props.childProps;
-        const validPaths = ['/', '/courses', '/tas', '/stats', '/ta-stats', '/instructors'];
+        const validPaths = ['/', '/courses', '/tas', '/stats', '/ta-stats', '/instructors', 'inactive'];
         const currentPath = window.location.pathname;
         const isValid = validPaths.indexOf(currentPath) > -1;
         const redirectToLogin = (!(localStorage.getItem("isAuth") === 'true')) ? (<Redirect to="/" />) : (<Redirect to={this.state.path} />);
