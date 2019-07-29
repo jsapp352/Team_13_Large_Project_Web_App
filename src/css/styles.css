@@ -319,28 +319,9 @@ a:hover {
 	}
 }
 
-.react-tabs__tab-list {
-    border-bottom: none!important;
-    margin: 0 0 10px;
-    padding: 0;
-}
+.custom select {
+	margin: 10px 0 20px 0;
 
-.react-tabs__tab--selected {
-    background: #fff;
-    color: black;
-    border-radius: 0!important;
-}
-
-.react-tabs__tab {
-    display: inline-block;
-    border: none!important;
-    border-bottom: none;
-    bottom: -1px;
-    position: relative;
-    list-style: none;
-    padding: 6px 12px;
-    cursor: pointer;
-    margin: 0 0 10px!important;
 }
 
 #dropdown-basic-button {
@@ -348,4 +329,60 @@ a:hover {
 	background-color: transparent;
 	border: none;
 	border-radius: 0;
+}
+
+/* =================================== */
+
+.queueWrap {
+	display: flex;
+	align-items: flex-start;
+	justify-content: space-between;
+	flex-wrap: no-wrap;
+	height: 100%;
+	margin: 0 auto;
+	width: 90vw;
+	padding-top: 50px;
+}
+
+.sidebar-long {
+	display: none;
+}
+
+
+
+@media only screen and (max-width: 575px) {
+	.queueWrap {
+		width: auto;
+	}
+
+	.sidebar-long {
+		display: block;
+		left: 0!important;
+	    text-align: center;
+	    background-color: #fff;
+	    width: 60px;
+	    height: 100vh;
+	    border-right: 1px solid #ededed;
+	}
+
+	.sidebar-long img {
+	    width: 40px;
+	    margin-top: 10px;
+	}
+
+	.sidebar-long svg {
+	    font-size: 2em;
+	    margin-top: 30px;
+	}
+
+	.last {
+	    margin-top: 510px !important;
+	}
+
+	.line {
+	    width: 60%;
+	    margin: 0 auto;
+	    margin-top: 10px;
+	    border-top: 1px solid #ededed;
+	}
 }

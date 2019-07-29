@@ -59,20 +59,16 @@ class AddTA extends React.Component {
 		const courses = this.props.courses;
 		let options = [];
 		
-		if (courses.length > 0)	{
+		if (courses !== undefined && courses.length > 0)	{
 			options = this.props.courses.map(course => {
 				return ({label: course.courseName, value: course.courseId});
 			});
 		}
 
 		const selected = this.state.selected;
-		console.log("Selected: " + selected);
-		console.log("Selected as string: " + selected.toString())
 
 		var { show, handleClose } = this.props;
 		const showHideClassName =  show  ? "pop-outer display-block" : "d-none";
-
-		console.log('Options = ' + options)
 
 		return (
 			<div className={showHideClassName}> 

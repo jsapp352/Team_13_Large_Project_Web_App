@@ -5,6 +5,7 @@ import { LinkContainer } from "react-router-bootstrap";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBook, faUsers, faChartBar, faSignOutAlt, faSignInAlt } from '@fortawesome/free-solid-svg-icons';
 import Login from "../layouts/Login";
+import caveIcon from '../img/cave.png'
 
 class Sidebar extends React.Component {	
 	
@@ -23,13 +24,19 @@ class Sidebar extends React.Component {
 			menuItems.length = 0;
 			menuItems.push(
 				<div key={1}>
+					<LinkContainer to="/queue">
+						<div className="menu-item">
+							<img style={{width: '50px'}} src={caveIcon} />
+							<p>Refresh</p>
+						</div>
+					</LinkContainer>
+					<div className="line"/>
 					<LinkContainer to="/">
 						<div className="menu-item">
 							<FontAwesomeIcon className="menu-icon" icon={faSignInAlt} />
 							<p>Login</p>
 						</div>
 					</LinkContainer>
-					<div className="line"/>
 				</div>
 			)
 		}
@@ -71,17 +78,6 @@ class Sidebar extends React.Component {
 					<div className="line"/>
 				</div>
 			)			
-			// menuItems.push(
-			// 	<div key={4}>
-			// 		<LinkContainer to="/stats">
-			// 			<div className="menu-item">
-			// 				<FontAwesomeIcon className="menu-icon" icon={faChartBar} />
-			// 				<p>Statistics</p>
-			// 			</div>
-			// 		</LinkContainer>
-			// 		<div className="line"/>
-			// 	</div>
-			// )
 		}
 		else if (user === 'assistant') {
 			menuItems.length = 0;
@@ -98,14 +94,18 @@ class Sidebar extends React.Component {
 			)
 		}
 
-		return (
-			<div className="sidebar d-none d-sm-block">
-				{ menuItems }
-
+		if (user !== 'any') {
+			menuItems.push(
 				<div className="menu-item" onClick={this.handleLogout}>
 					<FontAwesomeIcon className="menu-icon" icon={faSignOutAlt} />
 					<p>Log Out</p>
 				</div>
+			)
+		}
+
+		return (
+			<div className="sidebar d-none d-sm-block">
+				{ menuItems }
 			</div>
 		)
 	}
