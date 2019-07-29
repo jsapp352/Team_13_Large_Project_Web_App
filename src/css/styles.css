@@ -344,15 +344,47 @@ a:hover {
 	padding-top: 50px;
 }
 
+.table-wrap {
+	width: 87%;
+	height: auto;
+	padding: 0 30px;
+}
+
 .sidebar-long {
 	display: none;
 }
 
+.accordion {
+	border-radius: 0!important;
+}
 
+.accordion .card {
+	border-radius: 0!important;
+	background-color: transparent;
+    border: none;
+    margin-bottom: 10px;
+}
+
+.accordion .card-header {
+	cursor: pointer;
+	border-radius: 0!important;
+	background-color: rgba(0, 0, 0, 0.3);
+	color: #000;
+	font-size: 1.05em;
+	font-weight: 500;
+}
+
+.accordion .table tbody{
+	white-space: nowrap;
+}
 
 @media only screen and (max-width: 575px) {
 	.queueWrap {
 		width: auto;
+	}
+
+	.table-wrap {
+		width: 100vw;
 	}
 
 	.sidebar-long {
