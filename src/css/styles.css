@@ -40,6 +40,16 @@ body {
   	-moz-osx-font-smoothing: grayscale;
 }
 
+a {
+	text-decoration: none;
+	color: inherit;
+}
+
+a:hover {
+	text-decoration: none;
+	color: inherit;
+}
+
 .NotFound {
   padding-top: 100px;
   text-align: center;
@@ -275,41 +285,10 @@ body {
 	outline: 0!important;
 }
 
-.header-fixed {
-    width: 100%;
-}
-
-.header-fixed > thead,
-.header-fixed > tbody,
-.header-fixed > thead > tr,
-.header-fixed > tbody > tr,
-.header-fixed > thead > tr > th,
-.header-fixed > tbody > tr > td {
-    display: block;
-}
-
-.header-fixed > tbody > tr:after,
-.header-fixed > thead > tr:after {
-    content: ' ';
-    display: block;
-    visibility: hidden;
-    clear: both;
-}
-
-.header-fixed > tbody {
-    overflow-y: auto;
-    height: 250px;
-    cursor: pointer;
-}
-
-.header-fixed > tbody > tr > td,
-.header-fixed > thead > tr > th {
-    width: 25%;
-    float: left;
-}
-
-.stat-table > tbody {
-	height: 300px;
+.scrollableWrapper {
+	overflow:hidden;
+    overflow-y: scroll;
+    max-height: 350px;
 }
 
 .stat-table > tbody > tr > td,

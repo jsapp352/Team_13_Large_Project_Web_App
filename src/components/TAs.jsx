@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from 'react-router-dom';
 import { Table, Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus, faUserEdit, faUserMinus } from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faUserEdit, faUserMinus, faChartArea } from '@fortawesome/free-solid-svg-icons';
 import AddTA from './AddTA.jsx';
 import Stats from './Stats.jsx';
 import EditTA from './EditTA.js'
@@ -87,12 +87,23 @@ class TAs extends React.Component {
 				if (ta.active) {
 					return (
 						<tr key={ta.taId}>
-					       	<td className="d-table-cell">{ta.firstName}</td>
-					       	<td className="d-none d-sm-table-cell">{ta.lastName}</td>
+					       	<td className="d-table-cell">
+					       		<Link to={{pathname: '/stats', state: {taInfo: ta}}}>{ta.firstName}</Link>
+					       	</td>
+					       	<td className="d-none d-sm-table-cell">
+					       		<Link to={{pathname: '/stats', state: {taInfo: ta}}}>{ta.lastName}</Link>
+					       	</td>
+					       	<td className="d-none d-sm-table-cell">
+					       		<Link to={{pathname: '/stats', state: {taInfo: ta}}}>{ta.course}</Link>
+					       	</td>
 					       	<td className="d-table-cell" style={{whiteSpace: 'nowrap'}}>
 					       		<FontAwesomeIcon icon={faUserEdit} onClick={()=>{this.setState({editTa:true, ta_to_change:ta})}}style={{cursor: 'pointer'}}/>&nbsp;&nbsp;&nbsp;
 					       		<FontAwesomeIcon style={{cursor: 'pointer'}} onClick={() => this.removeTa(ta.taId)} icon={faUserMinus}/>
-					       	</td>
+					    		&nbsp;&nbsp;&nbsp;
+					       		<Link to={{pathname: '/stats', state: {taInfo: ta}}}>
+					       			<b><FontAwesomeIcon icon={faChartArea}/></b>
+					       		</Link>   
+							</td>
 				      	</tr>
 					)
 				}
@@ -107,7 +118,9 @@ class TAs extends React.Component {
 				     	<tr>
 					       	<th className="d-inline-table-cell">First Name</th>
 					       	<th className="d-none d-sm-table-cell">Last Name</th>
+							<th className="d-none d-sm-table-cell">Course</th>
 					       	<th className="d-table-cell">Options</th>
+						
 				     	</tr>
 					</thead>
 				   <tbody>
