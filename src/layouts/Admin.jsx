@@ -4,9 +4,53 @@ import Header from '../components/Header.jsx';
 import Sidebar from '../components/Sidebar.jsx';
 import Instructors from '../components/Instructors.jsx';
 import { Container } from 'react-bootstrap';
+import Login from './Login'
+import { ClipLoader } from 'react-spinners';
+import { css } from '@emotion/core';
 
 class Admin extends React.Component {
+	constructor()
+	{
+		super();
+		this.state = {
+			logout: false,
+			showAddModal: false,
+			teacherList: null,
+
+
+			email: '',
+			firstName: '',
+			lastName: '',
+			password: '',
+			username: '',
+		}
+
+	}
+
+	componentWillMount()
+	{
+		let url ='https://protected-shelf-85013.herokuapp.com/user/admin/'
+		let options = {
+			method:'GET',
+			headers: { 
+				"Content-Type": "application/json; charset=UTF-8",
+				"Authorization":'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTU2NDk1NzM5NH0.snNKzwTvMIZEU6VwOyhFHI9yvDqknJG9xgXTShG_SlR3P4FyHZhTmXUFKnRx1dC4hn9d6Wepd7t1Isq28WV5Yg'
+			},
+		}
+
+		fetch(url, options).then(response=>response.json()).then(data=>{
+			this.setState({teacherList:data});
+			
+			// localStorage.setItem('teacherList', JSON.stringify(data));
+		}).catch(err=>{console.log(err)})
+	}
+
 	render() {
+		if(this.state.logout)
+		{
+			return(<Login />);
+		}
+
 		return (
 			<Router>
 				<Header />
@@ -22,9 +66,16 @@ class Admin extends React.Component {
 						</div>
 					</div>
 				</Container>
-			</Router>	
+			</Router>
 		);
 	}
 }
 
 export default Admin;
+
+const override = css`
+    display: block;
+    margin: 0 auto;
+	padding: 50px;
+    border-color: orange;
+`;

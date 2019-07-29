@@ -7,7 +7,7 @@ import TAs from '../components/TAs.jsx';
 import Stats from '../components/Stats.jsx';
 import { Container } from 'react-bootstrap';
 
-class Instructor extends React.Component {
+export default class Instructor extends React.Component {
 	constructor(props) {
 		super(props);
 
@@ -42,14 +42,14 @@ class Instructor extends React.Component {
 			.then(data => {
 				// console.log("User: " + JSON.stringify(data))
 				this.setState({userId: data.userId, name: data.firstName, last: data.lastName})
-
                 const courseUrl = 'https://protected-shelf-85013.herokuapp.com/course/admin/user/' + data.userId + '/';
                 
                 // Get courses for current teacher
                 fetch(courseUrl)
                 	.then(res => res.json())
                 	.then(courses => {
-	                	// console.log("Courses: " + JSON.stringify(courses))
+						let courses_with_list;
+
                 		this.setState({courseList: courses})
 
                 		// For each course in the list of courses, get its list of TAs
@@ -64,48 +64,58 @@ class Instructor extends React.Component {
                 			fetch(taUrl, options)
                 				.then(res => res.json())
                 				.then(tas => {
-	                				// console.log("TAs for " + courses[i].courseName + ": " + JSON.stringify(tas))
-                					if (tas.length !== 0) {
-                						tas.forEach((item) => {
-                							// Do not count inactive or duplicate TAs
-            								if (item.active && dupsIds.indexOf(item.userId) === -1) {
-            									activeTas++;
-            									dupsIds.push(item.userId);
-            								}
+                        
+        						tas.forEach((item) => {
+        							// Do not count duplicate TAs
+        							// if (dupsIds.indexOf(item.userId) === -1) {
+        							// 	dupsIds.push(item.userId);
+									let flag = false;
+									for(let k = 0; k < taArray.length; k++)
+									{
+										let id = item.userId;
+										if(taArray[k].taId === id)
+										{
+											flag = true;	
+											taArray[k].course = 'Multiple' 
+										}
+									}
+									
+    								if (item.active)
+    									activeTas++;
+				
+    								let taInfo = {
+										"active": item.active,
+									    "email": item.email,
+									    "firstName": item.firstName,
+									    "kioskPin": item.kioskPin,
+									    "lastName": item.lastName,
+									    "password": item.password,
+									    "role": item.role,
+									    "taId": item.userId,
+									    "username": item.username,
+									    "course": courses[i].courseName,
+									    "courseId": courses[i].courseId,
+										
+									    "userId": this.state.userId
+									}
 
-            								let taInfo = {
-												"active": item.active,
-											    "email": item.email,
-											    "firstName": item.firstName,
-											    "kioskPin": item.kioskPin,
-											    "lastName": item.lastName,
-											    "password": item.password,
-											    "role": item.role,
-											    "taId": item.userId,
-											    "username": item.username,
-											    "course": courses[i].courseName,
-											    "courseId": courses[i].courseId,
-											    "userId": this.state.userId
-											}
-
-            								taArray.push(taInfo)	
-                						});
-
-       									this.setState({
-       										taList: taArray, 
-       										userInfo: {
-       											firstName: this.state.name, 
-												lastName: this.state.last,
-       											numberTas: taArray.length,
-       											numberCourses: courses.length,
-       											activeTas: activeTas,
-       											activeCourses: activeCourses
-       										}
-       									})
-                					}
-                				})
+    								if(!flag){taArray.push(taInfo)}
+            							// }
+            						});
+            						taArray.sort((a, b) => (a.lastName > b.lastName) ? 1 : -1)
+   									this.setState({
+   										taList: taArray, 
+   										userInfo: {
+   											firstName: data.firstName, 
+											lastName: data.lastName,
+   											numberTas: taArray.length,
+   											numberCourses: courses.length,
+   											activeTas: this.state.taList.length,
+   											activeCourses: activeCourses
+   										}
+									})
+            				})
                 		}
-
                 	})
 			})
 			.catch(e => console.log(e)) 

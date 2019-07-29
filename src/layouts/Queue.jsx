@@ -173,7 +173,7 @@ class Queue extends React.Component {
 
 			}
 		}
-
+    
 		const loggedIn = (localStorage.getItem("isAuth") === 'true');
 		const path = loggedIn ? ('/' + localStorage.getItem("userType")) : '/';
 

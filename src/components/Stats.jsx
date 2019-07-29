@@ -13,7 +13,7 @@ class Stats extends React.Component {
 	}
 
 	componentDidMount() {
-		console.log("State? " + JSON.stringify(this.state.ta))
+		// console.log("State? " + JSON.stringify(this.state.ta))
 
 		const url = "https://protected-shelf-85013.herokuapp.com/session/ta/taSessions/";
 		let info;
@@ -104,7 +104,7 @@ class Stats extends React.Component {
 		}
 
 		return (
-			<>
+			<div>
 				<div className="sub-title"><span id="top-line"/>Statistics</div>
 				<div>
 					<div className="scrollableWrapper">
@@ -132,7 +132,7 @@ class Stats extends React.Component {
 						<span>Average session duration: {this.secsToMinutes(this.state.avgTime)}</span>
 					</div>
 				</div>
-			</>
+			</div>
 		)
 	}
 }

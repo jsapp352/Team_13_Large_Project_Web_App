@@ -1,56 +1,52 @@
 import React from "react";
 import { Button, Form } from 'react-bootstrap';
+import Admin from '../layouts/Admin'
+import { ClipLoader } from 'react-spinners';
+import { css } from '@emotion/core';
 
-class AddCourse extends React.Component {
-	constructor() {
+
+export default class EditCourse extends React.Component {
+
+	constructor(props)
+	{
 		super();
-	
 		this.state = {
-			courseCode: '',
-			courseName: '',
-			semester: '',
-			year: '',
-
-			confirmed: ''
+			courseCode: props.course.courseCode,
+			courseId: props.course.courseId,
+			courseName: props.course.courseName,
+			semester: props.course.semester,
+			year: props.course.year,
+			show: true,
 		}
+		this.handleSubmit = this.handleSubmit.bind(this);
 	}
 
-	handleSubmit = event => {
+	handleSubmit(event)
+	{
 		event.preventDefault();
-		
-		let course = {
-			courseCode: this.state.courseCode,
-			courseName: this.state.courseName,
-			semester: this.state.semester,
-			year: this.state.year,
+		let url ='https://protected-shelf-85013.herokuapp.com/course/teacher/' + this.state.courseId + '/'
+		let user = {
+			courseCode: ,
+			courseName: ,
+			semester: ,
+			year: ,
 		}
-
 		let options = {
-			method:'POST',
-			headers: { 
-				"Content-Type": "application/json; charset=UTF-8",
-				"Authorization": localStorage.getItem("token")
-				// "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJyaWNrZCIsImV4cCI6MTU2NTIwMjU5Mn0.MNEgrdSYmZFdkMZIsP1elAQlto7T_qoA6vjTtQIw3_hlChQwI6bLEC9dzHuA-wa9QqHoHCiBKtyrLc-bX8eteA"
-			},
-			body: JSON.stringify(course),		
-		}
-
-		let url ='https://protected-shelf-85013.herokuapp.com/course/teacher/'
-		fetch(url, options)
-			.then(response => response.json())
-			.then(data => {
-				// console.log(data);
-				window.location.reload();
-			})
-			.catch(err => {
-				console.log(err)
-			})
+			method:'PUT',
+			headers: { "Content-Type": "application/json; charset=UTF-8",
+						"Authorization":"Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTU2NDk1MDYyMH0.RQb8qHaPvCDxMmZACbam_-wOksz1aYM3XkIcEHI_YQT_hvXLz8AOxxhqsL_UKphkzm02C_nOCukMF9p3UUn9LA"
+				},
+			body: JSON.stringify(user),
+					
+		}		
+		fetch(url, options).then(response=>response.json()).then(data=>{
+			this.setState({show:false})
+			window.location.reload();
+		})
 	}
 
-	handleChange = event => {
-		this.setState({
-			[event.target.id]: event.target.value
-		});
+	handleChange(event){
+		this.setState({[event.target.id]:event.target.value})
 	}
 
 	render() {
@@ -67,13 +63,13 @@ class AddCourse extends React.Component {
 						</Button>
 					</div>
 					<div className="modal-body">
-						<Form onSubmit={this.handleSubmit}>
+						<Form>
 							<div className="form-row">
 								<div className="form-group col-md-6">
 									<label>Course Name</label>
 									<input type="text" className="form-control" 
 										id="courseName"
-										value={this.state.courseName}
+										//value={}
 										onChange = {this.handleChange}
 										placeholder="Course Name" />
 								</div>
@@ -81,7 +77,7 @@ class AddCourse extends React.Component {
 									<label>Course Code</label>
 									<input type="text" className="form-control" 
 										id="courseCode" 
-										value={this.state.courseCode}
+										//value={}
 										onChange = {this.handleChange}
 										placeholder="Course Code" />
 								</div>
@@ -91,7 +87,7 @@ class AddCourse extends React.Component {
 									<label>Semester</label>
 									<input type="text" className="form-control" 
 										id="semester"
-										value={this.state.semester}
+										//value={}
 										onChange = {this.handleChange}
 										placeholder="Semester" />
 								</div>
@@ -99,14 +95,16 @@ class AddCourse extends React.Component {
 									<label>Year</label>
 									<input type="number" className="form-control" 
 										id="year" 
-										value={this.state.year}
+										//value={}
 										onChange = {this.handleChange}
 										placeholder="Year" />
 								</div>
 							</div>
 							<br />
 							<div className="text-right">
-								<Button type="submit" className="btn btn-dark">Submit</Button>
+								<Button type="submit" className="btn btn-dark"
+									onClick={this.handleSubmit}
+								>Submit Changes</Button>
 							</div>
 						</Form>
 					</div>
@@ -116,4 +114,9 @@ class AddCourse extends React.Component {
 	}
 }
 
-export default AddCourse;
+const override = css`
+    display: block;
+    margin: 0 auto;
+	padding: 50px;
+    border-color: orange;
+`;

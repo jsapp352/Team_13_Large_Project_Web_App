@@ -7,7 +7,7 @@ import { ClipLoader } from 'react-spinners';
 import { css } from '@emotion/core';
 import EditTeacher from './EditTeacher.js'
 
-class Instructors extends React.Component {
+export default class AdminInstructorView extends React.Component {
 	constructor()
 	{
 		super();
@@ -188,6 +188,7 @@ class Instructors extends React.Component {
 						Add Teacher <FontAwesomeIcon style={{margin: '0 10px'}} icon={faPlus} />
 					</Button>
 				</div>
+		
 				<div className={showHideClassName}> 
 				<div className="pop-inner">
 					<div className="modal-header">
@@ -276,7 +277,6 @@ class Instructors extends React.Component {
 	}
 }
 
-export default Instructors;
 const override = css`
     display: block;
     margin: 0 auto;
