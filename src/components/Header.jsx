@@ -47,11 +47,39 @@ class Header extends React.Component {
         var decryptedPinPlainText = decryptedPinBytes.toString(CryptoJS.enc.Utf8);
 
         // // Only include this for debugging
-        console.log(`Decrypted PIN ${decryptedPinPlainText}`);
+        // console.log(`Decrypted PIN ${decryptedPinPlainText}`);
 
-	}
         return decryptedPinPlainText;
     }
+
+	// decryptPin(pin) {
+		// if (pin !== undefined) {
+	 //        var CryptoJS = require("crypto-js");
+
+	 //        // This secret key phrase must match the one on the API server.
+	 //        // Should be replaced with environment variable.
+	 //        const keyString = "hurricanstrictor";
+
+	 //        // Convert the key string to a data array type
+	 //        // var key = CryptoJS.enc.Utf8.parse(keyString);
+
+	 //        // Decrypt the PIN
+	 //        var bytes = CryptoJS.AES.decrypt(pin, keyString, {
+  //           	mode: CryptoJS.mode.ECB,
+  //           	padding: CryptoJS.pad.Pkcs7
+  //       	});
+
+  //       	console.log("Bytes: " + bytes)
+
+	 //        var plaintext = bytes.toString(CryptoJS.enc.Utf8);
+
+	 //        console.log('PIN: ' + pin + ' | ' + plaintext);
+    	
+  //       	return plaintext;
+  //       }
+
+  		// return pin;
+    // }
 
 	reload(e) {
 		e.preventDefault();

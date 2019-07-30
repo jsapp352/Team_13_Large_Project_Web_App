@@ -100,7 +100,7 @@ class Sidebar extends React.Component {
 					<LinkContainer to="/ta-courses">
 						<div className="menu-item">
 							<FontAwesomeIcon className="menu-icon" icon={faBook} />
-							<p>Statistics</p>
+							<p>Courses</p>
 						</div>
 					</LinkContainer>
 					<div className="line"/>
