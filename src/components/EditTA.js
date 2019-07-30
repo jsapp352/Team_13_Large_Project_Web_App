@@ -23,11 +23,6 @@ export default class EditTA extends React.Component {
 		this.setState({[event.target.id]:event.target.value})
 	}
 
-	// componentWillMount()
-	// {
-	// 	// let url = 'https://protected-shelf-85013.herokuapp.com/course/ta';
-	// }
-
 	handleSubmit(event)
 	{
 		event.preventDefault();
@@ -42,8 +37,9 @@ export default class EditTA extends React.Component {
 		let token = localStorage.getItem('token')
 		let options = {
 			method:'PUT',
-			headers: { "Content-Type": "application/json; charset=UTF-8",
-					"Authorization": token
+			headers: { 
+				"Content-Type": "application/json; charset=UTF-8",
+				"Authorization": token
 			},
 			body: JSON.stringify(user),
 					

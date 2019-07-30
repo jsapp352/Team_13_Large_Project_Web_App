@@ -25,8 +25,8 @@ export default class InactiveInstructors extends React.Component {
 			method:'GET',
 			headers: { 
 				"Content-Type": "application/json; charset=UTF-8",
-				"Authorization":token
-			},
+				"Authorization": token
+			}
 		}
 
 		fetch(url, options).then(response=>response.json()).then(data=>{
@@ -58,20 +58,22 @@ export default class InactiveInstructors extends React.Component {
 		});
 		return (
 			<div>
-				<div className="sub-title"><span id="top-line"/>Instructors</div>
+				<div className="sub-title"><span id="top-line"/>Inactive Instructors</div>
 				<div style={{overflowX: 'auto', maxWidth: '100%'}}>
-					<Table borderless striped hover responisve="true">
-						<thead style={{backgroundColor: 'rgba(0, 0, 0, 0.3)'}}>
-					     	<tr>
-						       	<th className="d-none d-sm-block">First Name</th>
-						       	<th>Last Name</th>
-						       	<th className="d-none d-sm-block">Email</th>
-					     	</tr>
-						</thead>
-					   	<tbody>
-					     	{teachersTable}
-					   	</tbody>
-					</Table>
+					<div className="scrollableWrapper">
+						<Table borderless striped hover responisve="true">
+							<thead style={{backgroundColor: 'rgba(0, 0, 0, 0.3)'}}>
+						     	<tr>
+							       	<th>First Name</th>
+							       	<th>Last Name</th>
+							       	<th className="d-none d-sm-block">Email</th>
+						     	</tr>
+							</thead>
+						   	<tbody>
+						     	{teachersTable}
+						   	</tbody>
+						</Table>
+					</div>
 				</div>
 			</div>
 		)

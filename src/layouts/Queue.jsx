@@ -138,7 +138,7 @@ class Queue extends React.Component {
 					});
 				}
 				else {
-					waiting.push(<tr key={0} style={{position: 'absolute'}}><td>Waitlist empty.</td></tr>)
+					waiting.push(<tr key={0}><td>Waitlist empty.</td></tr>)
 				}
 
 			}
@@ -182,7 +182,7 @@ class Queue extends React.Component {
 			<div>
 				<Container fluid className="header">
 					<div className="topBarQueue">
-						<div className="title">THE CAVE</div>
+						<div onClick={this.reload} className="title">THE CAVE</div>
 					</div>
 				</Container>
 				<div className="sidebar-long float-left">

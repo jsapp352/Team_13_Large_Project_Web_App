@@ -47,7 +47,7 @@ class Routes extends React.Component {
                 {/* Routes for Admin layout */}
                 { (this.state.loggedIn) &&  <AppliedRoute path="/instructors" component={AdminView} props={childProps} /> }
             
-                { (this.state.loggedIn) &&  <AppliedRoute path="/inactive" component={InactiveInstructors} props={childProps} /> }
+                { (this.state.loggedIn) &&  <AppliedRoute path="/inactive" component={AdminView} props={childProps} /> }
                     
                 
                 <AppliedRoute path="/queue" component={Queue} props={childProps} />

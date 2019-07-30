@@ -37,11 +37,13 @@ export class AddTeacher extends React.Component {
 			username: this.state.username
 		}
 		let token = localStorage.getItem('token')
+		
 		let options = {
 			method:'POST',
-			headers: { "Content-Type": "application/json; charset=UTF-8",
-						"Authorization":token
-				},
+			headers: { 
+				"Content-Type": "application/json; charset=UTF-8",
+				"Authorization":token
+			},
 			body: JSON.stringify(user),
 					
 		}
