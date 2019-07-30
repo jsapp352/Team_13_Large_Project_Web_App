@@ -10,7 +10,7 @@ class Header extends React.Component {
 			firstName: '',
 			lastName: '',
 			role: '',
-			pin: 0
+			pin:'',
 		}
 		this.decryptPin = this. decryptPin.bind(this)
 	}
