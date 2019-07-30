@@ -23,32 +23,62 @@ class Header extends React.Component {
 		})
 	}
 
-	decryptPin(pin) {
-		if (pin !== undefined) {
-	        var CryptoJS = require("crypto-js");
+	decryptPin(encryptedPinString)
+    {
+        var CryptoJS = require("crypto-js");
 
-	        // This secret key phrase must match the one on the API server.
-	        // Should be replaced with environment variable.
-	        const keyString = "hurricanstrictor";
+        // This secret key phrase must match the one on the API server.
+        // Should be replaced with environment variable.
+        const keyString = "hurricanstrictor";
 
-	        // Convert the key string to a data array type
-	        // var key = CryptoJS.enc.Utf8.parse(keyString);
+        // Convert the key string to a data array type
+        var key = CryptoJS.enc.Utf8.parse(keyString);
+        console.log(key);
 
-	        // Decrypt the PIN
-	        var bytes = CryptoJS.AES.decrypt(pin, keyString, {
-            	mode: CryptoJS.mode.ECB,
-            	padding: CryptoJS.pad.Pkcs7
-        	});
+        var pinBytes = CryptoJS.enc.Hex.parse(encryptedPinString);
+        var ciphertext = pinBytes.toString(CryptoJS.enc.Base64);
 
-        	console.log("Bytes: " + bytes)
+        var decryptedPinBytes = CryptoJS.AES.decrypt(ciphertext, key, {
+            mode: CryptoJS.mode.ECB,
+            padding: CryptoJS.pad.Pkcs7,
+        });
 
-	        var plaintext = bytes.toString(CryptoJS.enc.Utf8);
+        var decryptedPinPlainText = decryptedPinBytes.toString(CryptoJS.enc.Utf8);
 
-	        console.log('PIN: ' + pin + ' | ' + plaintext);
-    	
-        	return plaintext;
-        }
+        // // Only include this for debugging
+        // console.log(`Decrypted PIN ${decryptedPinPlainText}`);
+
+        return decryptedPinPlainText;
     }
+
+	// decryptPin(pin) {
+		// if (pin !== undefined) {
+	 //        var CryptoJS = require("crypto-js");
+
+	 //        // This secret key phrase must match the one on the API server.
+	 //        // Should be replaced with environment variable.
+	 //        const keyString = "hurricanstrictor";
+
+	 //        // Convert the key string to a data array type
+	 //        // var key = CryptoJS.enc.Utf8.parse(keyString);
+
+	 //        // Decrypt the PIN
+	 //        var bytes = CryptoJS.AES.decrypt(pin, keyString, {
+  //           	mode: CryptoJS.mode.ECB,
+  //           	padding: CryptoJS.pad.Pkcs7
+  //       	});
+
+  //       	console.log("Bytes: " + bytes)
+
+	 //        var plaintext = bytes.toString(CryptoJS.enc.Utf8);
+
+	 //        console.log('PIN: ' + pin + ' | ' + plaintext);
+    	
+  //       	return plaintext;
+  //       }
+
+  		// return pin;
+    // }
 
 	reload(e) {
 		e.preventDefault();
