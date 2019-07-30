@@ -55,7 +55,7 @@ class Routes extends React.Component {
                 {/* Redirects user type to first element in sidebar */}
                 <Redirect from="/(admin|admins)" to="/instructors" />
                 <Redirect from="/(teacher|teachers)" to="/courses" />
-                <Redirect from="/(assistant|assistants)" to="/ta-courses" />
+                <Redirect from="/(assistant|assistants|TA)" to="/ta-courses" />
                 <Redirect from="/login" to="/" />
 
                 { isValid && redirectToLogin }
