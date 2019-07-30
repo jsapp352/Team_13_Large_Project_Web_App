@@ -1,16 +1,56 @@
 import React from 'react';
-// import logo from './logo.svg';
 import './css/styles.css';
-import InstructorView from './layouts/Instructor.jsx';
+import { BrowserRouter as Router } from 'react-router-dom';
+import Routes from "./Routes";
 
-function App() {
-	return (
-		<div>
-			<InstructorView />
-		</div>
+class App extends React.Component {
+	constructor(props) {
+	  	super(props);
 
-		// Use browser router.
-	);
+	  	this.state = {
+	    	isAuthenticated: false,
+	    	isAuthenticating: true
+	  	};
+	}
+
+	async componentDidMount() {
+		const auth = localStorage.getItem("isAuth");
+		console.log(auth);
+
+		if (auth !== null)
+			this.userHasAuthenticated(true);
+		else
+			this.userHasAuthenticated(false);
+
+		this.setState({ isAuthenticating: false });
+	}
+
+	userHasAuthenticated = authenticated => {
+		this.setState({ isAuthenticated: authenticated });
+	}
+
+	render() {
+		const childProps = {
+		  	isAuthenticated: this.state.isAuthenticated,
+		  	userHasAuthenticated: this.userHasAuthenticated
+		};
+
+		return (
+			!this.state.isAuthenticating &&
+			<Router>
+				<Routes childProps={childProps}/>
+			</Router>
+		)
+
+		// return (
+		// 	<Router>
+		// 		<div>
+		// 			<Route exact path="/" component={Login} />
+		// 			<Route path="/teachers" component={InstructorView} />
+		// 		</div>
+		// 	</Router>
+		// );
+	}
 }
 
 export default App;
