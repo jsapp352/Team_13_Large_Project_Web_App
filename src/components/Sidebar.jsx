@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import { withRouter } from 'react-router-dom';
 import { LinkContainer } from "react-router-bootstrap";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBook, faUsers, faSignOutAlt, faSignInAlt } from '@fortawesome/free-solid-svg-icons';
+import { faBook, faUsers, faSignOutAlt, faSignInAlt, faUserSlash } from '@fortawesome/free-solid-svg-icons';
 import Login from "../layouts/Login";
 import caveIcon from '../img/cave.png'
 import InactiveInstructors from './InactiveInstructors'
@@ -14,9 +14,9 @@ class Sidebar extends React.Component {
 		localStorage.removeItem("isAuth");
 		localStorage.removeItem("token");
 		localStorage.removeItem("userType");
+
 		this.props.history.push('/'); 
-		ReactDOM.unmountComponentAtNode(document.getElementById('root'));
-		ReactDOM.render(<Login />, document.getElementById('root'))
+		window.location.reload();
 	}
 
 	render() {
@@ -60,7 +60,7 @@ class Sidebar extends React.Component {
 				<div key={2}>
 					<LinkContainer to='/inactive'>
 						<div className="menu-item">
-							<FontAwesomeIcon className="menu-icon" icon={faUsers} />
+							<FontAwesomeIcon className="menu-icon" icon={faUserSlash} />
 							<p>Inactive Teachers</p>
 						</div>
 					</LinkContainer>

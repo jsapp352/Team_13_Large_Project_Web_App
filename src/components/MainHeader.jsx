@@ -24,6 +24,11 @@ class MainHeader extends React.Component {
 		this.setState({userInfo: this.props.userInfo})	
 	}
 
+	reload(e) {
+		e.preventDefault();
+		window.location.reload();
+	}
+
 	render() {
 		let courseNum = this.state.userInfo.activeCourses;
 		if(courseNum === undefined)
@@ -34,7 +39,7 @@ class MainHeader extends React.Component {
 		return (
 			<Container fluid className="header">
 				<div className="topBar">
-					<div className="title">THE CAVE</div>
+					<div onClick={this.reload} className="title">THE CAVE</div>
 				</div>
 				<div className="information">
 					<div className="circleContainer">

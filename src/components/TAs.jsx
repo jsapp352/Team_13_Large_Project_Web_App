@@ -114,20 +114,22 @@ class TAs extends React.Component {
 		return (
 			<div>
 				<div className="sub-title"><span id="top-line"/>Teaching Assistants</div>
-				<Table borderless striped hover responisve="true">
-					<thead style={{backgroundColor: 'rgba(0, 0, 0, 0.3)'}}>
-				     	<tr>
-					       	<th className="d-inline-table-cell">First Name</th>
-					       	<th className="d-none d-sm-table-cell">Last Name</th>
-							<th className="d-none d-sm-table-cell">Course</th>
-					       	<th className="d-table-cell">Options</th>
-						
-				     	</tr>
-					</thead>
-				   <tbody>
-				     	{taTable}
-				   </tbody>
-				</Table>
+				<div className="scrollableWrapper">
+					<Table borderless striped hover responisve="true">
+						<thead style={{backgroundColor: 'rgba(0, 0, 0, 0.3)'}}>
+					     	<tr>
+						       	<th className="d-inline-table-cell">First Name</th>
+						       	<th className="d-none d-sm-table-cell">Last Name</th>
+								<th className="d-none d-sm-table-cell">Course</th>
+						       	<th className="d-table-cell">Options</th>
+							
+					     	</tr>
+						</thead>
+					   <tbody>
+					     	{taTable}
+					   </tbody>
+					</Table>
+				</div>
 				<Button onClick={this.showModal} className="add-ta"> 
 					Add TA <FontAwesomeIcon style={{margin: '0 10px'}} icon={faPlus} />
 				</Button>

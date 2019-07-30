@@ -3,6 +3,7 @@ import { Route, Link ,BrowserRouter as Router, Switch } from 'react-router-dom';
 import Header from '../components/Header.jsx';
 import Sidebar from '../components/Sidebar.jsx';
 import Instructors from '../components/Instructors.jsx';
+import InactiveInstructors from '../components/InactiveInstructors.js';
 import { Container } from 'react-bootstrap';
 import Login from './Login'
 // import { ClipLoader } from 'react-spinners';
@@ -58,7 +59,7 @@ class Admin extends React.Component {
 
 		return (
 			<Router>
-				<Header />
+				<Header pin='0' role='admin'/>
 				<Container fluid style={{height: '80vh'}}>
 					<div style={{height: 'calc(100vh - 290px)', margin: '0'}}>
 						<div style={{display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', flexWrap: 'no-wrap', height: '100%', margin: '0 auto', width: '90vw', paddingTop: '50px'}}>
@@ -66,6 +67,7 @@ class Admin extends React.Component {
 							<div style={{width: '87%', height: 'auto', padding: '0 30px'}}>
 								<Switch>
 									<Route path="/instructors" component={Instructors} />
+									<Route path="/inactive" component={InactiveInstructors} />
 	        					</Switch>
 							</div>
 						</div>

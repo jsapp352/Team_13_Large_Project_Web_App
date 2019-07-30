@@ -47,7 +47,7 @@ class Routes extends React.Component {
                 {/* Routes for Admin layout */}
                 { (this.state.loggedIn) &&  <AppliedRoute path="/instructors" component={AdminView} props={childProps} /> }
             
-                { (this.state.loggedIn) &&  <AppliedRoute path="/inactive" component={InactiveInstructors} props={childProps} /> }
+                { (this.state.loggedIn) &&  <AppliedRoute path="/inactive" component={AdminView} props={childProps} /> }
                     
                 
                 <AppliedRoute path="/queue" component={Queue} props={childProps} />
@@ -55,7 +55,7 @@ class Routes extends React.Component {
                 {/* Redirects user type to first element in sidebar */}
                 <Redirect from="/(admin|admins)" to="/instructors" />
                 <Redirect from="/(teacher|teachers)" to="/courses" />
-                <Redirect from="/(assistant|assistants)" to="/ta-courses" />
+                <Redirect from="/(assistant|assistants|TA)" to="/ta-courses" />
                 <Redirect from="/login" to="/" />
 
                 { isValid && redirectToLogin }

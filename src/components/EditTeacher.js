@@ -39,9 +39,10 @@ export default class EditTeacher extends React.Component {
 		}
 		let options = {
 			method:'PUT',
-			headers: { "Content-Type": "application/json; charset=UTF-8",
-						"Authorization": token
-				},
+			headers: { 
+				"Content-Type": "application/json; charset=UTF-8",
+				"Authorization": token
+			},
 			body: JSON.stringify(user),
 					
 		}		

@@ -43,7 +43,7 @@ class Instructors extends React.Component {
 			method:'GET',
 			headers: { 
 				"Content-Type": "application/json; charset=UTF-8",
-				"Authorization":token
+				"Authorization": token
 			},
 		}
 
@@ -77,9 +77,11 @@ class Instructors extends React.Component {
 
 		let options = {
 			method:'DELETE',
-			headers: { "Content-Type": "application/json; charset=UTF-8",
-						"Authorization":"Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTU2NDk1MDYyMH0.RQb8qHaPvCDxMmZACbam_-wOksz1aYM3XkIcEHI_YQT_hvXLz8AOxxhqsL_UKphkzm02C_nOCukMF9p3UUn9LA"
-				},			
+			headers: { 
+				"Content-Type": "application/json; charset=UTF-8",
+				"Authorization": localStorage.getItem("token")
+				// "Authorization":"Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTU2NDk1MDYyMH0.RQb8qHaPvCDxMmZACbam_-wOksz1aYM3XkIcEHI_YQT_hvXLz8AOxxhqsL_UKphkzm02C_nOCukMF9p3UUn9LA"
+			},			
 		}
 
 		fetch(url, options).then(response=>response.json()).then(data=>{
@@ -101,9 +103,11 @@ class Instructors extends React.Component {
 
 		let options = {
 			method:'POST',
-			headers: { "Content-Type": "application/json; charset=UTF-8",
-						"Authorization":"Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTU2NDk1MDYyMH0.RQb8qHaPvCDxMmZACbam_-wOksz1aYM3XkIcEHI_YQT_hvXLz8AOxxhqsL_UKphkzm02C_nOCukMF9p3UUn9LA"
-				},
+			headers: { 
+				"Content-Type": "application/json; charset=UTF-8",
+				"Authorization": localStorage.getItem("token")
+				// "Authorization":"Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTU2NDk1MDYyMH0.RQb8qHaPvCDxMmZACbam_-wOksz1aYM3XkIcEHI_YQT_hvXLz8AOxxhqsL_UKphkzm02C_nOCukMF9p3UUn9LA"
+			},
 			body: JSON.stringify(user),
 					
 		}
@@ -171,19 +175,21 @@ class Instructors extends React.Component {
 			<div>
 				<div className="sub-title"><span id="top-line"/>Instructors</div>
 				<div style={{overflowX: 'auto', maxWidth: '100%'}}>
-					<Table borderless striped hover responisve="true">
-						<thead style={{backgroundColor: 'rgba(0, 0, 0, 0.3)'}}>
-					     	<tr>
-						       	<th className="d-none d-sm-block">First Name</th>
-						       	<th>Last Name</th>
-						       	<th className="d-none d-sm-block">Email</th>
-						       	<th>Options</th>
-					     	</tr>
-						</thead>
-					   	<tbody>
-					     	{teachersTable}
-					   	</tbody>
-					</Table>
+					<div className="scrollableWrapper">
+						<Table borderless striped hover responisve="true">
+							<thead style={{backgroundColor: 'rgba(0, 0, 0, 0.3)'}}>
+						     	<tr>
+							       	<th className="d-none d-sm-block">First Name</th>
+							       	<th>Last Name</th>
+							       	<th className="d-none d-sm-block">Email</th>
+							       	<th>Options</th>
+						     	</tr>
+							</thead>
+						   	<tbody>
+						     	{teachersTable}
+						   	</tbody>
+						</Table>
+					</div>
 					<Button onClick={this.showModal} className="add-ta"> 
 						Add Teacher <FontAwesomeIcon style={{margin: '0 10px'}} icon={faPlus} />
 					</Button>

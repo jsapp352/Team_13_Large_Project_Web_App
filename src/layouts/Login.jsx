@@ -1,9 +1,10 @@
 import React from "react";
 import background from '../img/hec.jpg';
 import { Card, Button, Form } from 'react-bootstrap';
-import { Link ,BrowserRouter as Router} from 'react-router-dom';
-import Queue from './Queue'
-import IncorrectInfo from '../components/IncorrectInfo'
+import { Link, BrowserRouter as Router} from 'react-router-dom';
+import Queue from './Queue';
+import IncorrectInfo from '../components/IncorrectInfo';
+
 class Login extends React.Component {
 	constructor(props) {
 		super(props);
@@ -49,48 +50,47 @@ class Login extends React.Component {
 		fetch(url, options)
 			.then(response => {
 				q = response.headers.get('authorization');
-				console.log(q)
+				// console.log(q)
 				let opt = {
 					method : 'GET',
-					headers: { "Content-Type": "application/json; charset=UTF-8",
-								"Authorization" : q
-						},
+					headers: { 
+						"Content-Type": "application/json; charset=UTF-8",
+						"Authorization" : q
+					},
 				}
-				console.log(opt)
+
+				// console.log(opt)
 				fetch('https://protected-shelf-85013.herokuapp.com/user/', opt)
-				.then(r=>r.json())
-				.then(user=>{
-					console.log(user)
-					this.setState({userType:user.role})
-				if (q == null) {
-					this.setState({error:true})
-				
-					// this.props.userHasAuthenticated(false);
-				}
-				else {
-					// this.props.userHasAuthenticated(false);
-					localStorage.setItem("isAuth", true);
-					localStorage.setItem("token", q);
-					localStorage.setItem("userType", this.state.userType);
+					.then(r => r.json())
+					.then(user => {
+						// console.log(user)
+						this.setState({userType: user.role})
+
+						if (q == null) {
+							this.setState({error:true})
+						}
+						else {
+							localStorage.setItem("isAuth", true);
+							localStorage.setItem("token", q);
+							localStorage.setItem("userType", this.state.userType);
 			
-					const path = '/' + this.state.userType;
-					if (this.props.history !== undefined)
-						this.props.history.push(path); 
+							const path = '/' + this.state.userType;
+							if (this.props.history !== undefined)
+								this.props.history.push(path); 
 					
-					// debugger;
-					window.location.reload();
-				}
-				})
+							// debugger;
+							window.location.reload();
+						}
+					})
 			
 			})
-			// .then(() => {
-			// })
 	}	
 	
 	hideModal()
 	{
 		this.setState({error: false})
 	}	
+
 	showModal()
 	{
 		this.setState({error:true})
@@ -146,7 +146,7 @@ class Login extends React.Component {
 										Login
 									</Button>
 						
-								<Router><Link className="m-sm-4" to='/queue'>Student? Click Here</Link></Router>
+									<Link to='/queue' className="queueLink"><b>Student?</b> See the live queue <u>here</u></Link>
 								</Form>
 							</div>
 						</Card.Body>

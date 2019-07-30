@@ -119,7 +119,19 @@ a:hover {
 	box-shadow: 5px 5px 2px 1px rgba(200,200,200,1);
 }
 
+.queueLink {
+	padding: 5px;
+	text-align: center;
+	background-color: rgba(0, 0, 0, 0.05);
+	width: auto;
+	margin-top: 25px;
+	display: block;
+	font-size: .9em;
+	/*float: right;*/
+}
+
 .title {
+	cursor: pointer;
 	color: #fff;
 	font-weight: 500;
 	letter-spacing: 0.5rem;
