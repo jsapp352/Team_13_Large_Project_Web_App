@@ -112,14 +112,7 @@ class Login extends React.Component {
 									<p> Sign in to continue </p><br/>
 								</div>
 								<Form onSubmit={this.handleSubmit}>
-									<Form.Group controlId="userType" className="selector">
-										<Form.Label>Type of user:</Form.Label>
-										<Form.Control as="select" onChange={this.handleChange}>
-											<option value="admin">Administrator</option>
-											<option value="teacher">Instructor</option>
-											<option value="assistant">Teaching Assistant</option>
-										</Form.Control>
-									</Form.Group>
+		
 									<Form.Group controlId="username">
 										<Form.Label>Username</Form.Label>
 										<Form.Control 
