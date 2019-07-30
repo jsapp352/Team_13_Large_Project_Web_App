@@ -59,7 +59,7 @@ class Admin extends React.Component {
 
 		return (
 			<Router>
-				<Header role='admin'/>
+				<Header pin='0' role='admin'/>
 				<Container fluid style={{height: '80vh'}}>
 					<div style={{height: 'calc(100vh - 290px)', margin: '0'}}>
 						<div style={{display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', flexWrap: 'no-wrap', height: '100%', margin: '0 auto', width: '90vw', paddingTop: '50px'}}>

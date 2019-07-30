@@ -9,7 +9,8 @@ class Header extends React.Component {
 		this.state = {
 			firstName: '',
 			lastName: '',
-			role: ''
+			role: '',
+			pin: 0
 		}
 	}
 
@@ -17,9 +18,37 @@ class Header extends React.Component {
 		this.setState({
 			firstName: this.props.firstName,
 			lastName: this.props.lastName,
-			role: this.props.role
+			role: this.props.role,
+			pin: this.props.pin
 		})
 	}
+
+	decryptPin(pin) {
+		if (pin !== undefined) {
+	        var CryptoJS = require("crypto-js");
+
+	        // This secret key phrase must match the one on the API server.
+	        // Should be replaced with environment variable.
+	        const keyString = "hurricanstrictor";
+
+	        // Convert the key string to a data array type
+	        // var key = CryptoJS.enc.Utf8.parse(keyString);
+
+	        // Decrypt the PIN
+	        var bytes = CryptoJS.AES.decrypt(pin, keyString, {
+            	mode: CryptoJS.mode.ECB,
+            	padding: CryptoJS.pad.Pkcs7
+        	});
+
+        	console.log("Bytes: " + bytes)
+
+	        var plaintext = bytes.toString(CryptoJS.enc.Utf8);
+
+	        console.log('PIN: ' + pin + ' | ' + plaintext);
+    	
+        	return plaintext;
+        }
+    }
 
 	reload(e) {
 		e.preventDefault();
@@ -32,6 +61,8 @@ class Header extends React.Component {
 
 		const path = (this.state.role === 'admin') ? '/admin' : '/assistant';
 
+		const pin = (this.state.role === 'admin') ? '' : ('Kiosk Pin: ' + this.decryptPin(this.state.pin));
+
 		return (
 			<Container fluid className="header">
 				<div className="topBar">
@@ -41,9 +72,11 @@ class Header extends React.Component {
 					<div className="anotherCircleContainer">
 						<div className="float-left" style={{margin: '0 40px'}}>
 							<Image className="circle" id="picture" src={pic} fluid roundedCircle />
-							<span className="caption" style={{whiteSpace: 'nowrap'}} id="name">
-								{user}
-							</span>
+							<div style={{float: 'right', textAlign: 'left', display: 'flex'}}>
+								<span className="caption" style={{whiteSpace: 'nowrap'}} id="name">
+									{user}<br/><span style={{fontWeight: '600', fontSize: '.6em'}}>{pin}</span>
+								</span>
+							</div>
 						</div>
 					</div>
 				</div>

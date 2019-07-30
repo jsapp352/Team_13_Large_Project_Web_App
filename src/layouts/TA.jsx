@@ -36,7 +36,7 @@ class TA extends React.Component {
 			.then(response => response.json())
 			.then(ta => {
 				console.log("User: " + JSON.stringify(ta))
-				this.setState({userId: ta.userId, name: ta.firstName, last: ta.lastName, ta: ta})
+				this.setState({userId: ta.userId, name: ta.firstName, last: ta.lastName, pin: ta.kioskPin, ta: ta})
 			})
 			.catch(e => console.log("Error: " + e))
 
@@ -55,7 +55,7 @@ class TA extends React.Component {
 		console.log(JSON.stringify(this.state.courses))
 		return (
 			<Router>
-				<Header key={this.state.userId} firstName={this.state.name} lastName={this.state.last} />
+				<Header key={this.state.userId} firstName={this.state.name} lastName={this.state.last} pin={this.state.pin} />
 				<Container fluid style={{height: '80vh'}}>
 					<div style={{height: 'calc(100vh - 290px)', margin: '0'}}>
 						<div style={{display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', flexWrap: 'no-wrap', height: '100%', margin: '0 auto', width: '90vw', paddingTop: '50px'}}>
