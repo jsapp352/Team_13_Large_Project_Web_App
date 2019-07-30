@@ -36,12 +36,14 @@ class Instructors extends React.Component {
 
 	componentWillMount()
 	{		
+
+		let token = localStorage.getItem('token')
 		let url ='https://protected-shelf-85013.herokuapp.com/user/admin/'
 		let options = {
 			method:'GET',
 			headers: { 
 				"Content-Type": "application/json; charset=UTF-8",
-				"Authorization":'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTU2NDk1NzM5NH0.snNKzwTvMIZEU6VwOyhFHI9yvDqknJG9xgXTShG_SlR3P4FyHZhTmXUFKnRx1dC4hn9d6Wepd7t1Isq28WV5Yg'
+				"Authorization":token
 			},
 		}
 

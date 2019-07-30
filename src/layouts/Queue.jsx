@@ -38,7 +38,7 @@ class Queue extends React.Component {
 							.then(list => {
 								waitingSession.courseName = data[i].courseName;
 								waitingSession.courseId = data[i].courseId;
-								waitingSession.waitlist = list;
+								waitingSession.waitlist = list.reverse();
 
 								sessionsList.push(waitingSession);
 								
@@ -52,11 +52,12 @@ class Queue extends React.Component {
 							.then(list => {
 								inProgressSession.courseName = data[i].courseName;
 								inProgressSession.courseId = data[i].courseId;
-								inProgressSession.list = list;
-
+								inProgressSession.list = list.reverse();
+								console.log()
 								inProgressList.push(inProgressSession);
 								
 								this.setState({inProgress: inProgressList});
+				// window.location.reload();
 							})
 							.catch(e => console.log("Error: " + e))
 					}

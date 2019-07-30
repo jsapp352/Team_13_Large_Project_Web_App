@@ -24,7 +24,7 @@ export default class IncorrectInfo extends React.Component {
 						</Button>
 					</div>
 					<div className="modal-body">
-						<div><text>Please Exit and Try Again</text></div>
+						<div>Please Exit and Try Again</div>
 					</div>
 				</div>
 			</div>

@@ -36,11 +36,11 @@ export class AddTeacher extends React.Component {
 			password: this.state.password,
 			username: this.state.username
 		}
-
+		let token = localStorage.getItem('token')
 		let options = {
 			method:'POST',
 			headers: { "Content-Type": "application/json; charset=UTF-8",
-						"Authorization":"Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTU2NDk1MDYyMH0.RQb8qHaPvCDxMmZACbam_-wOksz1aYM3XkIcEHI_YQT_hvXLz8AOxxhqsL_UKphkzm02C_nOCukMF9p3UUn9LA"
+						"Authorization":token
 				},
 			body: JSON.stringify(user),
 					

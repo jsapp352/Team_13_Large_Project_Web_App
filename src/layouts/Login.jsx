@@ -49,11 +49,22 @@ class Login extends React.Component {
 		fetch(url, options)
 			.then(response => {
 				q = response.headers.get('authorization');
-			})
-			.then(() => {
+				console.log(q)
+				let opt = {
+					method : 'GET',
+					headers: { "Content-Type": "application/json; charset=UTF-8",
+								"Authorization" : q
+						},
+				}
+				console.log(opt)
+				fetch('https://protected-shelf-85013.herokuapp.com/user/', opt)
+				.then(r=>r.json())
+				.then(user=>{
+					console.log(user)
+					this.setState({userType:user.role})
 				if (q == null) {
 					this.setState({error:true})
-
+				
 					// this.props.userHasAuthenticated(false);
 				}
 				else {
@@ -66,9 +77,14 @@ class Login extends React.Component {
 					if (this.props.history !== undefined)
 						this.props.history.push(path); 
 					
+					// debugger;
 					window.location.reload();
 				}
+				})
+			
 			})
+			// .then(() => {
+			// })
 	}	
 	
 	hideModal()

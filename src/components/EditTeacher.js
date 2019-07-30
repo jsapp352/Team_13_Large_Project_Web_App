@@ -27,6 +27,8 @@ export default class EditTeacher extends React.Component {
 	handleSubmit(event)
 	{
 		event.preventDefault();
+
+		let token = localStorage.getItem("token");
 		let url ='https://protected-shelf-85013.herokuapp.com/user/admin/' + this.state.userId + '/'
 		let user = {
 			email: this.state.email,
@@ -38,7 +40,7 @@ export default class EditTeacher extends React.Component {
 		let options = {
 			method:'PUT',
 			headers: { "Content-Type": "application/json; charset=UTF-8",
-						"Authorization":"Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTU2NDk1MDYyMH0.RQb8qHaPvCDxMmZACbam_-wOksz1aYM3XkIcEHI_YQT_hvXLz8AOxxhqsL_UKphkzm02C_nOCukMF9p3UUn9LA"
+						"Authorization": token
 				},
 			body: JSON.stringify(user),
 					
@@ -91,6 +93,7 @@ export default class EditTeacher extends React.Component {
 									<label>Username</label>
 									<input type="text" className="form-control" 
 										id="username"
+										disabled={true}
 										value={this.state.username}
 										onChange = {(event)=>this.handleChange(event)}
 										placeholder="Username" />

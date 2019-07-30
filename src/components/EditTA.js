@@ -39,11 +39,12 @@ export default class EditTA extends React.Component {
 			lastName: this.state.lastName,
 			courses: this.state.courseId
 		}
+		let token = localStorage.getItem('token')
 		let options = {
 			method:'PUT',
 			headers: { "Content-Type": "application/json; charset=UTF-8",
-					"Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJyaWNrZCIsImV4cCI6MTU2NTA0NjY0NX0.hWCit110CuqKWgTVhTYJnP5L1xFcT86azB4EpceAcw9L61q4XquzxAEu-uKhi97Ve3EF5KePZOXVqW59Uvac9Q"
-				},
+					"Authorization": token
+			},
 			body: JSON.stringify(user),
 					
 		}	

@@ -24,6 +24,7 @@ export default class EditCourse extends React.Component {
 	handleSubmit(event)
 	{
 		event.preventDefault();
+		let token = localStorage.getItem('token')
 		let url ='https://protected-shelf-85013.herokuapp.com/course/teacher/' + this.state.courseId + '/'
 		let user = {
 			courseCode: ,
@@ -34,7 +35,7 @@ export default class EditCourse extends React.Component {
 		let options = {
 			method:'PUT',
 			headers: { "Content-Type": "application/json; charset=UTF-8",
-						"Authorization":"Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbiIsImV4cCI6MTU2NDk1MDYyMH0.RQb8qHaPvCDxMmZACbam_-wOksz1aYM3XkIcEHI_YQT_hvXLz8AOxxhqsL_UKphkzm02C_nOCukMF9p3UUn9LA"
+						"Authorization":token
 				},
 			body: JSON.stringify(user),
 					
