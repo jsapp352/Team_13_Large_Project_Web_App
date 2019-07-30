@@ -56,16 +56,17 @@ class Courses extends React.Component {
 			});
 		}
 
+		if (courseCards.length === 0) {
+			courseCards.push(
+				<div>You have no active courses.</div>
+			)
+		}
+
 		return (
 			<>
 				<div className="sub-title"><span id="top-line"/>Courses</div>
 				<div className="course-wrapper">
 					{ courseCards }
-					<Card onClick={this.showModal} className="course-card" style={{backgroundColor: 'rgba(0,0,0,0.15)', border: 'none'}}>
-						<Card.Body id="add-course">
-							<FontAwesomeIcon icon={faPlusCircle} />
-						</Card.Body>
-					</Card>
 				</div>
 			</>
 		)

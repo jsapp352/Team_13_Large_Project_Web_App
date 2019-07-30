@@ -84,18 +84,20 @@ class Stats extends React.Component {
 
 		if (this.state.sessions !== undefined && this.state.sessions.length > 0) {
 			statsTable = this.state.sessions.map(session => {
-				let timeIn = new Date(session.helpTime)
-				let timeOut = new Date(session.endTime)
+				if (session.endTime !== null) {
+					let timeIn = new Date(session.helpTime)
+					let timeOut = new Date(session.endTime)
 
-				return (
-					<tr key={session.sessionId}>
-				       	<td>{session.studentName}</td>
-				       	<td>{(timeIn.getMonth() + 1) + '-' + timeIn.getDate() + '-' + timeIn.getFullYear()}</td>
-		       			<td>{this.formatTime(timeIn.getHours(), timeIn.getMinutes())}</td>
-		       			<td>{this.formatTime(timeOut.getHours(), timeOut.getMinutes())}</td>
-		       			<td>{this.millisToMinutes(timeOut.getTime()-timeIn.getTime())}</td>
-			      	</tr>
-				)
+					return (
+						<tr key={session.sessionId}>
+					       	<td>{session.studentName}</td>
+					       	<td>{(timeIn.getMonth() + 1) + '-' + timeIn.getDate() + '-' + timeIn.getFullYear()}</td>
+			       			<td>{this.formatTime(timeIn.getHours(), timeIn.getMinutes())}</td>
+			       			<td>{this.formatTime(timeOut.getHours(), timeOut.getMinutes())}</td>
+			       			<td>{this.millisToMinutes(timeOut.getTime()-timeIn.getTime())}</td>
+				      	</tr>
+					)
+				}
 			});
 		}
 

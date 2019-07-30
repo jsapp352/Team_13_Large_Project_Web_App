@@ -25,50 +25,61 @@ class Header extends React.Component {
 	}
 
 	decryptPin(pin) {
-// 		if (pin !== undefined && pin !== 0 && pin !== '') {
-// 	        var CryptoJS = require("crypto-js");
-	
-// 			let temp = CryptoJS.enc.Utf8.parse(pin)
-// 	        // This secret key phrase must match the one on the API server.
-// 	        // Should be replaced with environment variable.
-// 	        const keyString = "hurricanstrictor";
-// 			var key = CryptoJS.enc.Utf8.parse(keyString);
-// 			console.log(key);
-// 	        // Convert the key string to a data array type
-// 	        // var key = CryptoJS.enc.Utf8.parse(keyString);
+		if(pin !== undefined && pin !== 0 && pin !== ''){
+		var CryptoJS = require("crypto-js");
 
-// 	        // Decrypt the PIN
-// 	        var bytes = CryptoJS.AES.decrypt(temp, key);
+        // This secret key phrase must match the one on the API server.
+        // Should be replaced with environment variable.
+        const keyString = "hurricanstrictor";
 
-// 			console.log(bytes)
+        // Convert the key string to a data array type
+        var key = CryptoJS.enc.Utf8.parse(keyString);
+        console.log(key);
 
-// 		let dec = CryptoJS.AES.decrypt(pin, key, {
-//             mode: CryptoJS.mode.ECB,
-//             padding: CryptoJS.pad.Pkcs7
-//        		 });
+        var pinBytes = CryptoJS.enc.Hex.parse(pin);
+        var ciphertext = pinBytes.toString(CryptoJS.enc.Base64);
 
-// 			console.log(CryptoJS.enc.Utf8.stringify(dec))
+        var decryptedPinBytes = CryptoJS.AES.decrypt(ciphertext, key, {
+            mode: CryptoJS.mode.ECB,
+            padding: CryptoJS.pad.Pkcs7,
+        });
 
-// var data =  CryptoJS.AES.encrypt(pin, key, {
-//             mode: CryptoJS.mode.ECB,
-//             padding: CryptoJS.pad.Pkcs7
-//         }); // Encryption Part
+        var decryptedPinPlainText = decryptedPinBytes.toString(CryptoJS.enc.Utf8);
 
-// console.log(data)
-// var decrypted = CryptoJS.AES.decrypt(data,  key,{
-//             mode: CryptoJS.mode.ECB,
-//             padding: CryptoJS.pad.Pkcs7
-//         }).toString(CryptoJS.enc.Utf8);
-// console.log(decrypted)
-			
-        	// console.log("Bytes: " + bytes)
+        // // Only include this for debugging
+        // console.log(`Decrypted PIN ${decryptedPinPlainText}`);
 
-	        // var plaintext = bytes.toString(CryptoJS.enc.Utf8);
-
-	        // console.log('PIN: ' + pin + ' | ' + plaintext);
-        	// return plaintext;
-        // }
+        return decryptedPinPlainText;
     }
+
+	// decryptPin(pin) {
+		// if (pin !== undefined) {
+	 //        var CryptoJS = require("crypto-js");
+
+	 //        // This secret key phrase must match the one on the API server.
+	 //        // Should be replaced with environment variable.
+	 //        const keyString = "hurricanstrictor";
+
+	 //        // Convert the key string to a data array type
+	 //        // var key = CryptoJS.enc.Utf8.parse(keyString);
+
+	 //        // Decrypt the PIN
+	 //        var bytes = CryptoJS.AES.decrypt(pin, keyString, {
+  //           	mode: CryptoJS.mode.ECB,
+  //           	padding: CryptoJS.pad.Pkcs7
+  //       	});
+
+  //       	console.log("Bytes: " + bytes)
+
+	 //        var plaintext = bytes.toString(CryptoJS.enc.Utf8);
+
+	 //        console.log('PIN: ' + pin + ' | ' + plaintext);
+    	
+  //       	return plaintext;
+  //       }
+
+  		// return pin;
+    // }
 
 	reload(e) {
 		e.preventDefault();
