@@ -25,6 +25,7 @@ class Header extends React.Component {
 	}
 
 	decryptPin(pin) {
+		if(pin !== undefined && pin !== 0 && pin !== ''){
 		var CryptoJS = require("crypto-js");
 
         // This secret key phrase must match the one on the API server.
@@ -48,8 +49,8 @@ class Header extends React.Component {
         // // Only include this for debugging
         console.log(`Decrypted PIN ${decryptedPinPlainText}`);
 
-
-        // return decryptedPinPlainText;
+	}
+        return decryptedPinPlainText;
     }
 
 	reload(e) {
