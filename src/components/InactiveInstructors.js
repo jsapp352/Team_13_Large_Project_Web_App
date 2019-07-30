@@ -56,6 +56,15 @@ export default class InactiveInstructors extends React.Component {
 		      	</tr>
 			)
 		});
+
+		if (teachersTable.length === 0) {
+			teachersTable.push(
+				<tr style={{backgroundColor: 'transparent'}} key={0}>
+					<td>No inactive teachers.</td>
+				</tr>
+			)
+		}
+
 		return (
 			<div>
 				<div className="sub-title"><span id="top-line"/>Inactive Instructors</div>
