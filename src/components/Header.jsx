@@ -12,6 +12,7 @@ class Header extends React.Component {
 			role: '',
 			pin: 0
 		}
+		this.decryptPin = this. decryptPin.bind(this)
 	}
 
 	componentDidMount(props) {
@@ -23,9 +24,14 @@ class Header extends React.Component {
 		})
 	}
 
+<<<<<<< HEAD
 	decryptPin(encryptedPinString)
     {
         var CryptoJS = require("crypto-js");
+=======
+	decryptPin(pin) {
+		var CryptoJS = require("crypto-js");
+>>>>>>> 81296c7d17f224216e434a3ed8b24f2a2801284a
 
         // This secret key phrase must match the one on the API server.
         // Should be replaced with environment variable.
@@ -35,7 +41,11 @@ class Header extends React.Component {
         var key = CryptoJS.enc.Utf8.parse(keyString);
         console.log(key);
 
+<<<<<<< HEAD
         var pinBytes = CryptoJS.enc.Hex.parse(encryptedPinString);
+=======
+        var pinBytes = CryptoJS.enc.Hex.parse(pin);
+>>>>>>> 81296c7d17f224216e434a3ed8b24f2a2801284a
         var ciphertext = pinBytes.toString(CryptoJS.enc.Base64);
 
         var decryptedPinBytes = CryptoJS.AES.decrypt(ciphertext, key, {
@@ -46,9 +56,16 @@ class Header extends React.Component {
         var decryptedPinPlainText = decryptedPinBytes.toString(CryptoJS.enc.Utf8);
 
         // // Only include this for debugging
+<<<<<<< HEAD
         // console.log(`Decrypted PIN ${decryptedPinPlainText}`);
 
         return decryptedPinPlainText;
+=======
+        console.log(`Decrypted PIN ${decryptedPinPlainText}`);
+
+
+        // return decryptedPinPlainText;
+>>>>>>> 81296c7d17f224216e434a3ed8b24f2a2801284a
     }
 
 	// decryptPin(pin) {
