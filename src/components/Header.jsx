@@ -26,30 +26,32 @@ class Header extends React.Component {
 
 	decryptPin(pin) {
 		if(pin !== undefined && pin !== 0 && pin !== ''){
-		var CryptoJS = require("crypto-js");
+			var CryptoJS = require("crypto-js");
 
-        // This secret key phrase must match the one on the API server.
-        // Should be replaced with environment variable.
-        const keyString = "hurricanstrictor";
+	        // This secret key phrase must match the one on the API server.
+	        // Should be replaced with environment variable.
+	        const keyString = "hurricanstrictor";
 
-        // Convert the key string to a data array type
-        var key = CryptoJS.enc.Utf8.parse(keyString);
-        console.log(key);
+	        // Convert the key string to a data array type
+	        var key = CryptoJS.enc.Utf8.parse(keyString);
+	        console.log(key);
 
-        var pinBytes = CryptoJS.enc.Hex.parse(pin);
-        var ciphertext = pinBytes.toString(CryptoJS.enc.Base64);
+	        var pinBytes = CryptoJS.enc.Hex.parse(pin);
+	        var ciphertext = pinBytes.toString(CryptoJS.enc.Base64);
 
-        var decryptedPinBytes = CryptoJS.AES.decrypt(ciphertext, key, {
-            mode: CryptoJS.mode.ECB,
-            padding: CryptoJS.pad.Pkcs7,
-        });
+	        var decryptedPinBytes = CryptoJS.AES.decrypt(ciphertext, key, {
+	            mode: CryptoJS.mode.ECB,
+	            padding: CryptoJS.pad.Pkcs7,
+	        });
 
-        var decryptedPinPlainText = decryptedPinBytes.toString(CryptoJS.enc.Utf8);
+	        var decryptedPinPlainText = decryptedPinBytes.toString(CryptoJS.enc.Utf8);
 
-        // // Only include this for debugging
-        // console.log(`Decrypted PIN ${decryptedPinPlainText}`);
+	        // // Only include this for debugging
+	        // console.log(`Decrypted PIN ${decryptedPinPlainText}`);
+			
 
-        return decryptedPinPlainText;
+	        return decryptedPinPlainText;
+		}
     }
 
 	// decryptPin(pin) {
