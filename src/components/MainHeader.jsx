@@ -13,18 +13,24 @@ class MainHeader extends React.Component {
 				lastName: '',
 				numberTas: '',
 				numberCourses: '',
-				activeTas: '',
-				activeCourses: ''
+				activeTas: 0,
+				activeCourses: 0
 			}
 		}
 	}
 
 	componentDidMount(props) {
 		console.log(JSON.stringify(this.props.userInfo))
-		this.setState({userInfo: this.props.userInfo})
+		this.setState({userInfo: this.props.userInfo})	
 	}
 
 	render() {
+		let courseNum = this.state.userInfo.activeCourses;
+		if(courseNum === undefined)
+			courseNum = 0;
+		let numTAs = this.state.userInfo.activeTas;
+		if(numTAs === undefined)
+			numTAs = 0;
 		return (
 			<Container fluid className="header">
 				<div className="topBar">
@@ -33,7 +39,7 @@ class MainHeader extends React.Component {
 				<div className="information">
 					<div className="circleContainer">
 						<div className="float-left d-none d-sm-block">
-							<div className="circle">{this.state.userInfo.activeTas}</div>
+							<div className="circle">{numTAs}</div>
 							<span className="caption">TAs</span>
 						</div>
 						<div className="float-left">
@@ -41,7 +47,7 @@ class MainHeader extends React.Component {
 							<span className="caption" id="name">{this.state.userInfo.firstName} {this.state.userInfo.lastName}</span>
 						</div>
 						<div className="float-left d-none d-sm-block">
-							<div className="circle">{this.state.userInfo.activeCourses}</div>
+							<div className="circle">{courseNum}</div>
 							<span className="caption">COURSES</span>
 						</div>
 					</div>
